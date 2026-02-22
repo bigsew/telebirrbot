@@ -6,7 +6,7 @@
     <title>Digital Pro · Profile+</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
@@ -18,6 +18,9 @@
             --premium-purple: #8B5CF6;
             --glass: rgba(255, 255, 255, 0.9);
             --admin-badge: #dc3545;
+            --star-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --star-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --star-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         body {
@@ -36,6 +39,7 @@
             position: relative;
         }
 
+        /* Header */
         .glass-header {
             position: sticky;
             top: 0;
@@ -47,6 +51,7 @@
             padding: 15px;
         }
 
+        /* Hero */
         .hero-card {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=600');
             background-size: cover;
@@ -58,127 +63,41 @@
             margin-bottom: 20px;
         }
 
-        /* JOB CARD IMAGE GALLERY (SLIDER) */
-        .card-img-gallery {
-            position: relative;
+        /* Search & Filters */
+        .search-box {
+            background: #f1f1f1;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 15px;
             width: 100%;
-            height: 200px; /* fixed height for gallery */
-            overflow: hidden;
-            border-radius: 20px 20px 0 0;
-            background: #eef2f6;
+            margin-bottom: 15px;
         }
 
-        .gallery-slider {
+        .filter-scroll {
             display: flex;
-            width: 100%;
-            height: 100%;
-            scroll-snap-type: x mandatory;
             overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* hide scrollbar Firefox */
+            gap: 10px;
+            padding-bottom: 5px;
+            scrollbar-width: none;
         }
+        .filter-scroll::-webkit-scrollbar { display: none; }
 
-        .gallery-slider::-webkit-scrollbar {
-            display: none; /* hide scrollbar Chrome/Safari */
-        }
-
-        .gallery-slide {
-            flex: 0 0 100%;
-            height: 100%;
-            scroll-snap-align: start;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-        }
-
-        /* zoom overlay */
-        .zoom-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .zoom-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .zoomed-img {
-            max-width: 90%;
-            max-height: 90%;
+        .chip {
+            padding: 6px 16px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
-            border: 3px solid white;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .zoom-overlay.active .zoomed-img {
-            transform: scale(1);
-        }
-
-        .zoom-close {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            color: white;
-            font-size: 2.5rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            font-size: 0.85rem;
+            white-space: nowrap;
             cursor: pointer;
-            background: rgba(255,255,255,0.2);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+        }
+        .chip.active {
+            background: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
         }
 
-        .zoom-close:hover {
-            background: rgba(255,255,255,0.4);
-            transform: scale(1.1);
-        }
-
-        /* dots indicator */
-        .gallery-dots {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 5;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.6);
-            transition: all 0.2s;
-        }
-
-        .dot.active {
-            background: #FFD700;
-            width: 20px;
-            border-radius: 10px;
-        }
-
-        /* job card layout */
+        /* Job Cards */
         .card-job {
             background: #fff;
             border-radius: 20px;
@@ -187,6 +106,12 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .card-img {
+            height: 160px;
+            width: 100%;
+            object-fit: cover;
         }
 
         .job-content {
@@ -211,6 +136,16 @@
             font-size: 0.7rem;
         }
 
+        .admin-badge {
+            background: var(--admin-badge);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+        }
+
+        /* Amharic Description */
         .amharic-description {
             background: #f8f9fa;
             border-radius: 16px;
@@ -251,6 +186,12 @@
             width: 20px;
         }
 
+        .feature-emoji {
+            font-size: 1.1rem;
+            margin-right: 5px;
+        }
+
+        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -271,41 +212,703 @@
             gap: 5px;
         }
 
-        .btn-app.details { background: #28a745; color: white; }
-        .btn-app.download { background: var(--primary-blue); color: white; }
-        .btn-app.tutorial { background: #dc3545; color: white; }
-        .btn-app.admin-edit { background: #6f42c1; color: white; }
-        .btn-app:hover { opacity: 0.9; transform: scale(0.98); }
-
-        .search-box {
-            background: #f1f1f1;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 15px;
-            width: 100%;
-            margin-bottom: 15px;
+        .btn-app.details {
+            background: #28a745;
+            color: white;
         }
 
-        .filter-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding-bottom: 5px;
-            scrollbar-width: none;
+        .btn-app.download {
+            background: var(--primary-blue);
+            color: white;
         }
-        .filter-scroll::-webkit-scrollbar { display: none; }
 
-        .chip {
-            padding: 6px 16px;
+        .btn-app.tutorial {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-app.admin-edit {
+            background: #6f42c1;
+            color: white;
+        }
+
+        .btn-app:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        /* Profile Sections */
+        .profile-header-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 30px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: white;
             border-radius: 20px;
-            background: #fff;
-            border: 1px solid #ddd;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            cursor: pointer;
+            padding: 15px 5px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid #eee;
         }
-        .chip.active { background: var(--primary-blue); color: #fff; border-color: var(--primary-blue); }
 
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-collection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .achievement-badge {
+            background: #e9f2ff;
+            color: #0066a1;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .admin-panel {
+            background: #1a1e2b;
+            color: white;
+            border-radius: 28px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .admin-tool {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .user-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-row:last-child {
+            border-bottom: none;
+        }
+
+        .user-tag {
+            background: #2d3345;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            text-align: center;
+            transition: 0.2s;
+            height: 100%;
+        }
+        .service-card:active { transform: scale(0.95); background: #f8f9fa; }
+
+        /* Premium Cards - Updated for vertical stacking */
+        .premium-package-card {
+            border-radius: 24px;
+            padding: 24px 16px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+            border: none;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+            margin-bottom: 16px; /* Add space between stacked cards */
+        }
+        
+        .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-2 { background: linear-gradient(135deg, #6B8CFF 0%, #8B5CF6 100%); }
+        .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
+        .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
+
+        /* Container for premium cards - now vertical */
+        .premium-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(5px);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 15px 0;
+            color: #FFD700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .feature-list-premium {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .feature-list-premium li {
+            padding: 6px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature-list-premium i {
+            color: #FFD700;
+        }
+
+        .buy-btn {
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 40px;
+            padding: 14px;
+            font-weight: 700;
+            width: 100%;
+            color: #333;
+            transition: all 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 1rem;
+        }
+
+        .buy-btn:hover {
+            background: white;
+            transform: scale(1.02);
+        }
+
+        /* Maintenance */
+        .maintenance-box {
+            background: linear-gradient(135deg, #2C3E50 0%, #4A5568 100%);
+            border-radius: 24px;
+            padding: 30px 20px;
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px solid #FFD700;
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #FFD700; }
+            50% { box-shadow: 0 0 20px #FFD700; }
+            100% { box-shadow: 0 0 5px #FFD700; }
+        }
+
+        .amharic-text-large {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #FFD700;
+        }
+
+        .notification-bell {
+            animation: ring 2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes ring {
+            0% { transform: rotate(0); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-15deg); }
+            30% { transform: rotate(15deg); }
+            40% { transform: rotate(-15deg); }
+            50% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+
+        .notified-btn {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 30px;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* ========== MODERN STARS SECTION - COMPLETELY REDESIGNED ========== */
+        
+        /* Modern Glass Header */
+        .modern-stars-header {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 32px;
+            padding: 30px 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        
+        .stars-animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,215,0,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0,136,204,0.15) 0%, transparent 50%);
+            animation: starsPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes starsPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-stars i {
+            position: absolute;
+            color: rgba(255,215,0,0.3);
+            animation: floatStar 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatStar {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+        
+        .modern-stars-header h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .star-badge-modern {
+            background: rgba(255,215,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.3);
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        /* Modern Info Card */
+        .modern-info-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+            border-radius: 28px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.03);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .modern-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,136,204,0.2);
+        }
+        
+        .modern-info-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2C3E50, #4A5568);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .method-chips {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .method-chip {
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .method-chip.free {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            color: #2e7d32;
+        }
+        
+        .method-chip.free.active {
+            border-color: #2e7d32;
+            box-shadow: 0 10px 20px -5px rgba(46,125,50,0.3);
+        }
+        
+        .method-chip.buy {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            color: #1565c0;
+        }
+        
+        .method-chip.buy.active {
+            border-color: #1565c0;
+            box-shadow: 0 10px 20px -5px rgba(21,101,192,0.3);
+        }
+        
+        /* Modern Cards */
+        .modern-star-card {
+            background: white;
+            border-radius: 32px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-star-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 100%;
+            animation: gradientMove 3s ease infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .modern-star-card.free-card::before {
+            background: linear-gradient(90deg, #2e7d32, #4caf50, #2e7d32);
+        }
+        
+        .modern-star-card.buy-card::before {
+            background: linear-gradient(90deg, #1565c0, #1976d2, #1565c0);
+        }
+        
+        .card-header-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .badge-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        
+        .badge-icon.free {
+            background: linear-gradient(145deg, #4caf50, #2e7d32);
+            color: white;
+            box-shadow: 0 10px 15px -5px rgba(76,175,80,0.4);
+        }
+        
+        .badge-icon.buy {
+            background: linear-gradient(145deg, #2196f3, #1565c0);
+            color: white;
+            box-shadow: 0 10px 15px -5px rgba(33,150,243,0.4);
+        }
+        
+        .badge-text h6 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .badge-text p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* Bot Cards Grid */
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .bot-card-item {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            border-radius: 20px;
+            padding: 15px 10px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bot-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -8px rgba(0,136,204,0.3);
+            border-color: var(--primary-blue);
+        }
+        
+        .bot-card-item .bot-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, var(--primary-blue), #0066a1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .bot-card-item:hover .bot-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .bot-card-item .bot-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .bot-card-item .badge-autopay {
+            background: #28a745;
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .autopay-note {
+            background: linear-gradient(145deg, #fff3cd, #ffe69b);
+            border-radius: 16px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .tutorial-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .tutorial-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .tutorial-btn.youtube {
+            background: #FF0000;
+            color: white;
+        }
+        
+        .tutorial-btn.tiktok {
+            background: #000000;
+            color: white;
+        }
+        
+        .tutorial-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
+        }
+        
+        /* Modern Star Packages */
+        .star-packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+        
+        .package-item {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 24px;
+            padding: 20px 10px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 15px -5px rgba(0,0,0,0.1);
+        }
+        
+        .package-item:hover {
+            border-color: #FFD700;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 30px -8px rgba(255,215,0,0.4);
+        }
+        
+        .package-item.selected {
+            border-color: #FFD700;
+            background: linear-gradient(145deg, #fff9e6, #fff3cd);
+        }
+        
+        .package-stars {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        
+        .package-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Modern Purchase Button */
+        .modern-purchase-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 40px;
+            padding: 18px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a1a2e;
+            width: 100%;
+            margin: 25px 0 15px;
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+            box-shadow: 0 15px 25px -8px rgba(255,215,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .modern-purchase-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 35px -5px rgba(255,215,0,0.7);
+        }
+        
+        .modern-purchase-btn:active {
+            transform: translateY(2px);
+        }
+        
+        .payment-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .payment-badge {
+            background: rgba(0,136,204,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        /* Bottom Navigation */
         .nav-dock {
             position: fixed;
             bottom: 0;
@@ -333,11 +936,6 @@
 
         .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* rest of premium/stars styles (shortened for brevity, same as original but functional) */
-        .modern-stars-header { background: linear-gradient(145deg, #1a1a2e, #16213e); border-radius: 32px; padding: 30px 20px; margin-bottom: 25px; position: relative; overflow: hidden; color: white; }
-        .premium-package-card { border-radius: 24px; padding: 24px 16px; color: white; margin-bottom: 16px; background: linear-gradient(135deg, #667eea, #764ba2); }
-        .buy-btn { background: rgba(255,255,255,0.95); border: none; border-radius: 40px; padding: 14px; font-weight: 700; width: 100%; }
     </style>
 </head>
 <body>
@@ -360,43 +958,63 @@
     <div class="p-3">
         <main id="main-content">
             
-            <!-- HOME SECTION (unchanged, kept minimal for focus) -->
+            <!-- HOME SECTION -->
             <section id="sec-home" class="fade-in">
                 <div class="hero-card shadow">
                     <h2 class="fw-bold" id="welcomeName">Welcome Back!</h2>
                     <p class="small opacity-75">Start earning and growing your digital presence today.</p>
                     <button class="btn btn-light btn-sm rounded-pill px-4 fw-bold" onclick="navigateTo('sec-jobs')">View Daily Tasks</button>
                 </div>
-                <!-- ... rest of home can be same as original, omitted for brevity ... -->
+
                 <h6 class="fw-bold mb-3"><i class="bi bi-play-btn-fill text-danger"></i> Featured Tutorial</h6>
                 <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm mb-4">
-                    <iframe src="https://www.youtube.com/embed/nQcpFX60puc" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/nQcpFX60puc" title="Gemgala Tutorial" allowfullscreen></iframe>
+                </div>
+
+                <h6 class="fw-bold mb-3">Our Social Community</h6>
+                <div class="row g-3 mb-4">
+                    <div class="col-4">
+                        <a href="https://t.me/example" class="text-decoration-none">
+                            <div class="service-card shadow-sm">
+                                <i class="bi bi-telegram fs-2 text-primary"></i>
+                                <div class="small mt-1 text-dark">Join Group</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a href="https://youtube.com/example" class="text-decoration-none">
+                            <div class="service-card shadow-sm">
+                                <i class="bi bi-youtube fs-2 text-danger"></i>
+                                <div class="small mt-1 text-dark">Subscribe</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a href="https://tiktok.com/example" class="text-decoration-none">
+                            <div class="service-card shadow-sm">
+                                <i class="bi bi-tiktok fs-2 text-dark"></i>
+                                <div class="small mt-1 text-dark">Follow</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </section>
 
-            <!-- JOBS SECTION with GALLERY + ZOOM -->
+            <!-- JOBS SECTION -->
             <section id="sec-jobs" class="fade-in d-none">
                 <input type="text" class="search-box" placeholder="Search tasks..." id="jobSearch">
                 
                 <div class="filter-scroll mb-3">
                     <div class="chip active" onclick="filterType('all', this)">All</div>
                     <div class="chip" onclick="filterType('app', this)">📲 Apps (4)</div>
-                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots</div>
-                    <div class="chip" onclick="filterType('web', this)">🌐 Web</div>
+                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots (1)</div>
+                    <div class="chip" onclick="filterType('web', this)">🌐 Web (1)</div>
                 </div>
 
                 <div id="job-container">
-                    <!-- GEMGALA - with 2 images + zoom -->
-                    <div class="card-job shadow-sm" data-type="app" data-job="gemgala">
-                        <div class="card-img-gallery" id="gallery-gemgala">
-                            <div class="gallery-slider">
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500')" data-zoom-src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=800" onclick="openZoom(this)"></div>
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500')" data-zoom-src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" onclick="openZoom(this)"></div>
-                            </div>
-                            <div class="gallery-dots" id="dots-gemgala">
-                                <span class="dot active"></span><span class="dot"></span>
-                            </div>
-                        </div>
+                    <!-- Gemgala -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500" class="card-img" alt="Gemgala">
                         <div class="job-content">
                             <div class="job-title">Gemgala 💎 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -414,16 +1032,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- TAKA - 2 images -->
+                    <!-- Taka -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <div class="card-img-gallery" id="gallery-taka">
-                            <div class="gallery-slider">
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500')" data-zoom-src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800" onclick="openZoom(this)"></div>
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500')" data-zoom-src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=800" onclick="openZoom(this)"></div>
-                            </div>
-                            <div class="gallery-dots"><span class="dot active"></span><span class="dot"></span></div>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500" class="card-img" alt="Taka">
                         <div class="job-content">
                             <div class="job-title">Taka 🎯 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -441,16 +1052,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- HIFAMI - 2 images (for variety) -->
+                    <!-- Hifami -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <div class="card-img-gallery">
-                            <div class="gallery-slider">
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500')" data-zoom-src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=800" onclick="openZoom(this)"></div>
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500')" data-zoom-src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800" onclick="openZoom(this)"></div>
-                            </div>
-                            <div class="gallery-dots"><span class="dot active"></span><span class="dot"></span></div>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500" class="card-img" alt="Hifami">
                         <div class="job-content">
                             <div class="job-title">Hifami 🎮 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -468,16 +1072,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Buzzer also gets 2 images -->
+                    <!-- Buzzer -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <div class="card-img-gallery">
-                            <div class="gallery-slider">
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500')" data-zoom-src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800" onclick="openZoom(this)"></div>
-                                <div class="gallery-slide" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500')" data-zoom-src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=800" onclick="openZoom(this)"></div>
-                            </div>
-                            <div class="gallery-dots"><span class="dot active"></span><span class="dot"></span></div>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500" class="card-img" alt="Buzzer">
                         <div class="job-content">
                             <div class="job-title">Buzzer 📱 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -486,6 +1083,7 @@
                                     <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎬</span> Watch Video</li>
                                     <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❤️</span> Like ❤️ Comment 💬</li>
                                     <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 0.15$</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Withdrawal Proof</li>
                                 </ul>
                             </div>
                             <div class="action-buttons">
@@ -495,38 +1093,419 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- NEW BOT JOB: Gmail Farmer Bot -->
+                    <div class="card-job shadow-sm" data-type="bot">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500" class="card-img" alt="Gmail Farmer Bot">
+                        <div class="job-content">
+                            <div class="job-title">Gmail Farmer Bot 📧 <span class="app-badge" style="background: #6f42c1;">Bot</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">📧 GMAIL ACCOUNT በመክፈት ገንዘብ ይስሩ!</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">⚠️</span> 1️⃣ቦቱን አሁንም ድረስ እየስራቹበት ከሆነ የከፈታቹትን Gmail Account ለ personal Use አትጠቀሙበት 🚫Block ትደርጋላቹህ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💱</span> 2️⃣ከዚህ ቦት WITHDRAW ስታረጉ ወደ EXCHANGE ከምትልኩ በ ዋሌት አውጡ, ምክንያቱም PAYMENT ሚፈፅሙበት ዋሌት FLAGED WALLET ነዉ ከ FLAGED WALLET ደሞ መቀበል ጥሩ አደለም WARNING ያሰጣችኋል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💰</span> ✅ክፍያቸዉ ደሞ በጣም ጨምሯሏ እኔ $5 ከዚያ በላይ ሲሞላ ነዉ ማወጣዉ ግን ከ $1 በታችም ማዉጣት ይቻላል🤙</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">📧</span> ✅ 𝟭📧Gmail = 0.25$ = 45 Birr ✅𝟭𝟬📧 Gmail = 2.5$ = 450 Birr ✅𝟱𝟬 📧Gmail = 12$ = 2250 Birr ✅𝟭𝟬𝟬📧 Gmail = 25$ = 4500 Birr</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✔️</span> 100% Payment Verified ✅</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-info-circle"></i> Video</button>
+                                <button class="btn-app download" onclick="openLink('https://t.me/GmailFarmerBot?start=5522724001')"><i class="bi bi-robot"></i> Bot 1</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://t.me/GmailFProBot?start=5522724001')"><i class="bi bi-robot"></i> Bot 2</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW WEB JOB: Timebucks -->
+                    <div class="card-job shadow-sm" data-type="web">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500" class="card-img" alt="Timebucks">
+                        <div class="job-content">
+                            <div class="job-title">Timebucks ⏰ <span class="app-badge" style="background: #fd7e14;">Web</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">✨ ይህን ስራ ስሩት 100% withdraw የሚሆን Without investing $36 withdraw አድርጌያለዉ</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">📝</span> 1 survey በመስራት እስከ $2 መስራት ትችላላችሁ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> Task በመስራት</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❓</span> ጥያቄዎችን በመመለስ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎮</span> Game level Up ማድረግ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💱</span> በ ፈለጋችሁት LTC wallet Withdrew ማድረግ ትችላላችሁ</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> Withdrawal proof 100% ✅</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-info-circle"></i> Info</button>
+                                <button class="btn-app download" onclick="openLink('https://timebucks.com/?refID=227831799')"><i class="bi bi-globe"></i> Website</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://t.me/Big_sew/12426')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- STARS SECTION (minimal copy to keep functionality) -->
-            <section id="sec-stars" class="fade-in d-none">[Stars content as original]</section>
-            <!-- PREMIUM SECTION (minimal) -->
-            <section id="sec-premium" class="fade-in d-none">[Premium content as original]</section>
-            <!-- PROFILE SECTION -->
-            <section id="sec-profile" class="fade-in d-none"><div id="profileContainer"></div></section>
+            <!-- STARS SECTION - COMPLETELY MODERN REDESIGN -->
+            <section id="sec-stars" class="fade-in d-none">
+                <!-- Modern Glass Header with Animations -->
+                <div class="modern-stars-header">
+                    <div class="stars-animated-bg"></div>
+                    <div class="floating-stars">
+                        <i class="bi bi-star-fill" style="top: 10%; left: 10%; font-size: 1.2rem;"></i>
+                        <i class="bi bi-star-fill" style="top: 20%; right: 15%; font-size: 1.5rem; animation-delay: 0.5s;"></i>
+                        <i class="bi bi-star-fill" style="bottom: 15%; left: 20%; font-size: 1rem; animation-delay: 1s;"></i>
+                        <i class="bi bi-star-fill" style="bottom: 25%; right: 25%; font-size: 1.8rem; animation-delay: 1.5s;"></i>
+                    </div>
+                    <div class="position-relative">
+                        <i class="bi bi-stars display-1" style="color: #FFD700; text-shadow: 0 0 20px rgba(255,215,0,0.5);"></i>
+                        <h3>Telegram Stars</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Fast & Secure Star Refills</p>
+                        <div class="star-badge-modern">
+                            <i class="bi bi-patch-check-fill me-1"></i> 100% Verified Service
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modern Info Card with Method Selection -->
+                <div class="modern-info-card" id="methodSelection">
+                    <h5 class="text-center mb-3">💫 Choose Your Method</h5>
+                    <p class="text-center text-muted mb-4">Telegram ⭐️ Star በሁለት መንገድ ማግኘት ይችላሉ፦</p>
+                    
+                    <div class="method-chips">
+                        <div class="method-chip free active" onclick="showFreeMethod()" id="freeMethodChip">
+                            <i class="bi bi-gift-fill"></i> Free Stars
+                        </div>
+                        <div class="method-chip buy" onclick="showBuyMethod()" id="buyMethodChip">
+                            <i class="bi bi-cart-fill"></i> Buy Stars
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FREE STARS METHOD (Modern Design) -->
+                <div id="freeMethodSection">
+                    <div class="modern-star-card free-card">
+                        <div class="card-header-badge">
+                            <div class="badge-icon free">
+                                <i class="bi bi-gift-fill"></i>
+                            </div>
+                            <div class="badge-text">
+                                <h6>🎁 Free Stars Method</h6>
+                                <p>Earn stars by completing tasks</p>
+                            </div>
+                        </div>
+
+                        <p class="text-muted mb-3">
+                            <i class="bi bi-robot text-primary me-2"></i>
+                            Telegram Bot በመጠቀም (Tasks በመስራት / Channels Join በማድረግ)
+                        </p>
+
+                        <div class="alert alert-success py-2 mb-3" style="border-radius: 16px;">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            ከታች ያሉት ቦቶች 100% Payment Verified ናቸው ✅
+                        </div>
+
+                        <!-- Bot Cards Grid -->
+                        <div class="bots-grid">
+                            <!-- Bot 1 -->
+                            <div class="bot-card-item" onclick="openLink('https://t.me/StarsMakeBot?start=AK1gwAzUc')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsMakeBot</div>
+                                <span class="badge-autopay">Auto Pay</span>
+                            </div>
+                            
+                            <!-- Bot 2 -->
+                            <div class="bot-card-item" onclick="openLink('https://t.me/StarsovEarnBot?start=FppTwt0K5')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsovEarnBot</div>
+                            </div>
+                            
+                            <!-- Bot 3 -->
+                            <div class="bot-card-item" onclick="openLink('https://t.me/StarsovGamesBot?start=t2R6NvIx0')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">StarsovGamesBot</div>
+                            </div>
+                            
+                            <!-- Bot 4 -->
+                            <div class="bot-card-item" onclick="openLink('https://t.me/duckearnbot?start=ref_5522724001')">
+                                <div class="bot-icon">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <div class="bot-name">duckearnbot</div>
+                            </div>
+                        </div>
+
+                        <!-- Auto Payment Note -->
+                        <div class="autopay-note">
+                            <i class="bi bi-lightning-fill text-warning me-2"></i>
+                            <span class="fw-bold">4️⃣ Automatic Payment ነው ወዲያው ተቀብላችሁ Convert አርጉት</span>
+                        </div>
+
+                        <!-- Tutorial Buttons -->
+                        <div class="tutorial-buttons">
+                            <a href="https://youtu.be/0TSjoXdZ5sU" class="tutorial-btn youtube" onclick="openLink('https://youtu.be/0TSjoXdZ5sU')">
+                                <i class="bi bi-youtube"></i> Full Tutorial
+                            </a>
+                            <a href="https://vt.tiktok.com/ZSa3QURWj/" class="tutorial-btn tiktok" onclick="openLink('https://vt.tiktok.com/ZSa3QURWj/')">
+                                <i class="bi bi-tiktok"></i> Short Video
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUY STARS METHOD (Modern Design) - Initially Hidden -->
+                <div id="buyMethodSection" style="display: none;">
+                    <div class="modern-star-card buy-card">
+                        <div class="card-header-badge">
+                            <div class="badge-icon buy">
+                                <i class="bi bi-cart-check-fill"></i>
+                            </div>
+                            <div class="badge-text">
+                                <h6>💰 Buy Stars Method</h6>
+                                <p>Instant delivery • 24/7 Support</p>
+                            </div>
+                        </div>
+
+                        <h6 class="text-center mb-3">Select Star Package</h6>
+                        
+                        <!-- Star Packages Grid -->
+                        <div class="star-packages-grid" id="starPackages">
+                            <div class="package-item" onclick="selectPackage(15, this)">
+                                <div class="package-stars">15</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(25, this)">
+                                <div class="package-stars">25</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(50, this)">
+                                <div class="package-stars">50</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(100, this)">
+                                <div class="package-stars">100</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(150, this)">
+                                <div class="package-stars">150</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                            <div class="package-item" onclick="selectPackage(200, this)">
+                                <div class="package-stars">200</div>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="package-label">Stars</div>
+                            </div>
+                        </div>
+
+                        <!-- Selected Package Display -->
+                        <div class="text-center mb-3" id="selectedPackageDisplay">
+                            <span class="badge bg-warning text-dark p-2">Selected: <span id="selectedAmount">15</span> ⭐️ Stars</span>
+                        </div>
+
+                        <!-- Modern Purchase Button -->
+                        <button class="modern-purchase-btn" onclick="showStarsMaintenance()">
+                            <i class="bi bi-lightning-fill"></i>
+                            Purchase Stars Now
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+
+                        <!-- Payment Badges -->
+                        <div class="payment-badges">
+                            <span class="payment-badge"><i class="bi bi-telegram"></i> Instant</span>
+                            <span class="payment-badge"><i class="bi bi-shield-check"></i> Secure</span>
+                            <span class="payment-badge"><i class="bi bi-clock-history"></i> 24/7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Verified Badge -->
+                <div class="text-center mt-3 mb-4">
+                    <span class="badge bg-success p-2 rounded-pill">
+                        <i class="bi bi-patch-check-fill me-1"></i> All Methods 100% Verified
+                    </span>
+                </div>
+            </section>
+
+            <!-- PREMIUM SECTION - VERTICAL STACKED CARDS -->
+            <section id="sec-premium" class="fade-in d-none">
+                <!-- Maintenance Message -->
+                <div class="maintenance-box shadow-lg">
+                    <div class="maintenance-icon">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                    <h3 class="fw-bold">🛠 Service Temporarily Unavailable</h3>
+                    <h2 class="display-6 mb-3">👨‍💻</h2>
+                    
+                    <div class="alert" style="background: rgba(255,215,0,0.2); border: 1px solid #FFD700; color: white;">
+                        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                        <strong>⚠️  አገልግሎቱ ገና አልተጀመረም!</strong>
+                    </div>
+                    
+                    <p class="amharic-text-large">እባክዎ ትንሽ ይጠብቁ ⌛</p>
+                    
+                    <div class="d-flex align-items-center justify-content-center gap-2 mt-3">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span>✅ሲጀመር ወዲያውኑ እናሳውቃለን</span>
+                        <i class="bi bi-bell-fill text-warning notification-bell"></i>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="https://t.me/Big_sew" target="_blank" class="notified-btn">
+                            <i class="bi bi-telegram"></i> 🔔 Get Notified
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Telegram Premium Header -->
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="fw-bold">
+                        <i class="bi bi-telegram text-primary"></i> 
+                        Telegram Premium
+                    </h5>
+                    <span class="badge bg-primary p-2">🇪🇹 Birr (ETB)</span>
+                </div>
+
+                <!-- Premium Packages - VERTICAL STACK (one below the other) -->
+                <div class="premium-container">
+                    <!-- Monthly Package -->
+                    <div class="premium-package-card card-1">
+                        <div class="premium-badge">
+                            <i class="bi bi-star-fill"></i> POPULAR
+                        </div>
+                        <i class="bi bi-calendar-check fs-1 mb-2"></i>
+                        <h5 class="fw-bold">Monthly</h5>
+                        <div class="price-tag">
+                            $4.99 <small>/mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
+                    </div>
+
+                    <!-- 3 Months Package -->
+                    <div class="premium-package-card card-2">
+                        <div class="premium-badge">
+                            <i class="bi bi-lightning-fill"></i> SAVE 10%
+                        </div>
+                        <i class="bi bi-calendar3 fs-1 mb-2"></i>
+                        <h5 class="fw-bold">3 Months</h5>
+                        <div class="price-tag">
+                            $13.99 <small>/3mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
+                            <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
+                    </div>
+
+                    <!-- 6 Months Package -->
+                    <div class="premium-package-card card-3">
+                        <div class="premium-badge">
+                            <i class="bi bi-gem"></i> SAVE 15%
+                        </div>
+                        <i class="bi bi-calendar2-week fs-1 mb-2"></i>
+                        <h5 class="fw-bold">6 Months</h5>
+                        <div class="price-tag">
+                            $24.99 <small>/6mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
+                    </div>
+
+                    <!-- 1 Year Package -->
+                    <div class="premium-package-card card-4">
+                        <div class="premium-badge">
+                            <i class="bi bi-crown"></i> BEST VALUE
+                        </div>
+                        <i class="bi bi-calendar-year fs-1 mb-2"></i>
+                        <h5 class="fw-bold">1 Year</h5>
+                        <div class="price-tag">
+                            $39.99 <small>/yr</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Additional Premium Info -->
+                <div class="card bg-light border-0 rounded-4 p-3 mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-patch-check-fill text-primary fs-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Why Telegram Premium?</h6>
+                            <p class="small text-muted mb-0">Double limits, faster speed, voice-to-text, premium stickers and reactions, and exclusive badges.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROFILE+ SECTION -->
+            <section id="sec-profile" class="fade-in d-none">
+                <!-- dynamic profile content injected via js -->
+                <div id="profileContainer"></div>
+            </section>
+
         </main>
     </div>
 
-    <!-- Bottom Nav -->
+    <!-- BOTTOM NAVIGATION -->
     <nav class="nav-dock">
         <a class="nav-btn active" onclick="nav('sec-home', this)"><i class="bi bi-house-door-fill"></i> Home</a>
         <a class="nav-btn" onclick="nav('sec-jobs', this)"><i class="bi bi-briefcase-fill"></i> Jobs</a>
         <a class="nav-btn" onclick="nav('sec-stars', this)"><i class="bi bi-star-fill"></i> Stars</a>
-        <a class="nav-btn" onclick="nav('sec-premium', this)"><i class="bi bi-gem"></i> Premium</a>
+        <a class="nav-btn" onclick="nav('sec-premium', this)"><i class="bi bi-gem" style="color: #8B5CF6;"></i> Premium</a>
         <a class="nav-btn" onclick="nav('sec-profile', this)"><i class="bi bi-person-badge-fill"></i> Profile</a>
     </nav>
-
-    <!-- Zoom overlay -->
-    <div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom()">
-        <span class="zoom-close" onclick="closeZoom(event)">&times;</span>
-        <img src="" alt="Zoomed" class="zoomed-img" id="zoomedImg">
-    </div>
 </div>
 
 <script>
     const tg = window.Telegram.WebApp;
-    tg.ready(); tg.expand();
-    const ADMIN_USERNAME = "hayre32";
+    tg.ready();
+    tg.expand();
+
+    // ---------- AUTO LOGIN & ADMIN DETECTION ----------
+    const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
     let currentUser = { id: 0, first_name: 'User', username: '' };
     let isAdmin = false;
 
@@ -536,6 +1515,7 @@
         isAdmin = (usernameRaw === ADMIN_USERNAME.toLowerCase());
     }
 
+    // Update UI with user info
     function updateUserUI() {
         const displayName = currentUser.first_name || 'User';
         document.getElementById('user-status').innerText = isAdmin ? '👑 Admin' : `@${currentUser.username || displayName}`;
@@ -544,43 +1524,180 @@
     }
     updateUserUI();
 
-    // ---------- ZOOM FUNCTIONALITY ----------
-    function openZoom(element) {
-        const zoomOverlay = document.getElementById('zoomOverlay');
-        const zoomedImg = document.getElementById('zoomedImg');
-        // get high-res src from data-zoom-src, fallback to background-image
-        let imgUrl = element.dataset.zoomSrc || element.style.backgroundImage.replace(/^url\(["']?|["']?\)$/g, '');
-        zoomedImg.src = imgUrl;
-        zoomOverlay.classList.add('active');
-        tg.HapticFeedback.impactOccurred('medium');
+    // ---------- PROFILE SECTION GENERATOR (advanced) ----------
+    function renderProfile() {
+        const container = document.getElementById('profileContainer');
+        if (!container) return;
+
+        const stats = {
+            tasks: 47,
+            earned: 127.50,
+            referrals: 12,
+            rank: isAdmin ? '🏆 Administrator' : '🥈 Silver Earner'
+        };
+
+        const badges = [
+            { icon: '🔥', label: '7 Day Streak' },
+            { icon: '🎯', label: 'First Withdrawal' },
+            { icon: '👥', label: '10 Referrals' },
+            { icon: '✅', label: 'Verified' }
+        ];
+
+        const recentActivity = [
+            '✅ Completed Buzzer task +$2.50',
+            '📥 Downloaded Gemgala',
+            '👥 Referral bonus +$1.00',
+            '⭐ Earned 50 Stars'
+        ];
+
+        let html = `
+            <div class="profile-header-card fade-in">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
+                    <div>
+                        <h4 class="fw-bold mb-1">${currentUser.first_name} ${isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
+                        <p class="text-muted mb-1">@${currentUser.username || 'no_username'}</p>
+                        <p class="small mb-0"><i class="bi bi-telegram text-primary"></i> ID: ${currentUser.id}</p>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-item"><span class="stat-value">${stats.tasks}</span> <span class="stat-label">Tasks</span></div>
+                    <div class="stat-item"><span class="stat-value">$${stats.earned}</span> <span class="stat-label">Earned</span></div>
+                    <div class="stat-item"><span class="stat-value">${stats.referrals}</span> <span class="stat-label">Referrals</span></div>
+                </div>
+
+                <div class="badge-collection">
+                    ${badges.map(b => `<span class="achievement-badge"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
+                </div>
+
+                <hr class="my-3">
+                <h6 class="fw-bold"><i class="bi bi-activity"></i> Recent activity</h6>
+                <div class="mt-2">
+                    ${recentActivity.map(a => `<div class="small py-1 border-bottom">${a}</div>`).join('')}
+                </div>
+            </div>
+        `;
+
+        // ---------- ADMIN PANEL (visible only to @hayre32) ----------
+        if (isAdmin) {
+            html += `
+                <div class="admin-panel fade-in mt-3">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
+                        <h5 class="fw-bold mb-0">Admin Console</h5>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-people-fill me-2"></i>Total users</span>
+                            <span class="badge bg-light text-dark">1,482</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="bi bi-pencil-square me-2"></i>Quick edit</span>
+                            <span class="user-tag">active</span>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@user_ethio</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@abdi123</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span>
+                            <span class="badge bg-success">admin</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-megaphone-fill me-2"></i>Broadcast message</span>
+                            <button class="btn btn-sm btn-warning" onclick="tg.showPopup({title:'Broadcast', message:'Demo: send notification to all users'})">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span>
+                    </div>
+
+                    <div class="mt-3 small text-warning text-center">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Admin privileges active for @${ADMIN_USERNAME}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ---------- USER SECTION (visible to everyone, extra user tools) ----------
+        html += `
+            <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
+                <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
+                <div class="row g-2 mt-2">
+                    <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
+                    <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="tg.showPopup({message:'Referral link demo'})"><i class="bi bi-share"></i> Refer</button></div>
+                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal history demo'})"><i class="bi bi-wallet2"></i> History</button></div>
+                    <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = html;
     }
 
-    function closeZoom(event) {
-        if (event) event.stopPropagation();
-        document.getElementById('zoomOverlay').classList.remove('active');
+    // ---------- STARS SECTION MODERN FUNCTIONS ----------
+    let selectedStars = 15;
+
+    function showFreeMethod() {
+        document.getElementById('freeMethodSection').style.display = 'block';
+        document.getElementById('buyMethodSection').style.display = 'none';
+        document.getElementById('freeMethodChip').classList.add('active');
+        document.getElementById('buyMethodChip').classList.remove('active');
+        tg.HapticFeedback.selectionChanged();
     }
 
-    // attach slide dot update (simple per gallery)
-    document.querySelectorAll('.card-img-gallery').forEach(gallery => {
-        const slider = gallery.querySelector('.gallery-slider');
-        const dots = gallery.querySelectorAll('.dot');
-        if (!slider || !dots.length) return;
+    function showBuyMethod() {
+        document.getElementById('freeMethodSection').style.display = 'none';
+        document.getElementById('buyMethodSection').style.display = 'block';
+        document.getElementById('buyMethodChip').classList.add('active');
+        document.getElementById('freeMethodChip').classList.remove('active');
+        tg.HapticFeedback.selectionChanged();
+    }
 
-        slider.addEventListener('scroll', () => {
-            const scrollLeft = slider.scrollLeft;
-            const slideWidth = slider.clientWidth;
-            const activeIndex = Math.round(scrollLeft / slideWidth);
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === activeIndex);
-            });
+    function selectPackage(amount, element) {
+        selectedStars = amount;
+        document.getElementById('selectedAmount').textContent = amount;
+        
+        // Remove selected class from all packages
+        document.querySelectorAll('.package-item').forEach(el => {
+            el.classList.remove('selected');
         });
-    });
+        
+        // Add selected class to clicked package
+        element.classList.add('selected');
+        
+        tg.HapticFeedback.impactOccurred('light');
+    }
 
-    // ---------- NAVIGATION ----------
+    // call render when profile section becomes visible
     function nav(secId, btn) {
         document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
-        document.getElementById(secId).classList.remove('d-none');
-        if (secId === 'sec-profile') renderProfile();
+        const target = document.getElementById(secId);
+        if (target) target.classList.remove('d-none');
+
+        // special: if profile, render fresh
+        if (secId === 'sec-profile') {
+            renderProfile();
+        }
+        
+        // Reset stars section to free method when navigating to stars
+        if (secId === 'sec-stars') {
+            showFreeMethod();
+        }
+
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         tg.HapticFeedback.impactOccurred('light');
@@ -591,7 +1708,7 @@
         if (btn) nav(secId, btn);
     }
 
-    // filter & search
+    // Filter, search
     function filterType(type, element) {
         document.querySelectorAll('.card-job').forEach(card => {
             card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
@@ -601,25 +1718,50 @@
         tg.HapticFeedback.selectionChanged();
     }
 
-    document.getElementById('jobSearch')?.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        document.querySelectorAll('.card-job').forEach(card => {
-            const title = card.querySelector('.job-title')?.innerText.toLowerCase() || '';
-            card.style.display = title.includes(term) ? 'block' : 'none';
+    const searchInput = document.getElementById('jobSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.card-job').forEach(card => {
+                const title = card.querySelector('.job-title')?.innerText.toLowerCase() || '';
+                card.style.display = title.includes(term) ? 'block' : 'none';
+            });
         });
-    });
-
-    function openLink(url) { tg.openLink(url); }
-
-    // profile placeholder
-    function renderProfile() {
-        document.getElementById('profileContainer').innerHTML = `<div class="p-3">Profile content here...</div>`;
     }
 
-    window.nav = nav; window.navigateTo = navigateTo; window.filterType = filterType; window.openLink = openLink;
-    window.openZoom = openZoom; window.closeZoom = closeZoom;
+    function openLink(url) {
+        tg.openLink(url);
+    }
 
-    // also attach dots on first gallery manually
+    function showMaintenance() {
+        tg.HapticFeedback.notificationOccurred('warning');
+        tg.showPopup({
+            title: '🛠 Service Temporarily Unavailable',
+            message: '⚠️ አገልግሎቱ ገና አልተጀመረም!\nእባክዎ ትንሽ ይጠብቁ ⌛\n\n✅ሲጀመር ወዲያውኑ እናሳውቃለን 🔔',
+            buttons: [{ id: 'ok', type: 'ok', text: 'OK' }]
+        });
+    }
+
+    // New function specifically for Stars purchase button
+    function showStarsMaintenance() {
+        tg.HapticFeedback.notificationOccurred('warning');
+        tg.showPopup({
+            title: '🛠 Service Temporarily Unavailable 👨‍💻',
+            message: '⚠️  አገልግሎቱ ገና አልተጀመረም!\nእባክዎ ትንሽ ይጠብቁ ⌛️\n\n✅ሲጀመር ወዲያውኑ እናሳውቃለን 🔔',
+            buttons: [{ id: 'ok', type: 'ok', text: 'OK' }]
+        });
+    }
+
+    // Expose functions globally
+    window.nav = nav;
+    window.navigateTo = navigateTo;
+    window.filterType = filterType;
+    window.openLink = openLink;
+    window.showMaintenance = showMaintenance;
+    window.showStarsMaintenance = showStarsMaintenance;
+    window.showFreeMethod = showFreeMethod;
+    window.showBuyMethod = showBuyMethod;
+    window.selectPackage = selectPackage;
 </script>
 </body>
 </html>
