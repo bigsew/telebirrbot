@@ -234,7 +234,7 @@
             transform: scale(0.98);
         }
 
-        /* Profile Sections */
+        /* Profile Sections - redesigned with star focus */
         .profile-header-card {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 30px;
@@ -242,6 +242,28 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.03);
             margin-bottom: 20px;
+        }
+
+        .star-balance-card {
+            background: linear-gradient(135deg, #f5e78b 0%, #f7d44a 100%);
+            border-radius: 28px;
+            padding: 25px 20px;
+            color: #1e2b3a;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 25px rgba(255, 215, 0, 0.2);
+            border: 2px solid #f1c40f;
+        }
+        .star-amount {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .star-amount i {
+            color: #fff3b0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .stat-grid {
@@ -340,7 +362,7 @@
         }
         .service-card:active { transform: scale(0.95); background: #f8f9fa; }
 
-        /* Premium Cards - Updated for vertical stacking */
+        /* Premium Cards */
         .premium-package-card {
             border-radius: 24px;
             padding: 24px 16px;
@@ -351,7 +373,7 @@
             width: 100%;
             border: none;
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-            margin-bottom: 16px; /* Add space between stacked cards */
+            margin-bottom: 16px;
         }
         
         .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -359,7 +381,6 @@
         .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
         .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
 
-        /* Container for premium cards - now vertical */
         .premium-container {
             display: flex;
             flex-direction: column;
@@ -480,6 +501,23 @@
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+        }
+
+        /* Transaction history */
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .transaction-item:last-child { border-bottom: none; }
+        .tx-badge {
+            background: #e6f7e6;
+            color: #0b5e0b;
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 30px;
         }
 
         /* Bottom Navigation */
@@ -686,155 +724,35 @@
                 </div>
             </section>
 
-            <!-- PREMIUM SECTION - VERTICAL STACKED CARDS -->
+            <!-- PREMIUM SECTION -->
             <section id="sec-premium" class="fade-in d-none">
-                <!-- Maintenance Message -->
                 <div class="maintenance-box shadow-lg">
-                    <div class="maintenance-icon">
-                        <i class="bi bi-tools"></i>
-                    </div>
+                    <div class="maintenance-icon"><i class="bi bi-tools"></i></div>
                     <h3 class="fw-bold">🛠 Service Temporarily Unavailable</h3>
                     <h2 class="display-6 mb-3">👨‍💻</h2>
-                    
                     <div class="alert" style="background: rgba(255,215,0,0.2); border: 1px solid #FFD700; color: white;">
-                        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
-                        <strong>⚠️  አገልግሎቱ ገና አልተጀመረም!</strong>
+                        <i class="bi bi-exclamation-triangle-fill text-warning"></i> <strong>⚠️  አገልግሎቱ ገና አልተጀመረም!</strong>
                     </div>
-                    
                     <p class="amharic-text-large">እባክዎ ትንሽ ይጠብቁ ⌛</p>
-                    
                     <div class="d-flex align-items-center justify-content-center gap-2 mt-3">
-                        <i class="bi bi-check-circle-fill text-success"></i>
-                        <span>✅ሲጀመር ወዲያውኑ እናሳውቃለን</span>
-                        <i class="bi bi-bell-fill text-warning notification-bell"></i>
+                        <i class="bi bi-check-circle-fill text-success"></i> <span>✅ሲጀመር ወዲያውኑ እናሳውቃለን</span> <i class="bi bi-bell-fill text-warning notification-bell"></i>
                     </div>
-                    
-                    <div class="mt-4">
-                        <a href="https://t.me/Big_sew" target="_blank" class="notified-btn">
-                            <i class="bi bi-telegram"></i> 🔔 Get Notified
-                        </a>
-                    </div>
+                    <div class="mt-4"><a href="https://t.me/Big_sew" target="_blank" class="notified-btn"><i class="bi bi-telegram"></i> 🔔 Get Notified</a></div>
                 </div>
-
-                <!-- Telegram Premium Header -->
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="fw-bold">
-                        <i class="bi bi-telegram text-primary"></i> 
-                        Telegram Premium
-                    </h5>
+                    <h5 class="fw-bold"><i class="bi bi-telegram text-primary"></i> Telegram Premium</h5>
                     <span class="badge bg-primary p-2">🇪🇹 Birr (ETB)</span>
                 </div>
-
-                <!-- Premium Packages - VERTICAL STACK (one below the other) -->
                 <div class="premium-container">
-                    <!-- Monthly Package -->
-                    <div class="premium-package-card card-1">
-                        <div class="premium-badge">
-                            <i class="bi bi-star-fill"></i> POPULAR
-                        </div>
-                        <i class="bi bi-calendar-check fs-1 mb-2"></i>
-                        <h5 class="fw-bold">Monthly</h5>
-                        <div class="price-tag">
-                            $4.99 <small>/mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
-                        </ul>
-                        <button class="buy-btn" onclick="showMaintenance()">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
-                    </div>
-
-                    <!-- 3 Months Package -->
-                    <div class="premium-package-card card-2">
-                        <div class="premium-badge">
-                            <i class="bi bi-lightning-fill"></i> SAVE 10%
-                        </div>
-                        <i class="bi bi-calendar3 fs-1 mb-2"></i>
-                        <h5 class="fw-bold">3 Months</h5>
-                        <div class="price-tag">
-                            $13.99 <small>/3mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
-                            <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
-                        </ul>
-                        <button class="buy-btn" onclick="showMaintenance()">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
-                    </div>
-
-                    <!-- 6 Months Package -->
-                    <div class="premium-package-card card-3">
-                        <div class="premium-badge">
-                            <i class="bi bi-gem"></i> SAVE 15%
-                        </div>
-                        <i class="bi bi-calendar2-week fs-1 mb-2"></i>
-                        <h5 class="fw-bold">6 Months</h5>
-                        <div class="price-tag">
-                            $24.99 <small>/6mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
-                            <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
-                        </ul>
-                        <button class="buy-btn" onclick="showMaintenance()">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
-                    </div>
-
-                    <!-- 1 Year Package -->
-                    <div class="premium-package-card card-4">
-                        <div class="premium-badge">
-                            <i class="bi bi-crown"></i> BEST VALUE
-                        </div>
-                        <i class="bi bi-calendar-year fs-1 mb-2"></i>
-                        <h5 class="fw-bold">1 Year</h5>
-                        <div class="price-tag">
-                            $39.99 <small>/yr</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
-                        </ul>
-                        <button class="buy-btn" onclick="showMaintenance()">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Additional Premium Info -->
-                <div class="card bg-light border-0 rounded-4 p-3 mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <i class="bi bi-patch-check-fill text-primary fs-1"></i>
-                        <div>
-                            <h6 class="fw-bold mb-1">Why Telegram Premium?</h6>
-                            <p class="small text-muted mb-0">Double limits, faster speed, voice-to-text, premium stickers and reactions, and exclusive badges.</p>
-                        </div>
-                    </div>
+                    <div class="premium-package-card card-1"><div class="premium-badge"><i class="bi bi-star-fill"></i> POPULAR</div><i class="bi bi-calendar-check fs-1 mb-2"></i><h5 class="fw-bold">Monthly</h5><div class="price-tag">$4.99 <small>/mo</small></div><div class="text-white-50 mb-2">ብር 275.00 ETB</div><ul class="feature-list-premium"><li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li><li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li><li><i class="bi bi-check-circle-fill"></i> Premium Badge</li><li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li><li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li></ul><button class="buy-btn" onclick="showMaintenance()"><i class="bi bi-lock-fill"></i> Buy Now</button></div>
+                    <div class="premium-package-card card-2"><div class="premium-badge"><i class="bi bi-lightning-fill"></i> SAVE 10%</div><i class="bi bi-calendar3 fs-1 mb-2"></i><h5 class="fw-bold">3 Months</h5><div class="price-tag">$13.99 <small>/3mo</small></div><div class="text-white-50 mb-2">ብር 770.00 ETB</div><ul class="feature-list-premium"><li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li><li><i class="bi bi-check-circle-fill"></i> Animated Profile</li><li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li><li><i class="bi bi-check-circle-fill"></i> No Ads</li><li><i class="bi bi-check-circle-fill"></i> Chat Translation</li></ul><button class="buy-btn" onclick="showMaintenance()"><i class="bi bi-lock-fill"></i> Buy Now</button></div>
+                    <div class="premium-package-card card-3"><div class="premium-badge"><i class="bi bi-gem"></i> SAVE 15%</div><i class="bi bi-calendar2-week fs-1 mb-2"></i><h5 class="fw-bold">6 Months</h5><div class="price-tag">$24.99 <small>/6mo</small></div><div class="text-white-50 mb-2">ብር 1,375.00 ETB</div><ul class="feature-list-premium"><li><i class="bi bi-check-circle-fill"></i> All 3M Features</li><li><i class="bi bi-check-circle-fill"></i> Message Translation</li><li><i class="bi bi-check-circle-fill"></i> Priority Support</li><li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li><li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li></ul><button class="buy-btn" onclick="showMaintenance()"><i class="bi bi-lock-fill"></i> Buy Now</button></div>
+                    <div class="premium-package-card card-4"><div class="premium-badge"><i class="bi bi-crown"></i> BEST VALUE</div><i class="bi bi-calendar-year fs-1 mb-2"></i><h5 class="fw-bold">1 Year</h5><div class="price-tag">$39.99 <small>/yr</small></div><div class="text-white-50 mb-2">ብር 2,200.00 ETB</div><ul class="feature-list-premium"><li><i class="bi bi-check-circle-fill"></i> All 6M Features</li><li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li><li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li><li><i class="bi bi-check-circle-fill"></i> Early Access</li><li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li></ul><button class="buy-btn" onclick="showMaintenance()"><i class="bi bi-lock-fill"></i> Buy Now</button></div>
                 </div>
             </section>
 
-            <!-- PROFILE+ SECTION -->
+            <!-- PROFILE+ SECTION — completely redesigned with ⭐ Telegram Stars focus -->
             <section id="sec-profile" class="fade-in d-none">
-                <!-- dynamic profile content injected via js -->
                 <div id="profileContainer"></div>
             </section>
 
@@ -857,7 +775,7 @@
     tg.expand();
 
     // ---------- AUTO LOGIN & ADMIN DETECTION ----------
-    const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
+    const ADMIN_USERNAME = "hayre32"; 
     let currentUser = { id: 0, first_name: 'User', username: '' };
     let isAdmin = false;
 
@@ -876,34 +794,40 @@
     }
     updateUserUI();
 
-    // ---------- PROFILE SECTION GENERATOR (advanced) ----------
+    // ---------- PROFILE RENDER — focus on Telegram Stars ----------
     function renderProfile() {
         const container = document.getElementById('profileContainer');
         if (!container) return;
 
-        const stats = {
-            tasks: 47,
-            earned: 127.50,
-            referrals: 12,
-            rank: isAdmin ? '🏆 Administrator' : '🥈 Silver Earner'
-        };
-
-        const badges = [
-            { icon: '🔥', label: '7 Day Streak' },
-            { icon: '🎯', label: 'First Withdrawal' },
-            { icon: '👥', label: '10 Referrals' },
-            { icon: '✅', label: 'Verified' }
-        ];
-
-        const recentActivity = [
-            '✅ Completed Buzzer task +$2.50',
-            '📥 Downloaded Gemgala',
-            '👥 Referral bonus +$1.00',
-            '⭐ Earned 50 Stars'
+        // Mock star data
+        const starBalance = 750;          // ETB shown in header
+        const expiry = '02 Feb 2026';
+        const transactions = [
+            { desc: '⭐ Earned from Buzzer task', amount: '+ 50 ⭐', status: 'Completed', date: 'Today' },
+            { desc: '⭐ Purchased 500 Stars', amount: '500 ⭐', status: 'Completed', date: 'Yesterday' },
+            { desc: '⭐ Referral bonus', amount: '+ 20 ⭐', status: 'Completed', date: '20 Jan' },
+            { desc: '⭐ Spent on Telegram bot', amount: '- 30 ⭐', status: 'Completed', date: '18 Jan' },
         ];
 
         let html = `
-            <div class="profile-header-card fade-in">
+            <!-- MAIN STAR BALANCE CARD (exactly as requested) -->
+            <div class="star-balance-card fade-in">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold"><i class="bi bi-stars me-1"></i> ⭐ Telegram Stars</span>
+                    <span class="badge bg-dark text-warning">Active</span>
+                </div>
+                <div class="star-amount mt-2">
+                    <i class="bi bi-star-fill"></i> ${starBalance}
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <span>💵 ${starBalance} ETB</span>
+                    <span><i class="bi bi-calendar3"></i> ${expiry}</span>
+                    <span class="tx-badge"><i class="bi bi-check-circle-fill text-success"></i> Completed</span>
+                </div>
+            </div>
+
+            <!-- user profile summary -->
+            <div class="profile-header-card">
                 <div class="d-flex align-items-center gap-3">
                     <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
                     <div>
@@ -912,24 +836,31 @@
                         <p class="small mb-0"><i class="bi bi-telegram text-primary"></i> ID: ${currentUser.id}</p>
                     </div>
                 </div>
-
-                <div class="stat-grid">
-                    <div class="stat-item"><span class="stat-value">${stats.tasks}</span> <span class="stat-label">Tasks</span></div>
-                    <div class="stat-item"><span class="stat-value">$${stats.earned}</span> <span class="stat-label">Earned</span></div>
-                    <div class="stat-item"><span class="stat-value">${stats.referrals}</span> <span class="stat-label">Referrals</span></div>
-                </div>
-
-                <div class="badge-collection">
-                    ${badges.map(b => `<span class="achievement-badge"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
-                </div>
-
-                <hr class="my-3">
-                <h6 class="fw-bold"><i class="bi bi-activity"></i> Recent activity</h6>
-                <div class="mt-2">
-                    ${recentActivity.map(a => `<div class="small py-1 border-bottom">${a}</div>`).join('')}
-                </div>
             </div>
+
+            <!-- Stats grid (still useful) -->
+            <div class="stat-grid">
+                <div class="stat-item"><span class="stat-value">47</span> <span class="stat-label">Tasks</span></div>
+                <div class="stat-item"><span class="stat-value">$127</span> <span class="stat-label">Earned</span></div>
+                <div class="stat-item"><span class="stat-value">12</span> <span class="stat-label">Referrals</span></div>
+            </div>
+
+            <!-- Recent star transactions (⭐ Telegram Stars history) -->
+            <div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
+                <h6 class="fw-bold"><i class="bi bi-arrow-repeat me-1 text-warning"></i> Star transactions</h6>
+                <div class="mt-2">
         `;
+
+        transactions.forEach(tx => {
+            html += `
+                <div class="transaction-item">
+                    <div><span class="fw-semibold">${tx.desc}</span><br><small class="text-muted">${tx.date}</small></div>
+                    <div class="text-end"><span class="fw-bold">${tx.amount}</span><br><span class="tx-badge">${tx.status}</span></div>
+                </div>
+            `;
+        });
+
+        html += `</div></div>`;
 
         // ---------- ADMIN PANEL (visible only to @hayre32) ----------
         if (isAdmin) {
@@ -939,59 +870,28 @@
                         <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
                         <h5 class="fw-bold mb-0">Admin Console</h5>
                     </div>
-
+                    <div class="admin-tool"><div class="d-flex justify-content-between"><span><i class="bi bi-people-fill me-2"></i>Total users</span><span class="badge bg-light text-dark">1,482</span></div></div>
                     <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-people-fill me-2"></i>Total users</span>
-                            <span class="badge bg-light text-dark">1,482</span>
-                        </div>
+                        <div class="d-flex justify-content-between mb-2"><span><i class="bi bi-pencil-square me-2"></i>Quick edit</span><span class="user-tag">active</span></div>
+                        <div class="user-row"><span><i class="bi bi-person-circle me-2"></i>@user_ethio</span><button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button></div>
+                        <div class="user-row"><span><i class="bi bi-person-circle me-2"></i>@abdi123</span><button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button></div>
+                        <div class="user-row"><span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span><span class="badge bg-success">admin</span></div>
                     </div>
-
-                    <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span><i class="bi bi-pencil-square me-2"></i>Quick edit</span>
-                            <span class="user-tag">active</span>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@user_ethio</span>
-                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@abdi123</span>
-                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
-                        </div>
-                        <div class="user-row">
-                            <span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span>
-                            <span class="badge bg-success">admin</span>
-                        </div>
-                    </div>
-
-                    <div class="admin-tool">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span><i class="bi bi-megaphone-fill me-2"></i>Broadcast message</span>
-                            <button class="btn btn-sm btn-warning" onclick="tg.showPopup({title:'Broadcast', message:'Demo: send notification to all users'})">Send</button>
-                        </div>
-                    </div>
-
-                    <div class="admin-tool">
-                        <span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span>
-                    </div>
-
-                    <div class="mt-3 small text-warning text-center">
-                        <i class="bi bi-exclamation-triangle-fill"></i> Admin privileges active for @${ADMIN_USERNAME}
-                    </div>
+                    <div class="admin-tool"><div class="d-flex justify-content-between"><span><i class="bi bi-megaphone-fill me-2"></i>Broadcast</span><button class="btn btn-sm btn-warning" onclick="tg.showPopup({title:'Broadcast', message:'Demo'})">Send</button></div></div>
+                    <div class="admin-tool"><span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span></div>
+                    <div class="mt-3 small text-warning text-center"><i class="bi bi-exclamation-triangle-fill"></i> Admin active for @${ADMIN_USERNAME}</div>
                 </div>
             `;
         }
 
-        // ---------- USER SECTION (visible to everyone, extra user tools) ----------
+        // user tools
         html += `
             <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
                 <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
                 <div class="row g-2 mt-2">
                     <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
                     <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="tg.showPopup({message:'Referral link demo'})"><i class="bi bi-share"></i> Refer</button></div>
-                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal history demo'})"><i class="bi bi-wallet2"></i> History</button></div>
+                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal demo'})"><i class="bi bi-wallet2"></i> History</button></div>
                     <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
                 </div>
             </div>
@@ -1000,13 +900,12 @@
         container.innerHTML = html;
     }
 
-    // call render when profile section becomes visible
+    // navigation
     function nav(secId, btn) {
         document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
         const target = document.getElementById(secId);
         if (target) target.classList.remove('d-none');
 
-        // special: if profile, render fresh
         if (secId === 'sec-profile') {
             renderProfile();
         }
@@ -1021,7 +920,6 @@
         if (btn) nav(secId, btn);
     }
 
-    // Filter, search
     function filterType(type, element) {
         document.querySelectorAll('.card-job').forEach(card => {
             card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
