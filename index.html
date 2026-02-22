@@ -340,7 +340,7 @@
         }
         .service-card:active { transform: scale(0.95); background: #f8f9fa; }
 
-        /* Premium Cards */
+        /* Premium Cards - Updated for vertical stacking */
         .premium-package-card {
             border-radius: 24px;
             padding: 24px 16px;
@@ -348,15 +348,25 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            height: 100%;
+            width: 100%;
             border: none;
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+            margin-bottom: 16px; /* Add space between stacked cards */
         }
         
         .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .card-2 { background: linear-gradient(135deg, #6B8CFF 0%, #8B5CF6 100%); }
         .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
         .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
+
+        /* Container for premium cards - now vertical */
+        .premium-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
         .premium-badge {
             position: absolute;
@@ -390,7 +400,7 @@
 
         .feature-list-premium li {
             padding: 6px 0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -405,13 +415,14 @@
             background: rgba(255,255,255,0.95);
             border: none;
             border-radius: 40px;
-            padding: 12px;
+            padding: 14px;
             font-weight: 700;
             width: 100%;
             color: #333;
             transition: all 0.2s;
             margin-top: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 1rem;
         }
 
         .buy-btn:hover {
@@ -468,6 +479,99 @@
             font-weight: 700;
             transition: all 0.3s;
             text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Stars Section New Styles */
+        .stars-header {
+            background: linear-gradient(145deg, #FFF9E6, #FFEAA7);
+            border-radius: 24px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            border: 1px solid #FFD700;
+            box-shadow: 0 10px 20px rgba(255,215,0,0.2);
+            text-align: center;
+        }
+        
+        .stars-option-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 6px solid;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        }
+        
+        .option-free {
+            border-left-color: #28a745;
+        }
+        
+        .option-buy {
+            border-left-color: var(--primary-blue);
+        }
+        
+        .stars-bot-link {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid #d4edff;
+            transition: all 0.2s;
+        }
+        
+        .stars-bot-link:hover {
+            background: #e3f2ff;
+            transform: translateX(5px);
+        }
+        
+        .bot-link-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .bot-link-btn:hover {
+            background: #0077b3;
+            color: white;
+        }
+        
+        .youtube-btn {
+            background: #FF0000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tiktok-btn {
+            background: #000000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .star-badge {
+            background: #FFD700;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.85rem;
             display: inline-block;
         }
 
@@ -659,23 +763,167 @@
                 </div>
             </section>
 
-            <!-- STARS SECTION -->
+            <!-- STARS SECTION - UPDATED WITH TWO WAYS -->
             <section id="sec-stars" class="fade-in d-none">
-                <div class="text-center p-4 rounded-4 mb-4" style="background: #fff8e1; border: 2px dashed #ffd54f;">
+                <!-- Header -->
+                <div class="stars-header">
                     <i class="bi bi-stars fs-1 text-warning"></i>
-                    <h4 class="fw-bold mt-2">Telegram Stars</h4>
-                    <p class="text-muted small">Fast & Secure Star Refills</p>
+                    <h3 class="fw-bold mt-2">Telegram ⭐️ Stars</h3>
+                    <p class="text-muted">Fast & Secure Star Refills</p>
+                    <div class="star-badge mt-2">100% Verified</div>
                 </div>
-                <div class="service-card p-4 shadow-sm mb-3">
-                    <h5 class="fw-bold">Buy Stars / ስታር ለመግዛት</h5>
-                    <p class="small text-muted">Get stars instantly for your favorite bots.</p>
-                    <button class="btn btn-warning w-100 fw-bold py-3 rounded-4 shadow-sm">
-                        <i class="bi bi-lightning-fill"></i> Purchase Now
-                    </button>
+
+                <!-- Main Title in Amharic -->
+                <div class="bg-light p-3 rounded-4 mb-3 text-center">
+                    <h5 class="fw-bold mb-2">💫 Telegram Stars መግኘት ይፈልጋሉ?</h5>
+                    <p class="mb-1">Telegram ⭐️ Star በሁለት መንገድ ማግኘት ይችላሉ፦</p>
+                    <div class="d-flex justify-content-center gap-3 mt-2">
+                        <span class="badge bg-success p-2">1️⃣ Free Star – በነፃ ማግኘት</span>
+                        <span class="badge bg-primary p-2">2️⃣ Buy Star – በመግዛት ፈጣን እና ቀጥታ ማግኘት</span>
+                    </div>
+                    <p class="mt-2 fw-bold">ከታች አንዱን ይምረጡ 🫴</p>
+                </div>
+
+                <!-- OPTION 1: FREE STARS -->
+                <div class="stars-option-card option-free">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-success fs-6 p-2">1️⃣ FREE STARS</span>
+                        <i class="bi bi-gift-fill text-success fs-4"></i>
+                    </div>
+                    
+                    <h5 class="fw-bold">🎁 በነፃ ⭐️ Star የሚያገኙት መንገድ</h5>
+                    <p class="text-muted small">Telegram 🤖Bot በመጠቀም (🗓Tasks በመስራት / Channels & Groups Join በማድረግ) ነው።</p>
+                    
+                    <div class="alert alert-success py-2">
+                        <i class="bi bi-check-circle-fill"></i> ከዚህ በታች ያሉት ቦቶች 100% Payment Verified ናቸው ✅
+                    </div>
+                    
+                    <p class="fw-bold mb-2">👇 ከታች ያሉትን ቦቶች ይጠቀሙ</p>
+                    
+                    <!-- Bot 1 -->
+                    <div class="stars-bot-link d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-robot text-primary"></i>
+                            <span class="fw-bold ms-2">StarsMakeBot</span>
+                            <span class="badge bg-success ms-2">Automatic Payment</span>
+                        </div>
+                        <a href="https://t.me/StarsMakeBot?start=AK1gwAzUc" class="bot-link-btn" onclick="openLink('https://t.me/StarsMakeBot?start=AK1gwAzUc')">
+                            <i class="bi bi-telegram"></i> Start
+                        </a>
+                    </div>
+                    
+                    <!-- Bot 2 -->
+                    <div class="stars-bot-link d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-robot text-primary"></i>
+                            <span class="fw-bold ms-2">StarsovEarnBot</span>
+                        </div>
+                        <a href="https://t.me/StarsovEarnBot?start=FppTwt0K5" class="bot-link-btn" onclick="openLink('https://t.me/StarsovEarnBot?start=FppTwt0K5')">
+                            <i class="bi bi-telegram"></i> Start
+                        </a>
+                    </div>
+                    
+                    <!-- Bot 3 -->
+                    <div class="stars-bot-link d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-robot text-primary"></i>
+                            <span class="fw-bold ms-2">StarsovGamesBot</span>
+                        </div>
+                        <a href="https://t.me/StarsovGamesBot?start=t2R6NvIx0" class="bot-link-btn" onclick="openLink('https://t.me/StarsovGamesBot?start=t2R6NvIx0')">
+                            <i class="bi bi-telegram"></i> Start
+                        </a>
+                    </div>
+                    
+                    <!-- Bot 4 -->
+                    <div class="stars-bot-link d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-robot text-primary"></i>
+                            <span class="fw-bold ms-2">duckearnbot</span>
+                        </div>
+                        <a href="https://t.me/duckearnbot?start=ref_5522724001" class="bot-link-btn" onclick="openLink('https://t.me/duckearnbot?start=ref_5522724001')">
+                            <i class="bi bi-telegram"></i> Start
+                        </a>
+                    </div>
+                    
+                    <!-- Note about automatic payment -->
+                    <div class="mt-3 p-2 bg-warning bg-opacity-10 rounded-3">
+                        <i class="bi bi-lightning-fill text-warning"></i>
+                        <span class="small fw-bold">4️⃣ Automatic Payment ነው ወዲያው ተቀብላችሁ Convert አርጉት</span>
+                    </div>
+                    
+                    <!-- Tutorial Links -->
+                    <div class="mt-4">
+                        <p class="fw-bold mb-2">▶️ ሙሉ አስራሩ</p>
+                        <a href="https://youtu.be/0TSjoXdZ5sU" class="youtube-btn btn-sm" onclick="openLink('https://youtu.be/0TSjoXdZ5sU')">
+                            <i class="bi bi-youtube"></i> Watch on YouTube
+                        </a>
+                        
+                        <p class="fw-bold mt-3 mb-2">🎥 Short Video</p>
+                        <a href="https://vt.tiktok.com/ZSa3QURWj/" class="tiktok-btn btn-sm" onclick="openLink('https://vt.tiktok.com/ZSa3QURWj/')">
+                            <i class="bi bi-tiktok"></i> Watch on TikTok
+                        </a>
+                    </div>
+                </div>
+
+                <!-- OPTION 2: BUY STARS -->
+                <div class="stars-option-card option-buy">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary fs-6 p-2">2️⃣ BUY STARS</span>
+                        <i class="bi bi-cart-check-fill text-primary fs-4"></i>
+                    </div>
+                    
+                    <h5 class="fw-bold">💰 Buy Star – በመግዛት ፈጣን እና ቀጥታ ማግኘት</h5>
+                    
+                    <!-- Star Packages -->
+                    <div class="row g-2 mt-3">
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">15 ⭐️</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">25 ⭐️</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">50 ⭐️</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">100 ⭐️</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">150 ⭐️</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border rounded-4 p-2 text-center bg-light">
+                                <span class="fw-bold fs-5">200 ⭐️</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Purchase Button -->
+                    <div class="mt-4">
+                        <button class="btn btn-primary w-100 py-3 rounded-4 fw-bold" onclick="tg.showPopup({title:'Buy Stars', message:'🚀 Purchase stars instantly!\n\nContact @admin for bulk orders.'})">
+                            <i class="bi bi-lightning-fill"></i> Purchase Stars Now
+                        </button>
+                        <p class="text-muted small text-center mt-2">⚡ Instant delivery • 24/7 Support</p>
+                    </div>
+                </div>
+                
+                <!-- Verified Badge -->
+                <div class="text-center mt-3">
+                    <span class="badge bg-success p-2">✅ All bots 100% Payment Verified</span>
                 </div>
             </section>
 
-            <!-- PREMIUM SECTION - COMPLETELY RESTORED & UPDATED -->
+            <!-- PREMIUM SECTION - VERTICAL STACKED CARDS -->
             <section id="sec-premium" class="fade-in d-none">
                 <!-- Maintenance Message -->
                 <div class="maintenance-box shadow-lg">
@@ -714,106 +962,98 @@
                     <span class="badge bg-primary p-2">🇪🇹 Birr (ETB)</span>
                 </div>
 
-                <!-- Premium Packages - FULLY RESTORED with all 4 cards -->
-                <div class="row g-3 mb-4">
+                <!-- Premium Packages - VERTICAL STACK (one below the other) -->
+                <div class="premium-container">
                     <!-- Monthly Package -->
-                    <div class="col-6">
-                        <div class="premium-package-card card-1">
-                            <div class="premium-badge">
-                                <i class="bi bi-star-fill"></i> POPULAR
-                            </div>
-                            <i class="bi bi-calendar-check fs-1 mb-2"></i>
-                            <h5 class="fw-bold">Monthly</h5>
-                            <div class="price-tag">
-                                $4.99 <small>/mo</small>
-                            </div>
-                            <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
-                            <ul class="feature-list-premium">
-                                <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
-                            </ul>
-                            <button class="buy-btn" onclick="showMaintenance()">
-                                <i class="bi bi-lock-fill"></i> Buy Now
-                            </button>
+                    <div class="premium-package-card card-1">
+                        <div class="premium-badge">
+                            <i class="bi bi-star-fill"></i> POPULAR
                         </div>
+                        <i class="bi bi-calendar-check fs-1 mb-2"></i>
+                        <h5 class="fw-bold">Monthly</h5>
+                        <div class="price-tag">
+                            $4.99 <small>/mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
                     </div>
 
                     <!-- 3 Months Package -->
-                    <div class="col-6">
-                        <div class="premium-package-card card-2">
-                            <div class="premium-badge">
-                                <i class="bi bi-lightning-fill"></i> SAVE 10%
-                            </div>
-                            <i class="bi bi-calendar3 fs-1 mb-2"></i>
-                            <h5 class="fw-bold">3 Months</h5>
-                            <div class="price-tag">
-                                $13.99 <small>/3mo</small>
-                            </div>
-                            <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
-                            <ul class="feature-list-premium">
-                                <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
-                                <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
-                            </ul>
-                            <button class="buy-btn" onclick="showMaintenance()">
-                                <i class="bi bi-lock-fill"></i> Buy Now
-                            </button>
+                    <div class="premium-package-card card-2">
+                        <div class="premium-badge">
+                            <i class="bi bi-lightning-fill"></i> SAVE 10%
                         </div>
+                        <i class="bi bi-calendar3 fs-1 mb-2"></i>
+                        <h5 class="fw-bold">3 Months</h5>
+                        <div class="price-tag">
+                            $13.99 <small>/3mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
+                            <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
                     </div>
 
                     <!-- 6 Months Package -->
-                    <div class="col-6">
-                        <div class="premium-package-card card-3">
-                            <div class="premium-badge">
-                                <i class="bi bi-gem"></i> SAVE 15%
-                            </div>
-                            <i class="bi bi-calendar2-week fs-1 mb-2"></i>
-                            <h5 class="fw-bold">6 Months</h5>
-                            <div class="price-tag">
-                                $24.99 <small>/6mo</small>
-                            </div>
-                            <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
-                            <ul class="feature-list-premium">
-                                <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
-                                <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
-                            </ul>
-                            <button class="buy-btn" onclick="showMaintenance()">
-                                <i class="bi bi-lock-fill"></i> Buy Now
-                            </button>
+                    <div class="premium-package-card card-3">
+                        <div class="premium-badge">
+                            <i class="bi bi-gem"></i> SAVE 15%
                         </div>
+                        <i class="bi bi-calendar2-week fs-1 mb-2"></i>
+                        <h5 class="fw-bold">6 Months</h5>
+                        <div class="price-tag">
+                            $24.99 <small>/6mo</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
                     </div>
 
                     <!-- 1 Year Package -->
-                    <div class="col-6">
-                        <div class="premium-package-card card-4">
-                            <div class="premium-badge">
-                                <i class="bi bi-crown"></i> BEST VALUE
-                            </div>
-                            <i class="bi bi-calendar-year fs-1 mb-2"></i>
-                            <h5 class="fw-bold">1 Year</h5>
-                            <div class="price-tag">
-                                $39.99 <small>/yr</small>
-                            </div>
-                            <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
-                            <ul class="feature-list-premium">
-                                <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
-                            </ul>
-                            <button class="buy-btn" onclick="showMaintenance()">
-                                <i class="bi bi-lock-fill"></i> Buy Now
-                            </button>
+                    <div class="premium-package-card card-4">
+                        <div class="premium-badge">
+                            <i class="bi bi-crown"></i> BEST VALUE
                         </div>
+                        <i class="bi bi-calendar-year fs-1 mb-2"></i>
+                        <h5 class="fw-bold">1 Year</h5>
+                        <div class="price-tag">
+                            $39.99 <small>/yr</small>
+                        </div>
+                        <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
+                        <ul class="feature-list-premium">
+                            <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
+                        </ul>
+                        <button class="buy-btn" onclick="showMaintenance()">
+                            <i class="bi bi-lock-fill"></i> Buy Now
+                        </button>
                     </div>
                 </div>
                 
