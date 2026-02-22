@@ -21,11 +21,13 @@
             --star-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --star-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --star-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-shadow: 0 20px 35px -10px rgba(0,0,0,0.15);
+            --hover-transform: translateY(-8px) scale(1.02);
         }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--tg-theme-bg-color);
+            background: linear-gradient(145deg, #f6f9fc 0%, #edf2f7 100%);
             margin: 0;
             padding-bottom: 90px;
             color: #1c1c1e;
@@ -34,7 +36,7 @@
         .app-shell {
             max-width: 480px;
             margin: 0 auto;
-            background: #fdfdfd;
+            background: transparent;
             min-height: 100vh;
             position: relative;
         }
@@ -49,6 +51,7 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
             padding: 15px;
+            margin-bottom: 10px;
         }
 
         /* Hero */
@@ -61,180 +64,6 @@
             color: white;
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        /* Search & Filters */
-        .search-box {
-            background: #f1f1f1;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 15px;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .filter-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding-bottom: 5px;
-            scrollbar-width: none;
-        }
-        .filter-scroll::-webkit-scrollbar { display: none; }
-
-        .chip {
-            padding: 6px 16px;
-            border-radius: 20px;
-            background: #fff;
-            border: 1px solid #ddd;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-        .chip.active {
-            background: var(--primary-blue);
-            color: #fff;
-            border-color: var(--primary-blue);
-        }
-
-        /* Job Cards */
-        .card-job {
-            background: #fff;
-            border-radius: 20px;
-            border: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .card-img {
-            height: 160px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .job-content {
-            padding: 18px;
-        }
-
-        .job-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .app-badge {
-            display: inline-block;
-            background: var(--primary-blue);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
-
-        .admin-badge {
-            background: var(--admin-badge);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-left: 8px;
-        }
-
-        /* Amharic Description */
-        .amharic-description {
-            background: #f8f9fa;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        .amharic-text {
-            font-size: 0.95rem;
-            color: #1c1c1e;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .feature-list li {
-            padding: 6px 0;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px dashed #e0e0e0;
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        .feature-list i {
-            color: #28a745;
-            font-size: 1rem;
-            width: 20px;
-        }
-
-        .feature-emoji {
-            font-size: 1.1rem;
-            margin-right: 5px;
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .btn-app {
-            flex: 1;
-            padding: 12px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: none;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .btn-app.details {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-app.download {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .btn-app.tutorial {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-app.admin-edit {
-            background: #6f42c1;
-            color: white;
-        }
-
-        .btn-app:hover {
-            opacity: 0.9;
-            transform: scale(0.98);
         }
 
         /* Profile Sections */
@@ -343,7 +172,7 @@
         }
         .service-card:active { transform: scale(0.95); background: #f8f9fa; }
 
-        /* Premium Cards - Updated for vertical stacking */
+        /* Premium Cards */
         .premium-package-card {
             border-radius: 24px;
             padding: 24px 16px;
@@ -354,7 +183,7 @@
             width: 100%;
             border: none;
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-            margin-bottom: 16px; /* Add space between stacked cards */
+            margin-bottom: 16px;
         }
         
         .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -362,7 +191,6 @@
         .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
         .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
 
-        /* Container for premium cards - now vertical */
         .premium-container {
             display: flex;
             flex-direction: column;
@@ -485,9 +313,7 @@
             display: inline-block;
         }
 
-        /* ========== MODERN STARS SECTION - COMPLETELY REDESIGNED ========== */
-        
-        /* Modern Glass Header */
+        /* ========== MODERN STARS SECTION ========== */
         .modern-stars-header {
             background: linear-gradient(145deg, #1a1a2e, #16213e);
             border-radius: 32px;
@@ -558,7 +384,6 @@
             margin-top: 10px;
         }
         
-        /* Modern Info Card */
         .modern-info-card {
             background: linear-gradient(145deg, #ffffff, #f8f9ff);
             border-radius: 28px;
@@ -568,19 +393,6 @@
             border: 1px solid rgba(0,0,0,0.03);
             transform: translateY(0);
             transition: all 0.3s ease;
-        }
-        
-        .modern-info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -10px rgba(0,136,204,0.2);
-        }
-        
-        .modern-info-card h5 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #2C3E50, #4A5568);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         
         .method-chips {
@@ -623,7 +435,6 @@
             box-shadow: 0 10px 20px -5px rgba(21,101,192,0.3);
         }
         
-        /* Modern Cards */
         .modern-star-card {
             background: white;
             border-radius: 32px;
@@ -648,12 +459,6 @@
             animation: gradientMove 3s ease infinite;
         }
         
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
         .modern-star-card.free-card::before {
             background: linear-gradient(90deg, #2e7d32, #4caf50, #2e7d32);
         }
@@ -662,48 +467,6 @@
             background: linear-gradient(90deg, #1565c0, #1976d2, #1565c0);
         }
         
-        .card-header-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .badge-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-        
-        .badge-icon.free {
-            background: linear-gradient(145deg, #4caf50, #2e7d32);
-            color: white;
-            box-shadow: 0 10px 15px -5px rgba(76,175,80,0.4);
-        }
-        
-        .badge-icon.buy {
-            background: linear-gradient(145deg, #2196f3, #1565c0);
-            color: white;
-            box-shadow: 0 10px 15px -5px rgba(33,150,243,0.4);
-        }
-        
-        .badge-text h6 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0;
-        }
-        
-        .badge-text p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        /* Bot Cards Grid */
         .bots-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -723,96 +486,6 @@
             overflow: hidden;
         }
         
-        .bot-card-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px -8px rgba(0,136,204,0.3);
-            border-color: var(--primary-blue);
-        }
-        
-        .bot-card-item .bot-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(145deg, var(--primary-blue), #0066a1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .bot-card-item:hover .bot-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .bot-card-item .bot-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-        
-        .bot-card-item .badge-autopay {
-            background: #28a745;
-            color: white;
-            font-size: 0.6rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        
-        .autopay-note {
-            background: linear-gradient(145deg, #fff3cd, #ffe69b);
-            border-radius: 16px;
-            padding: 15px;
-            margin: 20px 0;
-            border-left: 4px solid #ffc107;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        
-        .tutorial-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        
-        .tutorial-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: none;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .tutorial-btn.youtube {
-            background: #FF0000;
-            color: white;
-        }
-        
-        .tutorial-btn.tiktok {
-            background: #000000;
-            color: white;
-        }
-        
-        .tutorial-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
-        }
-        
-        /* Modern Star Packages */
         .star-packages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -831,33 +504,6 @@
             box-shadow: 0 8px 15px -5px rgba(0,0,0,0.1);
         }
         
-        .package-item:hover {
-            border-color: #FFD700;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 30px -8px rgba(255,215,0,0.4);
-        }
-        
-        .package-item.selected {
-            border-color: #FFD700;
-            background: linear-gradient(145deg, #fff9e6, #fff3cd);
-        }
-        
-        .package-stars {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-        }
-        
-        .package-label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        /* Modern Purchase Button */
         .modern-purchase-btn {
             background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
             background-size: 200% 200%;
@@ -872,40 +518,453 @@
             transition: all 0.3s ease;
             animation: gradientShift 3s ease infinite;
             box-shadow: 0 15px 25px -8px rgba(255,215,0,0.5);
+        }
+
+        /* ========== MODERN JOBS SECTION - COMPLETELY REDESIGNED ========== */
+        
+        /* Modern Search Bar */
+        .modern-search-container {
+            background: white;
+            border-radius: 40px;
+            padding: 5px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 30px -10px rgba(0,136,204,0.15);
+            border: 1px solid rgba(0,136,204,0.1);
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modern-search-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), #0066a1);
+            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 15px -5px var(--primary-blue);
+        }
+        
+        .modern-search-input {
+            flex: 1;
+            border: none;
+            padding: 0 15px;
+            font-size: 1rem;
+            background: transparent;
+            outline: none;
+        }
+        
+        .modern-search-input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .modern-search-filter {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modern-search-filter:hover {
+            transform: rotate(180deg);
+        }
+        
+        /* Category Tabs - Modern */
+        .categories-wrapper {
+            margin-bottom: 25px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .categories-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .categories-scroll {
+            display: flex;
+            gap: 12px;
+            padding: 5px 2px;
+        }
+        
+        .category-tab {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 40px;
+            padding: 12px 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px -5px rgba(0,0,0,0.1);
+        }
+        
+        .category-tab i {
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -8px var(--primary-blue);
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary-blue), #0066a1);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 15px 25px -8px var(--primary-blue);
+        }
+        
+        .category-tab.active i {
+            color: white;
+        }
+        
+        .category-tab.app-tab.active {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+        }
+        
+        .category-tab.bot-tab.active {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .category-tab.web-tab.active {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+        
+        /* Stats Banner */
+        .jobs-stats-banner {
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,136,204,0.1);
+        }
+        
+        .stat-item-modern {
+            text-align: center;
+        }
+        
+        .stat-value-modern {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-blue), #0066a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .stat-label-modern {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+        
+        /* Modern Job Cards */
+        .modern-job-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+        
+        .modern-job-card:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 30px 45px -12px rgba(0,136,204,0.25);
+        }
+        
+        .job-card-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .job-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .modern-job-card:hover .job-card-img {
+            transform: scale(1.1);
+        }
+        
+        .job-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8) 100%);
+        }
+        
+        .job-card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 15px -5px rgba(0,0,0,0.2);
+        }
+        
+        .job-card-badge.app-badge-job {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+        }
+        
+        .job-card-badge.bot-badge-job {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+        
+        .job-card-badge.web-badge-job {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+        
+        .job-card-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .job-card-content {
+            padding: 20px;
+        }
+        
+        /* Modern Amharic Card */
+        .modern-amharic-card {
+            background: linear-gradient(145deg, #f8f9ff, #ffffff);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,136,204,0.1);
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.05);
+        }
+        
+        .amharic-title {
+            display: flex;
+            align-items: center;
             gap: 10px;
+            margin-bottom: 15px;
         }
         
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .amharic-flag {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1a5f3e, #2e8b57);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            font-size: 1.2rem;
         }
         
-        .modern-purchase-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 35px -5px rgba(255,215,0,0.7);
+        .amharic-title span {
+            font-weight: 700;
+            color: #333;
         }
         
-        .modern-purchase-btn:active {
+        .amharic-text-modern {
+            font-size: 1rem;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(0,136,204,0.05);
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-blue);
+        }
+        
+        /* Modern Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .feature-item-modern {
+            background: rgba(0,136,204,0.03);
+            border-radius: 18px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(0,136,204,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item-modern:hover {
+            background: rgba(0,136,204,0.08);
+            transform: translateX(5px);
+        }
+        
+        .feature-icon-modern {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary-blue), #0066a1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .feature-text-modern {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+        
+        .feature-value {
+            font-size: 0.75rem;
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        /* Modern Action Buttons */
+        .modern-action-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .modern-action-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 14px 5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            color: #333;
+            box-shadow: 0 5px 10px -3px rgba(0,0,0,0.1);
+        }
+        
+        .modern-action-btn.details-btn {
+            background: linear-gradient(145deg, #28a745, #20c997);
+            color: white;
+            border: none;
+        }
+        
+        .modern-action-btn.download-btn {
+            background: linear-gradient(145deg, var(--primary-blue), #0066a1);
+            color: white;
+            border: none;
+        }
+        
+        .modern-action-btn.tutorial-btn {
+            background: linear-gradient(145deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+        }
+        
+        .modern-action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px -8px rgba(0,136,204,0.4);
+        }
+        
+        .modern-action-btn:active {
             transform: translateY(2px);
         }
         
-        .payment-badges {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
+        /* Earnings Badge */
+        .earnings-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,215,0,0.1);
+            padding: 8px 15px;
+            border-radius: 40px;
+            margin-top: 15px;
+            border: 1px dashed #FFD700;
         }
         
-        .payment-badge {
-            background: rgba(0,136,204,0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            color: var(--primary-blue);
+        .earnings-badge i {
+            color: #FFD700;
+        }
+        
+        .earnings-badge span {
             font-weight: 600;
+            color: #333;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h5 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: #999;
+            margin-bottom: 20px;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, var(--primary-blue), #0066a1);
+            border: none;
+            border-radius: 40px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         /* Bottom Navigation */
@@ -936,6 +995,21 @@
 
         .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Loading Animation */
+        .skeleton-loader {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 32px;
+            height: 400px;
+            margin-bottom: 25px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body>
@@ -1000,103 +1074,371 @@
                 </div>
             </section>
 
-            <!-- JOBS SECTION -->
+            <!-- MODERN JOBS SECTION - COMPLETELY REDESIGNED -->
             <section id="sec-jobs" class="fade-in d-none">
-                <input type="text" class="search-box" placeholder="Search tasks..." id="jobSearch">
-                
-                <div class="filter-scroll mb-3">
-                    <div class="chip active" onclick="filterType('all', this)">All</div>
-                    <div class="chip" onclick="filterType('app', this)">📲 Apps (4)</div>
-                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots</div>
-                    <div class="chip" onclick="filterType('web', this)">🌐 Web</div>
+                <!-- Modern Search Bar -->
+                <div class="modern-search-container">
+                    <div class="modern-search-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <input type="text" class="modern-search-input" placeholder="Search tasks, apps, bots..." id="modernJobSearch">
+                    <div class="modern-search-filter" onclick="toggleFilter()">
+                        <i class="bi bi-sliders2"></i>
+                    </div>
                 </div>
 
-                <div id="job-container">
-                    <!-- Gemgala -->
-                    <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500" class="card-img" alt="Gemgala">
-                        <div class="job-content">
-                            <div class="job-title">Gemgala 💎 <span class="app-badge">App</span></div>
-                            <div class="amharic-description">
-                                <div class="amharic-text">🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀</div>
-                                <ul class="feature-list">
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Payment Verified</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💸</span> Minimum Withdraw 10$</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🤑</span> 1$ Per Referral</li>
-                                </ul>
+                <!-- Modern Category Tabs -->
+                <div class="categories-wrapper">
+                    <div class="categories-scroll" id="categoryTabs">
+                        <div class="category-tab active" onclick="filterJobs('all', this)" data-category="all">
+                            <i class="bi bi-grid-3x3-gap-fill"></i> All Jobs
+                        </div>
+                        <div class="category-tab app-tab" onclick="filterJobs('app', this)" data-category="app">
+                            <i class="bi bi-phone-fill"></i> Apps
+                        </div>
+                        <div class="category-tab bot-tab" onclick="filterJobs('bot', this)" data-category="bot">
+                            <i class="bi bi-robot"></i> Bots
+                        </div>
+                        <div class="category-tab web-tab" onclick="filterJobs('web', this)" data-category="web">
+                            <i class="bi bi-globe2"></i> Web
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Banner -->
+                <div class="jobs-stats-banner">
+                    <div class="stat-item-modern">
+                        <div class="stat-value-modern" id="totalJobsCount">4</div>
+                        <div class="stat-label-modern">Total Tasks</div>
+                    </div>
+                    <div class="stat-item-modern">
+                        <div class="stat-value-modern" id="activeJobsCount">4</div>
+                        <div class="stat-label-modern">Active</div>
+                    </div>
+                    <div class="stat-item-modern">
+                        <div class="stat-value-modern" id="earnedToday">$127</div>
+                        <div class="stat-label-modern">Earned Today</div>
+                    </div>
+                </div>
+
+                <!-- Modern Job Cards Container -->
+                <div id="modernJobContainer">
+                    <!-- Loading State (will be removed after load) -->
+                    <div class="skeleton-loader" id="loadingSkeleton"></div>
+                    
+                    <!-- Gemgala - Modern Card -->
+                    <div class="modern-job-card" data-type="app" data-job="gemgala">
+                        <div class="job-card-media">
+                            <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500" class="job-card-img" alt="Gemgala">
+                            <div class="job-card-overlay"></div>
+                            <div class="job-card-badge app-badge-job">
+                                <i class="bi bi-phone-fill me-1"></i> Mobile App
                             </div>
-                            <div class="action-buttons">
-                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12625')"><i class="bi bi-info-circle"></i> Details</button>
-                                <button class="btn-app download" onclick="openLink('https://getblock.me/u/24430158')"><i class="bi bi-download"></i> Download</button>
-                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/nQcpFX60puc')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            <div class="job-card-title">Gemgala 💎</div>
+                        </div>
+                        <div class="job-card-content">
+                            <!-- Modern Amharic Card -->
+                            <div class="modern-amharic-card">
+                                <div class="amharic-title">
+                                    <div class="amharic-flag">
+                                        <i class="bi bi-flag-fill"></i>
+                                    </div>
+                                    <span>🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል</span>
+                                </div>
+                                <div class="amharic-text-modern">
+                                    <i class="bi bi-chat-quote-fill text-primary me-2"></i>
+                                    😀 በየቀኑ አዳዲስ ተጠቃሚዎች እየተቀላቀሉ ነው!
+                                </div>
+                            </div>
+
+                            <!-- Modern Feature Grid -->
+                            <div class="feature-grid">
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-check-lg"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Payment Verified</div>
+                                    <div class="feature-value">100%</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-cash-stack"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Min. Withdraw</div>
+                                    <div class="feature-value">$10</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Per Referral</div>
+                                    <div class="feature-value">$1</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-lightning"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Instant Pay</div>
+                                    <div class="feature-value">✅</div>
+                                </div>
+                            </div>
+
+                            <!-- Earnings Badge -->
+                            <div class="earnings-badge">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                <span>Potential earnings: $50+/week</span>
+                            </div>
+
+                            <!-- Modern Action Buttons -->
+                            <div class="modern-action-buttons">
+                                <button class="modern-action-btn details-btn" onclick="openLink('https://t.me/Big_sew/12625')">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </button>
+                                <button class="modern-action-btn download-btn" onclick="openLink('https://getblock.me/u/24430158')">
+                                    <i class="bi bi-download"></i> Download
+                                </button>
+                                <button class="modern-action-btn tutorial-btn" onclick="openLink('https://youtu.be/nQcpFX60puc')">
+                                    <i class="bi bi-play-circle"></i> Tutorial
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Taka -->
-                    <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500" class="card-img" alt="Taka">
-                        <div class="job-content">
-                            <div class="job-title">Taka 🎯 <span class="app-badge">App</span></div>
-                            <div class="amharic-description">
-                                <div class="amharic-text">🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁</div>
-                                <ul class="feature-list">
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎲</span> Spin 7$–8$ ዕድል</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎤</span> 5 ደቂቃ mic on = 1 Spin daily</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 2 Spin</li>
-                                </ul>
+
+                    <!-- Taka - Modern Card -->
+                    <div class="modern-job-card" data-type="app" data-job="taka">
+                        <div class="job-card-media">
+                            <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500" class="job-card-img" alt="Taka">
+                            <div class="job-card-overlay"></div>
+                            <div class="job-card-badge app-badge-job">
+                                <i class="bi bi-phone-fill me-1"></i> Mobile App
                             </div>
-                            <div class="action-buttons">
-                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12532')"><i class="bi bi-info-circle"></i> Details</button>
-                                <button class="btn-app download" onclick="openLink('https://os8.me/WdfkCd')"><i class="bi bi-download"></i> Download</button>
-                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleTakaTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            <div class="job-card-title">Taka 🎯</div>
+                        </div>
+                        <div class="job-card-content">
+                            <div class="modern-amharic-card">
+                                <div class="amharic-title">
+                                    <div class="amharic-flag">
+                                        <i class="bi bi-flag-fill"></i>
+                                    </div>
+                                    <span>🚨 አሁኑኑ መጀመር ያለባችሁ ስራ</span>
+                                </div>
+                                <div class="amharic-text-modern">
+                                    <i class="bi bi-mic-fill text-danger me-2"></i>
+                                    💁 5 ደቂቃ mic on = 1 Spin daily
+                                </div>
+                            </div>
+
+                            <div class="feature-grid">
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-dice-6"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Spin Prize</div>
+                                    <div class="feature-value">$7-8</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-mic"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Daily Spin</div>
+                                    <div class="feature-value">1x</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Per Invite</div>
+                                    <div class="feature-value">2 Spin</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-trophy"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Jackpot</div>
+                                    <div class="feature-value">🎲</div>
+                                </div>
+                            </div>
+
+                            <div class="earnings-badge">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                <span>Potential earnings: $30+/week</span>
+                            </div>
+
+                            <div class="modern-action-buttons">
+                                <button class="modern-action-btn details-btn" onclick="openLink('https://t.me/Big_sew/12532')">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </button>
+                                <button class="modern-action-btn download-btn" onclick="openLink('https://os8.me/WdfkCd')">
+                                    <i class="bi bi-download"></i> Download
+                                </button>
+                                <button class="modern-action-btn tutorial-btn" onclick="openLink('https://youtu.be/exampleTakaTutorial')">
+                                    <i class="bi bi-play-circle"></i> Tutorial
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Hifami -->
-                    <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500" class="card-img" alt="Hifami">
-                        <div class="job-content">
-                            <div class="job-title">Hifami 🎮 <span class="app-badge">App</span></div>
-                            <div class="amharic-description">
-                                <div class="amharic-text">🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅</div>
-                                <ul class="feature-list">
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎮</span> Game በመጫወት ይሰራል</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🔥</span> 0.1$ Per Invite</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 3x Withdrawal Done</li>
-                                </ul>
+
+                    <!-- Hifami - Modern Card -->
+                    <div class="modern-job-card" data-type="app" data-job="hifami">
+                        <div class="job-card-media">
+                            <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500" class="job-card-img" alt="Hifami">
+                            <div class="job-card-overlay"></div>
+                            <div class="job-card-badge app-badge-job">
+                                <i class="bi bi-phone-fill me-1"></i> Mobile App
                             </div>
-                            <div class="action-buttons">
-                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12516')"><i class="bi bi-info-circle"></i> Details</button>
-                                <button class="btn-app download" onclick="openLink('https://s.hifamiapp.com/1/cfUpkaAgC')"><i class="bi bi-download"></i> Download</button>
-                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleHifamiTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            <div class="job-card-title">Hifami 🎮</div>
+                        </div>
+                        <div class="job-card-content">
+                            <div class="modern-amharic-card">
+                                <div class="amharic-title">
+                                    <div class="amharic-flag">
+                                        <i class="bi bi-flag-fill"></i>
+                                    </div>
+                                    <span>🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ</span>
+                                </div>
+                                <div class="amharic-text-modern">
+                                    <i class="bi bi-controller-fill text-success me-2"></i>
+                                    ✅ Game በመጫወት ይሰራል
+                                </div>
+                            </div>
+
+                            <div class="feature-grid">
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-controller"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Game Tasks</div>
+                                    <div class="feature-value">🎮</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Per Invite</div>
+                                    <div class="feature-value">$0.1</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-cash"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Min. Withdraw</div>
+                                    <div class="feature-value">$0.3</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Withdrawals</div>
+                                    <div class="feature-value">3x</div>
+                                </div>
+                            </div>
+
+                            <div class="earnings-badge">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                <span>Potential earnings: $20+/week</span>
+                            </div>
+
+                            <div class="modern-action-buttons">
+                                <button class="modern-action-btn details-btn" onclick="openLink('https://t.me/Big_sew/12516')">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </button>
+                                <button class="modern-action-btn download-btn" onclick="openLink('https://s.hifamiapp.com/1/cfUpkaAgC')">
+                                    <i class="bi bi-download"></i> Download
+                                </button>
+                                <button class="modern-action-btn tutorial-btn" onclick="openLink('https://youtu.be/exampleHifamiTutorial')">
+                                    <i class="bi bi-play-circle"></i> Tutorial
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Buzzer -->
-                    <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500" class="card-img" alt="Buzzer">
-                        <div class="job-content">
-                            <div class="job-title">Buzzer 📱 <span class="app-badge">App</span></div>
-                            <div class="amharic-description">
-                                <div class="amharic-text">💰 USDT (Dollar) መስራት ትችላላችሁ</div>
-                                <ul class="feature-list">
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎬</span> Watch Video</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❤️</span> Like ❤️ Comment 💬</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 0.15$</li>
-                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Withdrawal Proof</li>
-                                </ul>
+
+                    <!-- Buzzer - Modern Card -->
+                    <div class="modern-job-card" data-type="app" data-job="buzzer">
+                        <div class="job-card-media">
+                            <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500" class="job-card-img" alt="Buzzer">
+                            <div class="job-card-overlay"></div>
+                            <div class="job-card-badge app-badge-job">
+                                <i class="bi bi-phone-fill me-1"></i> Mobile App
                             </div>
-                            <div class="action-buttons">
-                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12338')"><i class="bi bi-info-circle"></i> Details</button>
-                                <button class="btn-app download" onclick="openLink('https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892')"><i class="bi bi-download"></i> Download</button>
-                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleBuzzerTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            <div class="job-card-title">Buzzer 📱</div>
+                        </div>
+                        <div class="job-card-content">
+                            <div class="modern-amharic-card">
+                                <div class="amharic-title">
+                                    <div class="amharic-flag">
+                                        <i class="bi bi-flag-fill"></i>
+                                    </div>
+                                    <span>💰 USDT (Dollar) መስራት ትችላላችሁ</span>
+                                </div>
+                                <div class="amharic-text-modern">
+                                    <i class="bi bi-camera-reels-fill text-primary me-2"></i>
+                                    🎬 Watch Video • ❤️ Like • 💬 Comment
+                                </div>
+                            </div>
+
+                            <div class="feature-grid">
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-play-btn"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Watch Videos</div>
+                                    <div class="feature-value">🎬</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-heart"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Like/Comment</div>
+                                    <div class="feature-value">❤️</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Per Invite</div>
+                                    <div class="feature-value">$0.15</div>
+                                </div>
+                                <div class="feature-item-modern">
+                                    <div class="feature-icon-modern">
+                                        <i class="bi bi-patch-check"></i>
+                                    </div>
+                                    <div class="feature-text-modern">Withdrawal</div>
+                                    <div class="feature-value">100%</div>
+                                </div>
+                            </div>
+
+                            <div class="earnings-badge">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                <span>Potential earnings: $40+/week</span>
+                            </div>
+
+                            <div class="modern-action-buttons">
+                                <button class="modern-action-btn details-btn" onclick="openLink('https://t.me/Big_sew/12338')">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </button>
+                                <button class="modern-action-btn download-btn" onclick="openLink('https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892')">
+                                    <i class="bi bi-download"></i> Download
+                                </button>
+                                <button class="modern-action-btn tutorial-btn" onclick="openLink('https://youtu.be/exampleBuzzerTutorial')">
+                                    <i class="bi bi-play-circle"></i> Tutorial
+                                </button>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Empty State (hidden by default) -->
+                    <div class="empty-state d-none" id="emptyState">
+                        <i class="bi bi-search-heart"></i>
+                        <h5>No Jobs Found</h5>
+                        <p>Try adjusting your search or filter to find what you're looking for.</p>
+                        <button class="reset-btn" onclick="resetFilters()">
+                            <i class="bi bi-arrow-repeat me-2"></i>Reset Filters
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- STARS SECTION - COMPLETELY MODERN REDESIGN -->
+            <!-- STARS SECTION -->
             <section id="sec-stars" class="fade-in d-none">
                 <!-- Modern Glass Header with Animations -->
                 <div class="modern-stars-header">
@@ -1132,7 +1474,7 @@
                     </div>
                 </div>
 
-                <!-- FREE STARS METHOD (Modern Design) -->
+                <!-- FREE STARS METHOD -->
                 <div id="freeMethodSection">
                     <div class="modern-star-card free-card">
                         <div class="card-header-badge">
@@ -1157,7 +1499,6 @@
 
                         <!-- Bot Cards Grid -->
                         <div class="bots-grid">
-                            <!-- Bot 1 -->
                             <div class="bot-card-item" onclick="openLink('https://t.me/StarsMakeBot?start=AK1gwAzUc')">
                                 <div class="bot-icon">
                                     <i class="bi bi-robot"></i>
@@ -1165,24 +1506,18 @@
                                 <div class="bot-name">StarsMakeBot</div>
                                 <span class="badge-autopay">Auto Pay</span>
                             </div>
-                            
-                            <!-- Bot 2 -->
                             <div class="bot-card-item" onclick="openLink('https://t.me/StarsovEarnBot?start=FppTwt0K5')">
                                 <div class="bot-icon">
                                     <i class="bi bi-robot"></i>
                                 </div>
                                 <div class="bot-name">StarsovEarnBot</div>
                             </div>
-                            
-                            <!-- Bot 3 -->
                             <div class="bot-card-item" onclick="openLink('https://t.me/StarsovGamesBot?start=t2R6NvIx0')">
                                 <div class="bot-icon">
                                     <i class="bi bi-robot"></i>
                                 </div>
                                 <div class="bot-name">StarsovGamesBot</div>
                             </div>
-                            
-                            <!-- Bot 4 -->
                             <div class="bot-card-item" onclick="openLink('https://t.me/duckearnbot?start=ref_5522724001')">
                                 <div class="bot-icon">
                                     <i class="bi bi-robot"></i>
@@ -1209,7 +1544,7 @@
                     </div>
                 </div>
 
-                <!-- BUY STARS METHOD (Modern Design) - Initially Hidden -->
+                <!-- BUY STARS METHOD -->
                 <div id="buyMethodSection" style="display: none;">
                     <div class="modern-star-card buy-card">
                         <div class="card-header-badge">
@@ -1287,7 +1622,7 @@
                 </div>
             </section>
 
-            <!-- PREMIUM SECTION - VERTICAL STACKED CARDS -->
+            <!-- PREMIUM SECTION -->
             <section id="sec-premium" class="fade-in d-none">
                 <!-- Maintenance Message -->
                 <div class="maintenance-box shadow-lg">
@@ -1326,9 +1661,8 @@
                     <span class="badge bg-primary p-2">🇪🇹 Birr (ETB)</span>
                 </div>
 
-                <!-- Premium Packages - VERTICAL STACK (one below the other) -->
+                <!-- Premium Packages -->
                 <div class="premium-container">
-                    <!-- Monthly Package -->
                     <div class="premium-package-card card-1">
                         <div class="premium-badge">
                             <i class="bi bi-star-fill"></i> POPULAR
@@ -1351,7 +1685,6 @@
                         </button>
                     </div>
 
-                    <!-- 3 Months Package -->
                     <div class="premium-package-card card-2">
                         <div class="premium-badge">
                             <i class="bi bi-lightning-fill"></i> SAVE 10%
@@ -1374,7 +1707,6 @@
                         </button>
                     </div>
 
-                    <!-- 6 Months Package -->
                     <div class="premium-package-card card-3">
                         <div class="premium-badge">
                             <i class="bi bi-gem"></i> SAVE 15%
@@ -1397,7 +1729,6 @@
                         </button>
                     </div>
 
-                    <!-- 1 Year Package -->
                     <div class="premium-package-card card-4">
                         <div class="premium-badge">
                             <i class="bi bi-crown"></i> BEST VALUE
@@ -1421,7 +1752,6 @@
                     </div>
                 </div>
                 
-                <!-- Additional Premium Info -->
                 <div class="card bg-light border-0 rounded-4 p-3 mb-3">
                     <div class="d-flex align-items-center gap-3">
                         <i class="bi bi-patch-check-fill text-primary fs-1"></i>
@@ -1435,7 +1765,6 @@
 
             <!-- PROFILE+ SECTION -->
             <section id="sec-profile" class="fade-in d-none">
-                <!-- dynamic profile content injected via js -->
                 <div id="profileContainer"></div>
             </section>
 
@@ -1458,7 +1787,7 @@
     tg.expand();
 
     // ---------- AUTO LOGIN & ADMIN DETECTION ----------
-    const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
+    const ADMIN_USERNAME = "hayre32";
     let currentUser = { id: 0, first_name: 'User', username: '' };
     let isAdmin = false;
 
@@ -1477,7 +1806,7 @@
     }
     updateUserUI();
 
-    // ---------- PROFILE SECTION GENERATOR (advanced) ----------
+    // ---------- PROFILE SECTION ----------
     function renderProfile() {
         const container = document.getElementById('profileContainer');
         if (!container) return;
@@ -1532,7 +1861,6 @@
             </div>
         `;
 
-        // ---------- ADMIN PANEL (visible only to @hayre32) ----------
         if (isAdmin) {
             html += `
                 <div class="admin-panel fade-in mt-3">
@@ -1585,7 +1913,6 @@
             `;
         }
 
-        // ---------- USER SECTION (visible to everyone, extra user tools) ----------
         html += `
             <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
                 <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
@@ -1601,7 +1928,105 @@
         container.innerHTML = html;
     }
 
-    // ---------- STARS SECTION MODERN FUNCTIONS ----------
+    // ---------- MODERN JOBS SECTION FUNCTIONS ----------
+    let currentFilter = 'all';
+    let searchTerm = '';
+
+    // Remove loading skeleton after page load
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            const skeleton = document.getElementById('loadingSkeleton');
+            if (skeleton) {
+                skeleton.style.display = 'none';
+            }
+        }, 500);
+    });
+
+    function filterJobs(category, element) {
+        currentFilter = category;
+        
+        // Update active tab
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        element.classList.add('active');
+        
+        // Filter jobs
+        filterJobsList();
+        
+        tg.HapticFeedback.selectionChanged();
+    }
+
+    function filterJobsList() {
+        const jobs = document.querySelectorAll('.modern-job-card');
+        let visibleCount = 0;
+        
+        jobs.forEach(job => {
+            const jobType = job.dataset.type;
+            const jobTitle = job.dataset.job || '';
+            const matchesCategory = currentFilter === 'all' || jobType === currentFilter;
+            const matchesSearch = jobTitle.includes(searchTerm) || 
+                                 job.querySelector('.job-card-title')?.innerText.toLowerCase().includes(searchTerm) ||
+                                 job.querySelector('.amharic-text-modern')?.innerText.toLowerCase().includes(searchTerm);
+            
+            if (matchesCategory && matchesSearch) {
+                job.style.display = 'block';
+                visibleCount++;
+            } else {
+                job.style.display = 'none';
+            }
+        });
+        
+        // Update counts
+        document.getElementById('totalJobsCount').innerText = jobs.length;
+        document.getElementById('activeJobsCount').innerText = visibleCount;
+        
+        // Show/hide empty state
+        const emptyState = document.getElementById('emptyState');
+        if (visibleCount === 0) {
+            emptyState.classList.remove('d-none');
+        } else {
+            emptyState.classList.add('d-none');
+        }
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('modernJobSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value.toLowerCase();
+            filterJobsList();
+        });
+    }
+
+    function toggleFilter() {
+        // Simple filter toggle - could be expanded for advanced filters
+        tg.HapticFeedback.impactOccurred('light');
+        tg.showPopup({
+            title: 'Advanced Filters',
+            message: 'More filter options coming soon!',
+            buttons: [{ id: 'ok', type: 'ok', text: 'OK' }]
+        });
+    }
+
+    function resetFilters() {
+        // Reset search
+        if (searchInput) {
+            searchInput.value = '';
+            searchTerm = '';
+        }
+        
+        // Reset to all category
+        const allTab = document.querySelector('.category-tab[data-category="all"]');
+        if (allTab) {
+            filterJobs('all', allTab);
+        }
+        
+        filterJobsList();
+        tg.HapticFeedback.impactOccurred('light');
+    }
+
+    // ---------- STARS SECTION FUNCTIONS ----------
     let selectedStars = 15;
 
     function showFreeMethod() {
@@ -1624,31 +2049,31 @@
         selectedStars = amount;
         document.getElementById('selectedAmount').textContent = amount;
         
-        // Remove selected class from all packages
         document.querySelectorAll('.package-item').forEach(el => {
             el.classList.remove('selected');
         });
         
-        // Add selected class to clicked package
         element.classList.add('selected');
-        
         tg.HapticFeedback.impactOccurred('light');
     }
 
-    // call render when profile section becomes visible
+    // ---------- NAVIGATION ----------
     function nav(secId, btn) {
         document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
         const target = document.getElementById(secId);
         if (target) target.classList.remove('d-none');
 
-        // special: if profile, render fresh
         if (secId === 'sec-profile') {
             renderProfile();
         }
         
-        // Reset stars section to free method when navigating to stars
         if (secId === 'sec-stars') {
             showFreeMethod();
+        }
+        
+        if (secId === 'sec-jobs') {
+            // Reset filters when navigating to jobs
+            resetFilters();
         }
 
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1661,27 +2086,7 @@
         if (btn) nav(secId, btn);
     }
 
-    // Filter, search
-    function filterType(type, element) {
-        document.querySelectorAll('.card-job').forEach(card => {
-            card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
-        });
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        element.classList.add('active');
-        tg.HapticFeedback.selectionChanged();
-    }
-
-    const searchInput = document.getElementById('jobSearch');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.card-job').forEach(card => {
-                const title = card.querySelector('.job-title')?.innerText.toLowerCase() || '';
-                card.style.display = title.includes(term) ? 'block' : 'none';
-            });
-        });
-    }
-
+    // ---------- UTILITY FUNCTIONS ----------
     function openLink(url) {
         tg.openLink(url);
     }
@@ -1695,7 +2100,6 @@
         });
     }
 
-    // New function specifically for Stars purchase button
     function showStarsMaintenance() {
         tg.HapticFeedback.notificationOccurred('warning');
         tg.showPopup({
@@ -1708,7 +2112,9 @@
     // Expose functions globally
     window.nav = nav;
     window.navigateTo = navigateTo;
-    window.filterType = filterType;
+    window.filterJobs = filterJobs;
+    window.toggleFilter = toggleFilter;
+    window.resetFilters = resetFilters;
     window.openLink = openLink;
     window.showMaintenance = showMaintenance;
     window.showStarsMaintenance = showStarsMaintenance;
