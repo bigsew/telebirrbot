@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Digital Pro · Profile+</title>
+    <title>Bigsew Pro · Profile+</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -97,7 +97,7 @@
             border-color: var(--primary-blue);
         }
 
-        /* Job Cards */
+        /* Job Cards with Image Slider */
         .card-job {
             background: #fff;
             border-radius: 20px;
@@ -108,10 +108,186 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
 
-        .card-img {
-            height: 160px;
+        /* Image Slider Styles */
+        .image-slider-container {
+            position: relative;
             width: 100%;
+            height: 200px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-slider {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        /* Zoom Modal */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .zoom-modal.active {
+            display: flex;
+        }
+
+        .zoomed-image-container {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .zoomed-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        .zoomed-image.zoomed {
+            transform: scale(2);
+            cursor: zoom-out;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .zoom-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        /* Slider Navigation */
+        .slider-nav {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            width: 20px;
+            background: white;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-arrow.left {
+            left: 10px;
+        }
+
+        .slider-arrow.right {
+            right: 10px;
+        }
+
+        /* Image Counter */
+        .image-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            z-index: 10;
+            backdrop-filter: blur(5px);
         }
 
         .job-content {
@@ -237,7 +413,7 @@
             transform: scale(0.98);
         }
 
-        /* Profile Sections */
+        /* Profile Sections (keep existing) */
         .profile-header-card {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 30px;
@@ -485,9 +661,7 @@
             display: inline-block;
         }
 
-        /* ========== MODERN STARS SECTION - COMPLETELY REDESIGNED ========== */
-        
-        /* Modern Glass Header */
+        /* Modern Stars Section (keep existing) */
         .modern-stars-header {
             background: linear-gradient(145deg, #1a1a2e, #16213e);
             border-radius: 32px;
@@ -558,7 +732,6 @@
             margin-top: 10px;
         }
         
-        /* Modern Info Card */
         .modern-info-card {
             background: linear-gradient(145deg, #ffffff, #f8f9ff);
             border-radius: 28px;
@@ -623,7 +796,6 @@
             box-shadow: 0 10px 20px -5px rgba(21,101,192,0.3);
         }
         
-        /* Modern Cards */
         .modern-star-card {
             background: white;
             border-radius: 32px;
@@ -703,7 +875,6 @@
             color: #666;
         }
         
-        /* Bot Cards Grid */
         .bots-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -812,7 +983,6 @@
             box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
         }
         
-        /* Modern Star Packages */
         .star-packages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -857,7 +1027,6 @@
             margin-top: 5px;
         }
         
-        /* Modern Purchase Button */
         .modern-purchase-btn {
             background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
             background-size: 200% 200%;
@@ -945,7 +1114,7 @@
     <header class="glass-header">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h5 class="fw-bold mb-0">Digital Pro</h5>
+                <h5 class="fw-bold mb-0">Bigsew Pro</h5>
                 <span class="small text-muted" id="user-status">Loading...</span>
             </div>
             <div class="d-flex align-items-center gap-2">
@@ -963,7 +1132,7 @@
                 <div class="hero-card shadow">
                     <h2 class="fw-bold" id="welcomeName">Welcome Back!</h2>
                     <p class="small opacity-75">Start earning and growing your digital presence today.</p>
-                    <button class="btn btn-light btn-sm rounded-pill px-4 fw-bold" onclick="navigateTo('sec-jobs')">View Daily Tasks</button>
+                    <button class="btn btn-light btn-sm rounded-pill px-4 fw-bold" onclick="navigateTo('sec-jobs')">View All works </button>
                 </div>
 
                 <h6 class="fw-bold mb-3"><i class="bi bi-play-btn-fill text-danger"></i> Featured Tutorial</h6>
@@ -974,15 +1143,15 @@
                 <h6 class="fw-bold mb-3">Our Social Community</h6>
                 <div class="row g-3 mb-4">
                     <div class="col-4">
-                        <a href="https://t.me/example" class="text-decoration-none">
+                        <a href="https://t.me/Big_sew" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-telegram fs-2 text-primary"></i>
-                                <div class="small mt-1 text-dark">Join Group</div>
+                                <div class="small mt-1 text-dark">Join cahnnle</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-4">
-                        <a href="https://youtube.com/example" class="text-decoration-none">
+                        <a href="https://youtube.com/@big_sew?si=3co9QhjiQlZ7Iqlx" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-youtube fs-2 text-danger"></i>
                                 <div class="small mt-1 text-dark">Subscribe</div>
@@ -990,7 +1159,7 @@
                         </a>
                     </div>
                     <div class="col-4">
-                        <a href="https://tiktok.com/example" class="text-decoration-none">
+                        <a href="https://www.tiktok.com/@big_sew?_r=1&_t=ZS-948zzGURwI8" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-tiktok fs-2 text-dark"></i>
                                 <div class="small mt-1 text-dark">Follow</div>
@@ -1000,7 +1169,7 @@
                 </div>
             </section>
 
-            <!-- JOBS SECTION -->
+            <!-- JOBS SECTION WITH IMAGE SLIDER -->
             <section id="sec-jobs" class="fade-in d-none">
                 <input type="text" class="search-box" placeholder="Search tasks..." id="jobSearch">
                 
@@ -1012,9 +1181,19 @@
                 </div>
 
                 <div id="job-container">
-                    <!-- Gemgala -->
+                    <!-- Gemgala with Image Slider -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500" class="card-img" alt="Gemgala">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/gemgla.jpg" class="slide-image" alt="Gemgala 1">
+                                <img src="image/gemgala-2.jpg" class="slide-image" alt="Gemgala 2">
+                                <img src="image/gemgala-3.jpg" class="slide-image" alt="Gemgala 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Gemgala 💎 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -1032,9 +1211,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Taka -->
+
+                    <!-- Taka with Image Slider -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500" class="card-img" alt="Taka">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/taka.jpg" class="slide-image" alt="Taka 1">
+                                <img src="image/taka-2.jpg" class="slide-image" alt="Taka 2">
+                                <img src="image/taka-3.jpg" class="slide-image" alt="Taka 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Taka 🎯 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -1052,9 +1242,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Hifami -->
+
+                    <!-- Hifami with Image Slider -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500" class="card-img" alt="Hifami">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/hifami.jpg" class="slide-image" alt="Hifami 1">
+                                <img src="https://via.placeholder.com/480x200/198754/ffffff?text=Hifami+App+2" class="slide-image" alt="Hifami 2">
+                                <img src="https://via.placeholder.com/480x200/0dcaf0/000000?text=Hifami+App+3" class="slide-image" alt="Hifami 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Hifami 🎮 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -1072,9 +1273,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Buzzer -->
+
+                    <!-- Buzzer with Image Slider -->
                     <div class="card-job shadow-sm" data-type="app">
-                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500" class="card-img" alt="Buzzer">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/buzzer.jpg" class="slide-image" alt="Buzzer 1">
+                                <img src="https://via.placeholder.com/480x200/0d6efd/ffffff?text=Buzzer+App+2" class="slide-image" alt="Buzzer 2">
+                                <img src="https://via.placeholder.com/480x200/d63384/ffffff?text=Buzzer+App+3" class="slide-image" alt="Buzzer 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Buzzer 📱 <span class="app-badge">App</span></div>
                             <div class="amharic-description">
@@ -1093,10 +1305,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- NEW BOT JOB: Gmail Farmer Bot -->
+
+                    <!-- Gmail Farmer Bot with Image Slider -->
                     <div class="card-job shadow-sm" data-type="bot">
-                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500" class="card-img" alt="Gmail Farmer Bot">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/gmail.jpg" class="slide-image" alt="Gmail Bot 1">
+                                <img src="https://via.placeholder.com/480x200/007bff/ffffff?text=Gmail+Bot+2" class="slide-image" alt="Gmail Bot 2">
+                                <img src="https://via.placeholder.com/480x200/28a745/ffffff?text=Gmail+Bot+3" class="slide-image" alt="Gmail Bot 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Gmail Farmer Bot 📧 <span class="app-badge" style="background: #6f42c1;">Bot</span></div>
                             <div class="amharic-description">
@@ -1116,10 +1338,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- NEW WEB JOB: Timebucks -->
+
+                    <!-- Timebucks with Image Slider -->
                     <div class="card-job shadow-sm" data-type="web">
-                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500" class="card-img" alt="Timebucks">
+                        <div class="image-slider-container" onclick="openZoomModal(this)">
+                            <div class="image-slider">
+                                <img src="image/Timebucks.jpg" class="slide-image" alt="Timebucks 1">
+                                <img src="https://via.placeholder.com/480x200/17a2b8/ffffff?text=Timebucks+Web+2" class="slide-image" alt="Timebucks 2">
+                                <img src="https://via.placeholder.com/480x200/6610f2/ffffff?text=Timebucks+Web+3" class="slide-image" alt="Timebucks 3">
+                            </div>
+                            <div class="slider-arrow left" onclick="event.stopPropagation(); slideImage(this, -1)">❮</div>
+                            <div class="slider-arrow right" onclick="event.stopPropagation(); slideImage(this, 1)">❯</div>
+                            <div class="slider-nav"></div>
+                            <div class="image-counter">1/3</div>
+                        </div>
                         <div class="job-content">
                             <div class="job-title">Timebucks ⏰ <span class="app-badge" style="background: #fd7e14;">Web</span></div>
                             <div class="amharic-description">
@@ -1499,6 +1731,19 @@
     </nav>
 </div>
 
+<!-- Zoom Modal -->
+<div class="zoom-modal" id="zoomModal">
+    <div class="close-zoom" onclick="closeZoomModal()">✕</div>
+    <div class="zoomed-image-container" id="zoomedImageContainer">
+        <img src="" alt="Zoomed" class="zoomed-image" id="zoomedImage" onclick="toggleZoom()">
+    </div>
+    <div class="zoom-controls">
+        <div class="zoom-btn" onclick="zoomOut()">−</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+    </div>
+</div>
+
 <script>
     const tg = window.Telegram.WebApp;
     tg.ready();
@@ -1544,10 +1789,10 @@
         ];
 
         const recentActivity = [
-            '✅ Completed Buzzer task +$2.50',
-            '📥 Downloaded Gemgala',
-            '👥 Referral bonus +$1.00',
-            '⭐ Earned 50 Stars'
+            '✅ Completed All ',
+            '📥 ሁሉንም አፕሊኬሽኖች ስሩ — ገቢዎን ያሳድጉ! 💰',
+            '👥 ጓደኞችን Invite አድርጉ — ቦነስ ይቀበሉ! 👥🎉',
+            '⭐ Telegram Stars ከፈለጋችሁ አሁኑኑ ስሩ — እድልዎን አትስቱ! ⭐🚀'
         ];
 
         let html = `
@@ -1647,6 +1892,127 @@
 
         container.innerHTML = html;
     }
+
+    // ---------- IMAGE SLIDER AND ZOOM FUNCTIONS ----------
+    let currentSlideIndex = 0;
+    let currentSlider = null;
+    let currentZoomLevel = 1;
+
+    function initSliders() {
+        document.querySelectorAll('.image-slider-container').forEach(container => {
+            const slides = container.querySelectorAll('.slide-image');
+            const nav = container.querySelector('.slider-nav');
+            const counter = container.querySelector('.image-counter');
+            
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('slider-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.onclick = (e) => {
+                    e.stopPropagation();
+                    goToSlide(container, index);
+                };
+                nav.appendChild(dot);
+            });
+            
+            updateSlider(container, 0);
+        });
+    }
+
+    function slideImage(arrow, direction) {
+        const container = arrow.closest('.image-slider-container');
+        const slider = container.querySelector('.image-slider');
+        const slides = container.querySelectorAll('.slide-image');
+        const currentIndex = parseInt(slider.style.transform?.match(/-?\d+/) || [0]) / -100 || 0;
+        let newIndex = currentIndex + direction;
+        
+        if (newIndex < 0) newIndex = slides.length - 1;
+        if (newIndex >= slides.length) newIndex = 0;
+        
+        goToSlide(container, newIndex);
+        tg.HapticFeedback.impactOccurred('light');
+    }
+
+    function goToSlide(container, index) {
+        const slider = container.querySelector('.image-slider');
+        const slides = container.querySelectorAll('.slide-image');
+        const dots = container.querySelectorAll('.slider-dot');
+        const counter = container.querySelector('.image-counter');
+        
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        
+        dots.forEach((dot, i) => {
+            if (i === index) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+        
+        if (counter) {
+            counter.textContent = `${index + 1}/${slides.length}`;
+        }
+    }
+
+    // Zoom Modal Functions
+    function openZoomModal(container) {
+        const modal = document.getElementById('zoomModal');
+        const zoomedImage = document.getElementById('zoomedImage');
+        const slider = container.querySelector('.image-slider');
+        const slides = container.querySelectorAll('.slide-image');
+        const currentIndex = parseInt(slider.style.transform?.match(/-?\d+/) || [0]) / -100 || 0;
+        
+        currentSlider = container;
+        currentSlideIndex = currentIndex;
+        
+        zoomedImage.src = slides[currentIndex].src;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        tg.HapticFeedback.impactOccurred('medium');
+    }
+
+    function closeZoomModal() {
+        const modal = document.getElementById('zoomModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        resetZoom();
+    }
+
+    function toggleZoom() {
+        const zoomedImage = document.getElementById('zoomedImage');
+        if (currentZoomLevel === 1) {
+            zoomedImage.classList.add('zoomed');
+            currentZoomLevel = 2;
+        } else {
+            zoomedImage.classList.remove('zoomed');
+            currentZoomLevel = 1;
+        }
+    }
+
+    function zoomIn() {
+        const zoomedImage = document.getElementById('zoomedImage');
+        if (currentZoomLevel < 3) {
+            currentZoomLevel += 0.5;
+            zoomedImage.style.transform = `scale(${currentZoomLevel})`;
+        }
+    }
+
+    function zoomOut() {
+        const zoomedImage = document.getElementById('zoomedImage');
+        if (currentZoomLevel > 1) {
+            currentZoomLevel -= 0.5;
+            zoomedImage.style.transform = `scale(${currentZoomLevel})`;
+        }
+    }
+
+    function resetZoom() {
+        const zoomedImage = document.getElementById('zoomedImage');
+        currentZoomLevel = 1;
+        zoomedImage.style.transform = 'scale(1)';
+        zoomedImage.classList.remove('zoomed');
+    }
+
+    // Initialize sliders when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initSliders);
 
     // ---------- STARS SECTION MODERN FUNCTIONS ----------
     let selectedStars = 15;
@@ -1762,6 +2128,13 @@
     window.showFreeMethod = showFreeMethod;
     window.showBuyMethod = showBuyMethod;
     window.selectPackage = selectPackage;
+    window.slideImage = slideImage;
+    window.openZoomModal = openZoomModal;
+    window.closeZoomModal = closeZoomModal;
+    window.toggleZoom = toggleZoom;
+    window.zoomIn = zoomIn;
+    window.zoomOut = zoomOut;
+    window.resetZoom = resetZoom;
 </script>
 </body>
 </html>
