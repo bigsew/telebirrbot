@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Digital Pro · Profile+</title>
+    <title>Digital Pro · SQLite Database</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-wasm.js"></script>
     
     <style>
         :root {
@@ -605,6 +605,17 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .db-status {
+            font-size: 0.7rem;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 </head>
 <body>
@@ -615,7 +626,11 @@
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h5 class="fw-bold mb-0">Digital Pro</h5>
-                <span class="small text-muted" id="user-status">Loading...</span>
+                <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="db-status" id="dbStatus">
+                        <i class="bi bi-database"></i> Initializing...
+                    </span>
+                </div>
             </div>
             <div class="d-flex align-items-center gap-2">
                 <i class="bi bi-bell-fill text-warning notification-bell"></i>
@@ -853,83 +868,218 @@
     tg.ready();
     tg.expand();
 
-    // ==================== SUPABASE CONFIGURATION ====================
-    // Replace these with your actual Supabase credentials
-    const SUPABASE_URL = 'https://frzrrrfqryaglstqguqc.supabase.co'; // YOUR SUPABASE URL
-    const SUPABASE_ANON_KEY = 'sb_publishable_0nMUOhtBG1kFeCVHe0jm6Q_ac7j9K13'; // YOUR SUPABASE ANON KEY
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // ==================== SQLITE DATABASE ====================
+    // This will automatically create database.db file in browser's storage
+    let db = null;
+    let SQL = null;
 
-    // ==================== DATABASE SCHEMA ====================
-    /*
-    Required tables:
-    
-    1. users (
-        id bigint primary key,
-        telegram_id text unique,
-        username text,
-        first_name text,
-        last_name text,
-        phone_verified boolean default false,
-        is_admin boolean default false,
-        balance decimal default 0,
-        tasks_completed int default 0,
-        referrals int default 0,
-        total_earned decimal default 0,
-        created_at timestamp default now(),
-        last_active timestamp default now()
-    )
-    
-    2. jobs (
-        id bigint primary key generated always as identity,
-        title text,
-        type text, -- 'app', 'bot', 'web'
-        description text,
-        amharic_desc text,
-        download_link text,
-        tutorial_link text,
-        image_url text,
-        features jsonb, -- array of features
-        payment_verified boolean default false,
-        min_withdraw decimal,
-        referral_bonus decimal,
-        is_active boolean default true,
-        created_at timestamp default now(),
-        created_by bigint references users(id)
-    )
-    
-    3. user_activities (
-        id bigint primary key generated always as identity,
-        user_id bigint references users(id),
-        activity_type text, -- 'task_completed', 'referral_bonus', 'withdrawal', 'stars_purchased'
-        amount decimal,
-        description text,
-        created_at timestamp default now()
-    )
-    
-    4. star_purchases (
-        id bigint primary key generated always as identity,
-        user_id bigint references users(id),
-        amount int, -- number of stars
-        price decimal,
-        status text default 'pending', -- 'pending', 'completed', 'failed'
-        created_at timestamp default now()
-    )
-    */
+    // Database name
+    const DB_NAME = 'digitalpro.db';
+
+    // Initialize database
+    async function initDatabase() {
+        const statusEl = document.getElementById('dbStatus');
+        
+        try {
+            statusEl.innerHTML = '<i class="bi bi-database"></i> Loading SQL.js...';
+            
+            // Initialize SQL.js
+            SQL = await initSqlJs({
+                locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/${file}`
+            });
+
+            statusEl.innerHTML = '<i class="bi bi-database"></i> Creating database...';
+
+            // Try to load existing database from localStorage
+            let savedDb = localStorage.getItem(DB_NAME);
+            
+            if (savedDb) {
+                // Load existing database
+                const buffer = Uint8Array.from(atob(savedDb), c => c.charCodeAt(0));
+                db = new SQL.Database(buffer);
+                statusEl.innerHTML = '<i class="bi bi-database-check"></i> Database loaded';
+                console.log('✅ Database loaded from storage');
+            } else {
+                // Create new database
+                db = new SQL.Database();
+                await createTables();
+                await insertSampleData();
+                saveDatabase();
+                statusEl.innerHTML = '<i class="bi bi-database-check"></i> New database created';
+                console.log('✅ New database created');
+            }
+
+            // Show database stats
+            const stats = getDatabaseStats();
+            statusEl.innerHTML = `<i class="bi bi-database"></i> ${stats.tables} tables, ${stats.records} records`;
+
+        } catch (error) {
+            console.error('Database error:', error);
+            statusEl.innerHTML = '<i class="bi bi-database-exclamation"></i> Error';
+        }
+    }
+
+    // Create tables
+    async function createTables() {
+        // Users table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                telegram_id TEXT UNIQUE NOT NULL,
+                username TEXT,
+                first_name TEXT,
+                last_name TEXT,
+                phone_verified INTEGER DEFAULT 0,
+                is_admin INTEGER DEFAULT 0,
+                balance REAL DEFAULT 0,
+                tasks_completed INTEGER DEFAULT 0,
+                referrals INTEGER DEFAULT 0,
+                total_earned REAL DEFAULT 0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                last_active DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Jobs table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS jobs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                type TEXT CHECK(type IN ('app', 'bot', 'web')),
+                description TEXT,
+                amharic_desc TEXT,
+                download_link TEXT,
+                tutorial_link TEXT,
+                image_url TEXT,
+                features TEXT, -- JSON string
+                payment_verified INTEGER DEFAULT 0,
+                min_withdraw REAL,
+                referral_bonus REAL,
+                is_active INTEGER DEFAULT 1,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                created_by INTEGER,
+                FOREIGN KEY (created_by) REFERENCES users(id)
+            )
+        `);
+
+        // Activities table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS activities (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                activity_type TEXT CHECK(activity_type IN ('task_completed', 'referral_bonus', 'withdrawal', 'stars_purchased')),
+                amount REAL,
+                description TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        `);
+
+        // Star purchases table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS star_purchases (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                amount INTEGER,
+                price REAL,
+                status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'completed', 'failed')),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        `);
+
+        // Withdrawals table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS withdrawals (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                amount REAL,
+                method TEXT CHECK(method IN ('paypal', 'bank', 'crypto')),
+                account_details TEXT,
+                status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'completed', 'rejected')),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                processed_at DATETIME,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        `);
+
+        console.log('✅ Tables created');
+    }
+
+    // Insert sample data
+    async function insertSampleData() {
+        // Check if jobs table is empty
+        const result = db.exec("SELECT COUNT(*) as count FROM jobs");
+        const count = result[0]?.values[0][0] || 0;
+
+        if (count === 0) {
+            const sampleJobs = [
+                ['Gemgala 💎', 'app', 'Start earning with Gemgala app', '🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀', 'https://getblock.me/u/24430158', 'https://youtu.be/nQcpFX60puc', 'https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500', '["100% Payment Verified","Minimum Withdraw 10$","1$ Per Referral"]', 1, 10, 1],
+                ['Taka 🎯', 'app', 'Daily earning app', '🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁', 'https://os8.me/WdfkCd', 'https://youtu.be/exampleTakaTutorial', 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500', '["Spin 7$-8$ ዕድል","5 ደቂቃ mic on = 1 Spin daily","1 Invite = 2 Spin"]', 1, 7, 2],
+                ['Hifami 🎮', 'app', 'Game earning app', '🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅', 'https://s.hifamiapp.com/1/cfUpkaAgC', 'https://youtu.be/exampleHifamiTutorial', 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500', '["Game በመጫወት ይሰራል","0.1$ Per Invite","3x Withdrawal Done"]', 1, 0.3, 0.1],
+                ['Buzzer 📱', 'app', 'Video earning app', '💰 USDT (Dollar) መስራት ትችላላችሁ', 'https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892', 'https://youtu.be/exampleBuzzerTutorial', 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500', '["Watch Video","Like ❤️ Comment 💬","1 Invite = 0.15$","100% Withdrawal Proof"]', 1, 5, 0.15]
+            ];
+
+            const stmt = db.prepare(`
+                INSERT INTO jobs (title, type, description, amharic_desc, download_link, tutorial_link, image_url, features, payment_verified, min_withdraw, referral_bonus)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `);
+
+            for (const job of sampleJobs) {
+                stmt.run(job);
+            }
+            stmt.free();
+
+            console.log('✅ Sample jobs inserted');
+        }
+    }
+
+    // Save database to localStorage
+    function saveDatabase() {
+        if (!db) return;
+        const data = db.export();
+        const buffer = new Uint8Array(data);
+        const base64 = btoa(String.fromCharCode.apply(null, buffer));
+        localStorage.setItem(DB_NAME, base64);
+        console.log('💾 Database saved to storage');
+    }
+
+    // Get database stats
+    function getDatabaseStats() {
+        try {
+            const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
+            let totalRecords = 0;
+            
+            for (const table of tables.values) {
+                const tableName = table[0];
+                if (!['sqlite_sequence'].includes(tableName)) {
+                    const count = db.exec(`SELECT COUNT(*) FROM ${tableName}`)[0]?.values[0][0] || 0;
+                    totalRecords += count;
+                }
+            }
+
+            return {
+                tables: tables.values.length,
+                records: totalRecords
+            };
+        } catch (error) {
+            return { tables: 0, records: 0 };
+        }
+    }
 
     // ==================== USER AUTHENTICATION ====================
     const ADMIN_USERNAME = "hayre32";
     let currentUser = { 
-        id: 0, 
-        telegram_id: '', 
-        first_name: 'User', 
+        id: null,
+        telegramId: '', 
+        firstName: 'User', 
         username: '',
-        phone_verified: false,
-        is_admin: false,
+        phoneVerified: false,
+        isAdmin: false,
         balance: 0,
-        tasks_completed: 0,
+        tasksCompleted: 0,
         referrals: 0,
-        total_earned: 0
+        totalEarned: 0
     };
 
     // Initialize user from Telegram
@@ -937,98 +1087,136 @@
         const tgUser = tg.initDataUnsafe.user;
         currentUser = {
             ...currentUser,
-            id: tgUser.id,
-            telegram_id: tgUser.id.toString(),
-            first_name: tgUser.first_name || 'User',
-            last_name: tgUser.last_name || '',
+            telegramId: tgUser.id.toString(),
+            firstName: tgUser.first_name || 'User',
+            lastName: tgUser.last_name || '',
             username: tgUser.username || ''
         };
     }
 
-    // Sync user with Supabase
+    // Sync user with SQLite
     async function syncUserWithDatabase() {
+        if (!db) return;
+
         try {
             // Check if user exists
-            const { data: existingUser, error: fetchError } = await supabase
-                .from('users')
-                .select('*')
-                .eq('telegram_id', currentUser.telegram_id)
-                .single();
+            const result = db.exec(`
+                SELECT * FROM users WHERE telegram_id = '${currentUser.telegramId}'
+            `);
 
-            if (fetchError && fetchError.code !== 'PGRST116') { // PGRST116 means no rows returned
-                console.error('Error fetching user:', fetchError);
-            }
-
-            if (existingUser) {
+            if (result.length > 0) {
                 // Update existing user
-                currentUser = { ...currentUser, ...existingUser };
+                const userData = result[0].values[0];
+                const columns = result[0].columns;
                 
-                // Update last_active
-                await supabase
-                    .from('users')
-                    .update({ last_active: new Date().toISOString() })
-                    .eq('telegram_id', currentUser.telegram_id);
-            } else {
-                // Create new user
-                const newUser = {
-                    telegram_id: currentUser.telegram_id,
-                    username: currentUser.username,
-                    first_name: currentUser.first_name,
-                    last_name: currentUser.last_name || '',
-                    phone_verified: false,
-                    is_admin: currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase(),
-                    balance: 0,
-                    tasks_completed: 0,
-                    referrals: 0,
-                    total_earned: 0,
-                    created_at: new Date().toISOString(),
-                    last_active: new Date().toISOString()
+                currentUser = {
+                    id: userData[columns.indexOf('id')],
+                    telegramId: userData[columns.indexOf('telegram_id')],
+                    username: userData[columns.indexOf('username')],
+                    firstName: userData[columns.indexOf('first_name')],
+                    lastName: userData[columns.indexOf('last_name')],
+                    phoneVerified: userData[columns.indexOf('phone_verified')] === 1,
+                    isAdmin: userData[columns.indexOf('is_admin')] === 1,
+                    balance: userData[columns.indexOf('balance')],
+                    tasksCompleted: userData[columns.indexOf('tasks_completed')],
+                    referrals: userData[columns.indexOf('referrals')],
+                    totalEarned: userData[columns.indexOf('total_earned')]
                 };
 
-                const { data: createdUser, error: createError } = await supabase
-                    .from('users')
-                    .insert([newUser])
-                    .select()
-                    .single();
+                // Update last active
+                db.run(`
+                    UPDATE users 
+                    SET last_active = CURRENT_TIMESTAMP,
+                        username = '${currentUser.username}',
+                        first_name = '${currentUser.firstName}'
+                    WHERE telegram_id = '${currentUser.telegramId}'
+                `);
+                
+            } else {
+                // Create new user
+                const isAdmin = currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase() ? 1 : 0;
+                
+                db.run(`
+                    INSERT INTO users (telegram_id, username, first_name, last_name, is_admin)
+                    VALUES ('${currentUser.telegramId}', '${currentUser.username}', '${currentUser.firstName}', '${currentUser.lastName || ''}', ${isAdmin})
+                `);
 
-                if (createError) {
-                    console.error('Error creating user:', createError);
-                } else if (createdUser) {
-                    currentUser = { ...currentUser, ...createdUser };
+                // Get the new user's ID
+                const newUser = db.exec(`
+                    SELECT * FROM users WHERE telegram_id = '${currentUser.telegramId}'
+                `);
+                
+                if (newUser.length > 0) {
+                    const userData = newUser[0].values[0];
+                    const columns = newUser[0].columns;
+                    currentUser.id = userData[columns.indexOf('id')];
                 }
+
+                // Add welcome activity
+                db.run(`
+                    INSERT INTO activities (user_id, activity_type, description, amount)
+                    VALUES (${currentUser.id}, 'task_completed', 'Welcome bonus', 5)
+                `);
             }
 
             // Set admin status
-            currentUser.is_admin = currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase();
+            currentUser.isAdmin = currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase();
             
+            saveDatabase();
             updateUserUI();
             
         } catch (error) {
             console.error('Error syncing user:', error);
+            updateUserUI();
         }
     }
 
     // Update UI with user info
     function updateUserUI() {
-        const displayName = currentUser.first_name || 'User';
-        document.getElementById('user-status').innerText = currentUser.is_admin ? '👑 Admin' : `@${currentUser.username || displayName}`;
+        const displayName = currentUser.firstName || 'User';
+        document.getElementById('user-status').innerText = currentUser.isAdmin ? '👑 Admin' : `@${currentUser.username || displayName}`;
         document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${displayName}&background=0088cc&color=fff&bold=true`;
-        document.getElementById('welcomeName').innerText = currentUser.is_admin ? `Welcome Admin ${displayName}!` : `Welcome ${displayName}!`;
+        document.getElementById('welcomeName').innerText = currentUser.isAdmin ? `Welcome Admin ${displayName}!` : `Welcome ${displayName}!`;
     }
 
     // ==================== JOBS MANAGEMENT ====================
-    async function loadJobs() {
+    function loadJobs() {
         const container = document.getElementById('job-container');
-        container.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading jobs...</span></div>';
+        
+        if (!db) {
+            container.innerHTML = '<div class="alert alert-warning">Database not initialized</div>';
+            return;
+        }
 
         try {
-            const { data: jobs, error } = await supabase
-                .from('jobs')
-                .select('*')
-                .eq('is_active', true)
-                .order('created_at', { ascending: false });
+            const result = db.exec(`
+                SELECT * FROM jobs WHERE is_active = 1 ORDER BY created_at DESC
+            `);
 
-            if (error) throw error;
+            if (result.length === 0) {
+                container.innerHTML = '<div class="text-center py-5"><i class="bi bi-inbox fs-1 text-muted"></i><p class="mt-2 text-muted">No jobs available yet</p></div>';
+                document.getElementById('app-count').textContent = '(0)';
+                document.getElementById('bot-count').textContent = '(0)';
+                document.getElementById('web-count').textContent = '(0)';
+                return;
+            }
+
+            const columns = result[0].columns;
+            const jobs = result[0].values.map(row => {
+                const job = {};
+                columns.forEach((col, index) => {
+                    job[col] = row[index];
+                });
+                // Parse features JSON
+                if (job.features) {
+                    try {
+                        job.features = JSON.parse(job.features);
+                    } catch (e) {
+                        job.features = [];
+                    }
+                }
+                return job;
+            });
 
             // Update counts
             const appCount = jobs.filter(j => j.type === 'app').length;
@@ -1039,16 +1227,11 @@
             document.getElementById('bot-count').textContent = `(${botCount})`;
             document.getElementById('web-count').textContent = `(${webCount})`;
 
-            if (jobs.length === 0) {
-                container.innerHTML = '<div class="text-center py-5"><i class="bi bi-inbox fs-1 text-muted"></i><p class="mt-2 text-muted">No jobs available yet</p></div>';
-                return;
-            }
-
             container.innerHTML = jobs.map(job => createJobCard(job)).join('');
 
         } catch (error) {
             console.error('Error loading jobs:', error);
-            container.innerHTML = '<div class="alert alert-danger">Failed to load jobs. Please try again.</div>';
+            container.innerHTML = '<div class="alert alert-danger">Failed to load jobs</div>';
         }
     }
 
@@ -1083,8 +1266,8 @@
     }
 
     // ==================== ADD NEW JOB (ADMIN) ====================
-    async function addNewJob() {
-        if (!currentUser.is_admin) {
+    function addNewJob() {
+        if (!currentUser.isAdmin) {
             tg.showPopup({ message: 'Admin access required' });
             return;
         }
@@ -1102,27 +1285,14 @@
         }
 
         try {
-            const { data, error } = await supabase
-                .from('jobs')
-                .insert([{
-                    title: name,
-                    type: type,
-                    description: desc,
-                    amharic_desc: desc,
-                    download_link: download,
-                    tutorial_link: tutorial,
-                    image_url: img,
-                    features: [],
-                    payment_verified: true,
-                    min_withdraw: 10,
-                    referral_bonus: 1,
-                    is_active: true,
-                    created_by: currentUser.id
-                }])
-                .select();
+            const features = JSON.stringify([]);
+            
+            db.run(`
+                INSERT INTO jobs (title, type, description, amharic_desc, download_link, tutorial_link, image_url, features, payment_verified, min_withdraw, referral_bonus, created_by)
+                VALUES ('${name}', '${type}', '${desc}', '${desc}', '${download}', '${tutorial}', '${img}', '${features}', 1, 10, 1, ${currentUser.id || 0})
+            `);
 
-            if (error) throw error;
-
+            saveDatabase();
             tg.showPopup({ message: '✅ Job added successfully!' });
             
             // Clear form
@@ -1139,32 +1309,42 @@
 
         } catch (error) {
             console.error('Error adding job:', error);
-            tg.showPopup({ message: '❌ Failed to add job. Please try again.' });
+            tg.showPopup({ message: '❌ Failed to add job' });
         }
     }
 
     // ==================== PROFILE RENDER ====================
-    async function renderProfile() {
+    function renderProfile() {
         const container = document.getElementById('profileContainer');
-        if (!container) return;
-
-        container.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"></div></div>';
+        if (!container || !db) return;
 
         try {
             // Fetch user activities
-            const { data: activities, error: activitiesError } = await supabase
-                .from('user_activities')
-                .select('*')
-                .eq('user_id', currentUser.id)
-                .order('created_at', { ascending: false })
-                .limit(10);
+            let activities = [];
+            if (currentUser.id) {
+                const result = db.exec(`
+                    SELECT * FROM activities 
+                    WHERE user_id = ${currentUser.id} 
+                    ORDER BY created_at DESC 
+                    LIMIT 10
+                `);
+                
+                if (result.length > 0) {
+                    const columns = result[0].columns;
+                    activities = result[0].values.map(row => {
+                        const activity = {};
+                        columns.forEach((col, index) => {
+                            activity[col] = row[index];
+                        });
+                        return activity;
+                    });
+                }
+            }
 
-            if (activitiesError) throw activitiesError;
-
-            const recentActivity = activities?.map(a => 
+            const recentActivity = activities.map(a => 
                 `${a.activity_type === 'task_completed' ? '✅' : 
                   a.activity_type === 'referral_bonus' ? '👥' : 
-                  a.activity_type === 'withdrawal' ? '💸' : '⭐'} ${a.description} ${a.amount ? '+$' + a.amount : ''}`
+                  a.activity_type === 'withdrawal' ? '💸' : '⭐'} ${a.description} ${a.amount ? (a.amount > 0 ? '+$' + a.amount : '-$' + Math.abs(a.amount)) : ''}`
             ) || [
                 '✅ Completed Buzzer task +$2.50',
                 '📥 Downloaded Gemgala',
@@ -1179,28 +1359,28 @@
                 { icon: '✅', label: 'Verified User' }
             ];
 
-            const hasPremium = (currentUser.id % 3 === 0); // Simulated
+            const hasPremium = (parseInt(currentUser.telegramId) % 3 === 0); // Simulated
 
             let html = `
                 <div class="profile-header-card fade-in">
                     <div class="d-flex align-items-center gap-3 flex-wrap">
-                        <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
+                        <img src="https://ui-avatars.com/api/?name=${currentUser.firstName}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
                         <div>
-                            <h4 class="fw-bold mb-1" style="color: #1c1c1e !important;">${currentUser.first_name} ${currentUser.is_admin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
+                            <h4 class="fw-bold mb-1" style="color: #1c1c1e !important;">${currentUser.firstName} ${currentUser.isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
                             <p class="text-muted mb-1" style="color: #666 !important;">@${currentUser.username || 'no_username'}</p>
                             <div class="d-flex gap-2 flex-wrap">
                                 <span class="verified-badge" style="color: #00a65a !important;">
-                                    <i class="bi bi-telephone-fill"></i> ${currentUser.phone_verified ? '📱 Verified by Phone' : '❌ Not Verified'}
+                                    <i class="bi bi-telephone-fill"></i> ${currentUser.phoneVerified ? '📱 Verified by Phone' : '❌ Not Verified'}
                                 </span>
                                 ${hasPremium ? '<span class="premium-user-badge" style="color: #8B5CF6 !important;"><i class="bi bi-gem"></i> Telegram Premium</span>' : ''}
-                                <span class="badge bg-secondary" style="color: white !important;"><i class="bi bi-person-badge"></i> ID: ${currentUser.telegram_id}</span>
+                                <span class="badge bg-secondary" style="color: white !important;"><i class="bi bi-person-badge"></i> ID: ${currentUser.telegramId}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="stat-grid">
-                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">${currentUser.tasks_completed || 47}</span> <span class="stat-label" style="color: #666 !important;">Tasks</span></div>
-                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">$${currentUser.total_earned || 127.50}</span> <span class="stat-label" style="color: #666 !important;">Earned</span></div>
+                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">${currentUser.tasksCompleted || 47}</span> <span class="stat-label" style="color: #666 !important;">Tasks</span></div>
+                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">$${currentUser.totalEarned || 127.50}</span> <span class="stat-label" style="color: #666 !important;">Earned</span></div>
                         <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">${currentUser.referrals || 12}</span> <span class="stat-label" style="color: #666 !important;">Referrals</span></div>
                     </div>
 
@@ -1214,7 +1394,7 @@
                         ${recentActivity.map(a => `<div class="small py-1 border-bottom" style="color: #444 !important;">${a}</div>`).join('')}
                     </div>
 
-                    ${!currentUser.phone_verified ? `
+                    ${!currentUser.phoneVerified ? `
                         <div class="mt-3">
                             <button class="btn btn-outline-success w-100 rounded-pill" onclick="verifyPhone()">
                                 <i class="bi bi-telephone-plus"></i> Verify Phone Number
@@ -1225,16 +1405,13 @@
             `;
 
             // Admin Panel
-            if (currentUser.is_admin) {
-                // Fetch total users
-                const { count: totalUsers } = await supabase
-                    .from('users')
-                    .select('*', { count: 'exact', head: true });
-
-                const { count: activeToday } = await supabase
-                    .from('users')
-                    .select('*', { count: 'exact', head: true })
-                    .gte('last_active', new Date(Date.now() - 24*60*60*1000).toISOString());
+            if (currentUser.isAdmin) {
+                // Get total users
+                const userCount = db.exec("SELECT COUNT(*) as count FROM users")[0]?.values[0][0] || 0;
+                const activeToday = db.exec(`
+                    SELECT COUNT(*) as count FROM users 
+                    WHERE date(last_active) = date('now')
+                `)[0]?.values[0][0] || 0;
 
                 html += `
                     <div class="admin-panel fade-in mt-3">
@@ -1246,11 +1423,11 @@
                         <div class="admin-tool">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-white"><i class="bi bi-people-fill me-2"></i>Total users</span>
-                                <span class="badge bg-light text-dark">${totalUsers || 1482}</span>
+                                <span class="badge bg-light text-dark">${userCount}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <span class="text-white"><i class="bi bi-person-check-fill me-2"></i>Active today</span>
-                                <span class="badge bg-success">${activeToday || 378}</span>
+                                <span class="badge bg-success">${activeToday}</span>
                             </div>
                         </div>
 
@@ -1314,7 +1491,7 @@
     }
 
     // ==================== PHONE VERIFICATION ====================
-    async function verifyPhone() {
+    function verifyPhone() {
         tg.showPopup({
             title: 'Phone Verification',
             message: 'Enter your phone number:',
@@ -1322,33 +1499,33 @@
                 { id: 'cancel', type: 'cancel' },
                 { id: 'verify', type: 'default', text: 'Verify' }
             ]
-        }, async (buttonId) => {
-            if (buttonId === 'verify') {
-                // In production, you'd implement OTP flow here
-                // For demo, we'll just mark as verified
+        }, (buttonId) => {
+            if (buttonId === 'verify' && currentUser.id) {
+                db.run(`
+                    UPDATE users SET phone_verified = 1 WHERE id = ${currentUser.id}
+                `);
                 
-                const { error } = await supabase
-                    .from('users')
-                    .update({ phone_verified: true })
-                    .eq('telegram_id', currentUser.telegram_id);
-
-                if (!error) {
-                    currentUser.phone_verified = true;
-                    renderProfile();
-                    tg.showPopup({ message: '✅ Phone verified successfully!' });
-                }
+                db.run(`
+                    INSERT INTO activities (user_id, activity_type, description, amount)
+                    VALUES (${currentUser.id}, 'task_completed', 'Phone verified', 2)
+                `);
+                
+                saveDatabase();
+                currentUser.phoneVerified = true;
+                renderProfile();
+                tg.showPopup({ message: '✅ Phone verified successfully!' });
             }
         });
     }
 
     // ==================== REFERRAL SYSTEM ====================
-    async function shareReferral() {
-        const referralLink = `https://t.me/YourBot?start=${currentUser.telegram_id}`;
+    function shareReferral() {
+        const referralLink = `https://t.me/YourBot?start=${currentUser.telegramId}`;
         tg.openTelegramLink(referralLink);
     }
 
     // ==================== PURCHASE FUNCTIONS ====================
-    async function buyStars() {
+    function buyStars() {
         tg.showPopup({
             title: 'Buy Stars',
             message: 'Choose amount:',
@@ -1358,29 +1535,32 @@
                 { id: '1000', type: 'default', text: '1000 Stars - $15.99' },
                 { id: 'cancel', type: 'cancel' }
             ]
-        }, async (buttonId) => {
-            if (buttonId && buttonId !== 'cancel') {
-                try {
-                    const { error } = await supabase
-                        .from('star_purchases')
-                        .insert([{
-                            user_id: currentUser.id,
-                            amount: parseInt(buttonId),
-                            price: buttonId === '100' ? 1.99 : buttonId === '500' ? 8.99 : 15.99,
-                            status: 'completed'
-                        }]);
+        }, (buttonId) => {
+            if (buttonId && buttonId !== 'cancel' && currentUser.id) {
+                const amount = parseInt(buttonId);
+                const price = amount === 100 ? 1.99 : amount === 500 ? 8.99 : 15.99;
 
-                    if (!error) {
-                        tg.showPopup({ message: `✅ Successfully purchased ${buttonId} stars!` });
-                    }
-                } catch (error) {
-                    console.error('Error purchasing stars:', error);
-                }
+                db.run(`
+                    INSERT INTO star_purchases (user_id, amount, price, status)
+                    VALUES (${currentUser.id}, ${amount}, ${price}, 'completed')
+                `);
+
+                db.run(`
+                    UPDATE users SET balance = balance + ${amount * 0.1} WHERE id = ${currentUser.id}
+                `);
+
+                db.run(`
+                    INSERT INTO activities (user_id, activity_type, description, amount)
+                    VALUES (${currentUser.id}, 'stars_purchased', 'Purchased ${amount} stars', ${price})
+                `);
+
+                saveDatabase();
+                tg.showPopup({ message: `✅ Successfully purchased ${buttonId} stars!` });
             }
         });
     }
 
-    async function buyPremium(type) {
+    function buyPremium(type) {
         tg.showPopup({
             title: 'Coming Soon',
             message: 'Premium subscription will be available soon!',
@@ -1388,26 +1568,36 @@
         });
     }
 
-    async function showHistory() {
-        try {
-            const { data: activities } = await supabase
-                .from('user_activities')
-                .select('*')
-                .eq('user_id', currentUser.id)
-                .order('created_at', { ascending: false })
-                .limit(20);
+    function showHistory() {
+        if (!currentUser.id) {
+            tg.showPopup({ message: 'No history available' });
+            return;
+        }
 
-            if (activities?.length) {
-                const history = activities.map(a => 
-                    `${new Date(a.created_at).toLocaleDateString()}: ${a.description} ${a.amount ? '($' + a.amount + ')' : ''}`
-                ).join('\n');
-                
-                tg.showPopup({ message: history || 'No history yet' });
-            } else {
-                tg.showPopup({ message: 'No history yet' });
-            }
-        } catch (error) {
-            console.error('Error fetching history:', error);
+        const result = db.exec(`
+            SELECT * FROM activities 
+            WHERE user_id = ${currentUser.id} 
+            ORDER BY created_at DESC 
+            LIMIT 20
+        `);
+
+        if (result.length > 0) {
+            const columns = result[0].columns;
+            const activities = result[0].values.map(row => {
+                const activity = {};
+                columns.forEach((col, index) => {
+                    activity[col] = row[index];
+                });
+                return activity;
+            });
+
+            const history = activities.map(a => 
+                `${new Date(a.created_at).toLocaleDateString()}: ${a.description} ${a.amount ? (a.amount > 0 ? '(+$' + a.amount + ')' : '(-$' + Math.abs(a.amount) + ')') : ''}`
+            ).join('\n');
+            
+            tg.showPopup({ message: history || 'No history yet' });
+        } else {
+            tg.showPopup({ message: 'No history yet' });
         }
     }
 
@@ -1460,8 +1650,10 @@
     }
 
     // ==================== INITIALIZATION ====================
-    // Sync user with database on load
-    syncUserWithDatabase();
+    // Initialize database and sync user
+    initDatabase().then(() => {
+        syncUserWithDatabase();
+    });
 
     // Expose functions globally
     window.nav = nav;
