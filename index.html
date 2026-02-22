@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Digital Pro · SQLite Database</title>
+    <title>Digital Pro · Profile+</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-wasm.js"></script>
     
     <style>
         :root {
@@ -19,7 +18,6 @@
             --premium-purple: #8B5CF6;
             --glass: rgba(255, 255, 255, 0.9);
             --admin-badge: #dc3545;
-            --verified-green: #00C851;
         }
 
         body {
@@ -38,6 +36,7 @@
             position: relative;
         }
 
+        /* Header */
         .glass-header {
             position: sticky;
             top: 0;
@@ -49,6 +48,7 @@
             padding: 15px;
         }
 
+        /* Hero */
         .hero-card {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=600');
             background-size: cover;
@@ -60,6 +60,7 @@
             margin-bottom: 20px;
         }
 
+        /* Search & Filters */
         .search-box {
             background: #f1f1f1;
             border: none;
@@ -67,7 +68,6 @@
             padding: 10px 15px;
             width: 100%;
             margin-bottom: 15px;
-            color: #1c1c1e;
         }
 
         .filter-scroll {
@@ -87,7 +87,6 @@
             font-size: 0.85rem;
             white-space: nowrap;
             cursor: pointer;
-            color: #1c1c1e;
         }
         .chip.active {
             background: var(--primary-blue);
@@ -95,6 +94,7 @@
             border-color: var(--primary-blue);
         }
 
+        /* Job Cards */
         .card-job {
             background: #fff;
             border-radius: 20px;
@@ -122,7 +122,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #1c1c1e;
         }
 
         .app-badge {
@@ -143,6 +142,7 @@
             margin-left: 8px;
         }
 
+        /* Amharic Description */
         .amharic-description {
             background: #f8f9fa;
             border-radius: 16px;
@@ -171,7 +171,6 @@
             align-items: center;
             gap: 8px;
             border-bottom: 1px dashed #e0e0e0;
-            color: #1c1c1e;
         }
 
         .feature-list li:last-child {
@@ -189,6 +188,7 @@
             margin-right: 5px;
         }
 
+        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -234,6 +234,7 @@
             transform: scale(0.98);
         }
 
+        /* Profile Sections */
         .profile-header-card {
             background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 30px;
@@ -241,14 +242,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.03);
             margin-bottom: 20px;
-        }
-
-        .profile-header-card h4 {
-            color: #1c1c1e !important;
-        }
-
-        .profile-header-card p {
-            color: #666 !important;
         }
 
         .stat-grid {
@@ -270,13 +263,13 @@
         .stat-value {
             font-size: 1.6rem;
             font-weight: 800;
-            color: #0088cc !important;
+            color: var(--primary-blue);
             line-height: 1.2;
         }
 
         .stat-label {
             font-size: 0.75rem;
-            color: #666 !important;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -290,7 +283,7 @@
 
         .achievement-badge {
             background: #e9f2ff;
-            color: #0066a1 !important;
+            color: #0066a1;
             padding: 6px 16px;
             border-radius: 40px;
             font-size: 0.8rem;
@@ -298,46 +291,6 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .achievement-badge i {
-            color: #0088cc !important;
-        }
-
-        .verified-badge {
-            background: #e8f5e9;
-            color: #00a65a !important;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            border: 1px solid rgba(0,200,80,0.3);
-        }
-
-        .premium-user-badge {
-            background: #f1e5ff;
-            color: #8B5CF6 !important;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .profile-header-card h6 {
-            color: #1c1c1e !important;
-            font-weight: 700;
-        }
-
-        .profile-header-card .border-bottom {
-            color: #444 !important;
-            font-size: 0.9rem;
-            padding: 8px 0;
         }
 
         .admin-panel {
@@ -354,11 +307,6 @@
             padding: 15px;
             margin-bottom: 10px;
             border-left: 4px solid #ffc107;
-            color: white;
-        }
-
-        .admin-tool span {
-            color: white !important;
         }
 
         .user-row {
@@ -367,7 +315,6 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: white;
         }
 
         .user-row:last-child {
@@ -379,35 +326,9 @@
             padding: 4px 10px;
             border-radius: 30px;
             font-size: 0.8rem;
-            color: #ddd !important;
         }
 
-        .add-job-form {
-            background: #2d3345;
-            border-radius: 20px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .add-job-form input, .add-job-form select, .add-job-form textarea {
-            background: #3f465a;
-            border: none;
-            color: white;
-            border-radius: 12px;
-            padding: 10px 15px;
-            width: 100%;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-        }
-        .add-job-form input::placeholder, .add-job-form textarea::placeholder {
-            color: #a0a6b8;
-        }
-        .add-job-form label {
-            font-size: 0.8rem;
-            color: #b0b7d0 !important;
-            margin-bottom: 4px;
-            display: block;
-        }
-
+        /* Service Cards */
         .service-card {
             background: #fff;
             border-radius: 18px;
@@ -418,8 +339,8 @@
             height: 100%;
         }
         .service-card:active { transform: scale(0.95); background: #f8f9fa; }
-        .service-card .small { color: #1c1c1e !important; }
 
+        /* Premium Cards */
         .premium-package-card {
             border-radius: 24px;
             padding: 24px 16px;
@@ -427,24 +348,15 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            width: 100%;
+            height: 100%;
             border: none;
             box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-            margin-bottom: 16px;
         }
         
         .card-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .card-2 { background: linear-gradient(135deg, #6B8CFF 0%, #8B5CF6 100%); }
         .card-3 { background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); }
         .card-4 { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); }
-
-        .premium-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
 
         .premium-badge {
             position: absolute;
@@ -478,12 +390,11 @@
 
         .feature-list-premium li {
             padding: 6px 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: white;
         }
 
         .feature-list-premium i {
@@ -494,14 +405,13 @@
             background: rgba(255,255,255,0.95);
             border: none;
             border-radius: 40px;
-            padding: 14px;
+            padding: 12px;
             font-weight: 700;
             width: 100%;
             color: #333;
             transition: all 0.2s;
             margin-top: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            font-size: 1rem;
         }
 
         .buy-btn:hover {
@@ -509,6 +419,7 @@
             transform: scale(1.02);
         }
 
+        /* Maintenance */
         .maintenance-box {
             background: linear-gradient(135deg, #2C3E50 0%, #4A5568 100%);
             border-radius: 24px;
@@ -560,6 +471,7 @@
             display: inline-block;
         }
 
+        /* Bottom Navigation */
         .nav-dock {
             position: fixed;
             bottom: 0;
@@ -587,35 +499,6 @@
 
         .fade-in { animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .card .fw-bold {
-            color: #1c1c1e !important;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .db-status {
-            font-size: 0.7rem;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 2px 8px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
     </style>
 </head>
 <body>
@@ -626,11 +509,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h5 class="fw-bold mb-0">Digital Pro</h5>
-                <div class="d-flex align-items-center gap-2 mt-1">
-                    <span class="db-status" id="dbStatus">
-                        <i class="bi bi-database"></i> Initializing...
-                    </span>
-                </div>
+                <span class="small text-muted" id="user-status">Loading...</span>
             </div>
             <div class="d-flex align-items-center gap-2">
                 <i class="bi bi-bell-fill text-warning notification-bell"></i>
@@ -661,7 +540,7 @@
                         <a href="https://t.me/example" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-telegram fs-2 text-primary"></i>
-                                <div class="small mt-1">Join Group</div>
+                                <div class="small mt-1 text-dark">Join Group</div>
                             </div>
                         </a>
                     </div>
@@ -669,7 +548,7 @@
                         <a href="https://youtube.com/example" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-youtube fs-2 text-danger"></i>
-                                <div class="small mt-1">Subscribe</div>
+                                <div class="small mt-1 text-dark">Subscribe</div>
                             </div>
                         </a>
                     </div>
@@ -677,7 +556,7 @@
                         <a href="https://tiktok.com/example" class="text-decoration-none">
                             <div class="service-card shadow-sm">
                                 <i class="bi bi-tiktok fs-2 text-dark"></i>
-                                <div class="small mt-1">Follow</div>
+                                <div class="small mt-1 text-dark">Follow</div>
                             </div>
                         </a>
                     </div>
@@ -690,14 +569,92 @@
                 
                 <div class="filter-scroll mb-3">
                     <div class="chip active" onclick="filterType('all', this)">All</div>
-                    <div class="chip" onclick="filterType('app', this)">📲 Apps <span id="app-count" class="ms-1">(0)</span></div>
-                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots <span id="bot-count" class="ms-1">(0)</span></div>
-                    <div class="chip" onclick="filterType('web', this)">🌐 Web <span id="web-count" class="ms-1">(0)</span></div>
+                    <div class="chip" onclick="filterType('app', this)">📲 Apps (4)</div>
+                    <div class="chip" onclick="filterType('bot', this)">🤖 Bots</div>
+                    <div class="chip" onclick="filterType('web', this)">🌐 Web</div>
                 </div>
 
-                <div id="job-container" class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading jobs...</span>
+                <div id="job-container">
+                    <!-- Gemgala -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500" class="card-img" alt="Gemgala">
+                        <div class="job-content">
+                            <div class="job-title">Gemgala 💎 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Payment Verified</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💸</span> Minimum Withdraw 10$</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🤑</span> 1$ Per Referral</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12625')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://getblock.me/u/24430158')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/nQcpFX60puc')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Taka -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500" class="card-img" alt="Taka">
+                        <div class="job-content">
+                            <div class="job-title">Taka 🎯 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎲</span> Spin 7$–8$ ዕድል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎤</span> 5 ደቂቃ mic on = 1 Spin daily</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 2 Spin</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12532')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://os8.me/WdfkCd')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleTakaTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hifami -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500" class="card-img" alt="Hifami">
+                        <div class="job-content">
+                            <div class="job-title">Hifami 🎮 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎮</span> Game በመጫወት ይሰራል</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🔥</span> 0.1$ Per Invite</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 3x Withdrawal Done</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12516')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://s.hifamiapp.com/1/cfUpkaAgC')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleHifamiTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Buzzer -->
+                    <div class="card-job shadow-sm" data-type="app">
+                        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500" class="card-img" alt="Buzzer">
+                        <div class="job-content">
+                            <div class="job-title">Buzzer 📱 <span class="app-badge">App</span></div>
+                            <div class="amharic-description">
+                                <div class="amharic-text">💰 USDT (Dollar) መስራት ትችላላችሁ</div>
+                                <ul class="feature-list">
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🎬</span> Watch Video</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">❤️</span> Like ❤️ Comment 💬</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">👥</span> 1 Invite = 0.15$</li>
+                                    <li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Withdrawal Proof</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-app details" onclick="openLink('https://t.me/Big_sew/12338')"><i class="bi bi-info-circle"></i> Details</button>
+                                <button class="btn-app download" onclick="openLink('https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892')"><i class="bi bi-download"></i> Download</button>
+                                <button class="btn-app tutorial" onclick="openLink('https://youtu.be/exampleBuzzerTutorial')"><i class="bi bi-play-circle"></i> Tutorial</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -712,14 +669,15 @@
                 <div class="service-card p-4 shadow-sm mb-3">
                     <h5 class="fw-bold">Buy Stars / ስታር ለመግዛት</h5>
                     <p class="small text-muted">Get stars instantly for your favorite bots.</p>
-                    <button class="btn btn-warning w-100 fw-bold py-3 rounded-4 shadow-sm" onclick="buyStars()">
+                    <button class="btn btn-warning w-100 fw-bold py-3 rounded-4 shadow-sm">
                         <i class="bi bi-lightning-fill"></i> Purchase Now
                     </button>
                 </div>
             </section>
 
-            <!-- PREMIUM SECTION -->
+            <!-- PREMIUM SECTION - COMPLETELY RESTORED & UPDATED -->
             <section id="sec-premium" class="fade-in d-none">
+                <!-- Maintenance Message -->
                 <div class="maintenance-box shadow-lg">
                     <div class="maintenance-icon">
                         <i class="bi bi-tools"></i>
@@ -747,6 +705,7 @@
                     </div>
                 </div>
 
+                <!-- Telegram Premium Header -->
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="fw-bold">
                         <i class="bi bi-telegram text-primary"></i> 
@@ -755,105 +714,131 @@
                     <span class="badge bg-primary p-2">🇪🇹 Birr (ETB)</span>
                 </div>
 
-                <div class="premium-container">
-                    <div class="premium-package-card card-1">
-                        <div class="premium-badge">
-                            <i class="bi bi-star-fill"></i> POPULAR
+                <!-- Premium Packages - FULLY RESTORED with all 4 cards -->
+                <div class="row g-3 mb-4">
+                    <!-- Monthly Package -->
+                    <div class="col-6">
+                        <div class="premium-package-card card-1">
+                            <div class="premium-badge">
+                                <i class="bi bi-star-fill"></i> POPULAR
+                            </div>
+                            <i class="bi bi-calendar-check fs-1 mb-2"></i>
+                            <h5 class="fw-bold">Monthly</h5>
+                            <div class="price-tag">
+                                $4.99 <small>/mo</small>
+                            </div>
+                            <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
+                            <ul class="feature-list-premium">
+                                <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
+                            </ul>
+                            <button class="buy-btn" onclick="showMaintenance()">
+                                <i class="bi bi-lock-fill"></i> Buy Now
+                            </button>
                         </div>
-                        <i class="bi bi-calendar-check fs-1 mb-2"></i>
-                        <h5 class="fw-bold">Monthly</h5>
-                        <div class="price-tag">
-                            $4.99 <small>/mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 275.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> 4GB File Uploads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Faster Downloads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Premium Badge</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Voice-to-Text</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Animated Avatars</li>
-                        </ul>
-                        <button class="buy-btn" onclick="buyPremium('monthly')">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
                     </div>
 
-                    <div class="premium-package-card card-2">
-                        <div class="premium-badge">
-                            <i class="bi bi-lightning-fill"></i> SAVE 10%
+                    <!-- 3 Months Package -->
+                    <div class="col-6">
+                        <div class="premium-package-card card-2">
+                            <div class="premium-badge">
+                                <i class="bi bi-lightning-fill"></i> SAVE 10%
+                            </div>
+                            <i class="bi bi-calendar3 fs-1 mb-2"></i>
+                            <h5 class="fw-bold">3 Months</h5>
+                            <div class="price-tag">
+                                $13.99 <small>/3mo</small>
+                            </div>
+                            <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
+                            <ul class="feature-list-premium">
+                                <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
+                                <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
+                            </ul>
+                            <button class="buy-btn" onclick="showMaintenance()">
+                                <i class="bi bi-lock-fill"></i> Buy Now
+                            </button>
                         </div>
-                        <i class="bi bi-calendar3 fs-1 mb-2"></i>
-                        <h5 class="fw-bold">3 Months</h5>
-                        <div class="price-tag">
-                            $13.99 <small>/3mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 770.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All Monthly Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Animated Profile</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Premium Stickers</li>
-                            <li><i class="bi bi-check-circle-fill"></i> No Ads</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Chat Translation</li>
-                        </ul>
-                        <button class="buy-btn" onclick="buyPremium('quarterly')">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
                     </div>
 
-                    <div class="premium-package-card card-3">
-                        <div class="premium-badge">
-                            <i class="bi bi-gem"></i> SAVE 15%
+                    <!-- 6 Months Package -->
+                    <div class="col-6">
+                        <div class="premium-package-card card-3">
+                            <div class="premium-badge">
+                                <i class="bi bi-gem"></i> SAVE 15%
+                            </div>
+                            <i class="bi bi-calendar2-week fs-1 mb-2"></i>
+                            <h5 class="fw-bold">6 Months</h5>
+                            <div class="price-tag">
+                                $24.99 <small>/6mo</small>
+                            </div>
+                            <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
+                            <ul class="feature-list-premium">
+                                <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                                <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
+                            </ul>
+                            <button class="buy-btn" onclick="showMaintenance()">
+                                <i class="bi bi-lock-fill"></i> Buy Now
+                            </button>
                         </div>
-                        <i class="bi bi-calendar2-week fs-1 mb-2"></i>
-                        <h5 class="fw-bold">6 Months</h5>
-                        <div class="price-tag">
-                            $24.99 <small>/6mo</small>
-                        </div>
-                        <div class="text-white-50 mb-2">ብር 1,375.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All 3M Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Message Translation</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
-                            <li><i class="bi bi-check-circle-fill"></i> 4 Accounts</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Advanced File Management</li>
-                        </ul>
-                        <button class="buy-btn" onclick="buyPremium('halfyear')">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
                     </div>
 
-                    <div class="premium-package-card card-4">
-                        <div class="premium-badge">
-                            <i class="bi bi-crown"></i> BEST VALUE
+                    <!-- 1 Year Package -->
+                    <div class="col-6">
+                        <div class="premium-package-card card-4">
+                            <div class="premium-badge">
+                                <i class="bi bi-crown"></i> BEST VALUE
+                            </div>
+                            <i class="bi bi-calendar-year fs-1 mb-2"></i>
+                            <h5 class="fw-bold">1 Year</h5>
+                            <div class="price-tag">
+                                $39.99 <small>/yr</small>
+                            </div>
+                            <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
+                            <ul class="feature-list-premium">
+                                <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
+                                <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
+                            </ul>
+                            <button class="buy-btn" onclick="showMaintenance()">
+                                <i class="bi bi-lock-fill"></i> Buy Now
+                            </button>
                         </div>
-                        <i class="bi bi-calendar-year fs-1 mb-2"></i>
-                        <h5 class="fw-bold">1 Year</h5>
-                        <div class="price-tag">
-                            $39.99 <small>/yr</small>
+                    </div>
+                </div>
+                
+                <!-- Additional Premium Info -->
+                <div class="card bg-light border-0 rounded-4 p-3 mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-patch-check-fill text-primary fs-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Why Telegram Premium?</h6>
+                            <p class="small text-muted mb-0">Double limits, faster speed, voice-to-text, premium stickers and reactions, and exclusive badges.</p>
                         </div>
-                        <div class="text-white-50 mb-2">ብር 2,200.00 ETB</div>
-                        <ul class="feature-list-premium">
-                            <li><i class="bi bi-check-circle-fill"></i> All 6M Features</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Channel Boosts</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Reactions</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Early Access</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Priority Download Speed</li>
-                        </ul>
-                        <button class="buy-btn" onclick="buyPremium('yearly')">
-                            <i class="bi bi-lock-fill"></i> Buy Now
-                        </button>
                     </div>
                 </div>
             </section>
 
             <!-- PROFILE+ SECTION -->
             <section id="sec-profile" class="fade-in d-none">
+                <!-- dynamic profile content injected via js -->
                 <div id="profileContainer"></div>
             </section>
 
         </main>
     </div>
 
+    <!-- BOTTOM NAVIGATION -->
     <nav class="nav-dock">
         <a class="nav-btn active" onclick="nav('sec-home', this)"><i class="bi bi-house-door-fill"></i> Home</a>
         <a class="nav-btn" onclick="nav('sec-jobs', this)"><i class="bi bi-briefcase-fill"></i> Jobs</a>
@@ -868,771 +853,159 @@
     tg.ready();
     tg.expand();
 
-    // ==================== SQLITE DATABASE ====================
-    // This will automatically create database.db file in browser's storage
-    let db = null;
-    let SQL = null;
+    // ---------- AUTO LOGIN & ADMIN DETECTION ----------
+    const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
+    let currentUser = { id: 0, first_name: 'User', username: '' };
+    let isAdmin = false;
 
-    // Database name
-    const DB_NAME = 'digitalpro.db';
-
-    // Initialize database
-    async function initDatabase() {
-        const statusEl = document.getElementById('dbStatus');
-        
-        try {
-            statusEl.innerHTML = '<i class="bi bi-database"></i> Loading SQL.js...';
-            
-            // Initialize SQL.js
-            SQL = await initSqlJs({
-                locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/${file}`
-            });
-
-            statusEl.innerHTML = '<i class="bi bi-database"></i> Creating database...';
-
-            // Try to load existing database from localStorage
-            let savedDb = localStorage.getItem(DB_NAME);
-            
-            if (savedDb) {
-                // Load existing database
-                const buffer = Uint8Array.from(atob(savedDb), c => c.charCodeAt(0));
-                db = new SQL.Database(buffer);
-                statusEl.innerHTML = '<i class="bi bi-database-check"></i> Database loaded';
-                console.log('✅ Database loaded from storage');
-            } else {
-                // Create new database
-                db = new SQL.Database();
-                await createTables();
-                await insertSampleData();
-                saveDatabase();
-                statusEl.innerHTML = '<i class="bi bi-database-check"></i> New database created';
-                console.log('✅ New database created');
-            }
-
-            // Show database stats
-            const stats = getDatabaseStats();
-            statusEl.innerHTML = `<i class="bi bi-database"></i> ${stats.tables} tables, ${stats.records} records`;
-
-        } catch (error) {
-            console.error('Database error:', error);
-            statusEl.innerHTML = '<i class="bi bi-database-exclamation"></i> Error';
-        }
-    }
-
-    // Create tables
-    async function createTables() {
-        // Users table
-        db.run(`
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                telegram_id TEXT UNIQUE NOT NULL,
-                username TEXT,
-                first_name TEXT,
-                last_name TEXT,
-                phone_verified INTEGER DEFAULT 0,
-                is_admin INTEGER DEFAULT 0,
-                balance REAL DEFAULT 0,
-                tasks_completed INTEGER DEFAULT 0,
-                referrals INTEGER DEFAULT 0,
-                total_earned REAL DEFAULT 0,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                last_active DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
-
-        // Jobs table
-        db.run(`
-            CREATE TABLE IF NOT EXISTS jobs (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT NOT NULL,
-                type TEXT CHECK(type IN ('app', 'bot', 'web')),
-                description TEXT,
-                amharic_desc TEXT,
-                download_link TEXT,
-                tutorial_link TEXT,
-                image_url TEXT,
-                features TEXT, -- JSON string
-                payment_verified INTEGER DEFAULT 0,
-                min_withdraw REAL,
-                referral_bonus REAL,
-                is_active INTEGER DEFAULT 1,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                created_by INTEGER,
-                FOREIGN KEY (created_by) REFERENCES users(id)
-            )
-        `);
-
-        // Activities table
-        db.run(`
-            CREATE TABLE IF NOT EXISTS activities (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                activity_type TEXT CHECK(activity_type IN ('task_completed', 'referral_bonus', 'withdrawal', 'stars_purchased')),
-                amount REAL,
-                description TEXT,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )
-        `);
-
-        // Star purchases table
-        db.run(`
-            CREATE TABLE IF NOT EXISTS star_purchases (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                amount INTEGER,
-                price REAL,
-                status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'completed', 'failed')),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )
-        `);
-
-        // Withdrawals table
-        db.run(`
-            CREATE TABLE IF NOT EXISTS withdrawals (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                amount REAL,
-                method TEXT CHECK(method IN ('paypal', 'bank', 'crypto')),
-                account_details TEXT,
-                status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'completed', 'rejected')),
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                processed_at DATETIME,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )
-        `);
-
-        console.log('✅ Tables created');
-    }
-
-    // Insert sample data
-    async function insertSampleData() {
-        // Check if jobs table is empty
-        const result = db.exec("SELECT COUNT(*) as count FROM jobs");
-        const count = result[0]?.values[0][0] || 0;
-
-        if (count === 0) {
-            const sampleJobs = [
-                ['Gemgala 💎', 'app', 'Start earning with Gemgala app', '🇪🇹 ኢትዮጵያውያን ብዙዎች እዚህ ላይ ገንዘብ ማውጣት ጀምረዋል 😀', 'https://getblock.me/u/24430158', 'https://youtu.be/nQcpFX60puc', 'https://images.unsplash.com/photo-1642790551116-18e150f248e3?w=500', '["100% Payment Verified","Minimum Withdraw 10$","1$ Per Referral"]', 1, 10, 1],
-                ['Taka 🎯', 'app', 'Daily earning app', '🚨 አሁኑኑ መጀመር ያለባችሁ ስራ 💁', 'https://os8.me/WdfkCd', 'https://youtu.be/exampleTakaTutorial', 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500', '["Spin 7$-8$ ዕድል","5 ደቂቃ mic on = 1 Spin daily","1 Invite = 2 Spin"]', 1, 7, 2],
-                ['Hifami 🎮', 'app', 'Game earning app', '🥇 0.3$ እንደገባችሁ withdraw ትችላላችሁ ✅', 'https://s.hifamiapp.com/1/cfUpkaAgC', 'https://youtu.be/exampleHifamiTutorial', 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=500', '["Game በመጫወት ይሰራል","0.1$ Per Invite","3x Withdrawal Done"]', 1, 0.3, 0.1],
-                ['Buzzer 📱', 'app', 'Video earning app', '💰 USDT (Dollar) መስራት ትችላላችሁ', 'https://app.buzzerfan.com/referral-invite/rsa6b36e1076a44ffb8948fdcfb2818892', 'https://youtu.be/exampleBuzzerTutorial', 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500', '["Watch Video","Like ❤️ Comment 💬","1 Invite = 0.15$","100% Withdrawal Proof"]', 1, 5, 0.15]
-            ];
-
-            const stmt = db.prepare(`
-                INSERT INTO jobs (title, type, description, amharic_desc, download_link, tutorial_link, image_url, features, payment_verified, min_withdraw, referral_bonus)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `);
-
-            for (const job of sampleJobs) {
-                stmt.run(job);
-            }
-            stmt.free();
-
-            console.log('✅ Sample jobs inserted');
-        }
-    }
-
-    // Save database to localStorage
-    function saveDatabase() {
-        if (!db) return;
-        const data = db.export();
-        const buffer = new Uint8Array(data);
-        const base64 = btoa(String.fromCharCode.apply(null, buffer));
-        localStorage.setItem(DB_NAME, base64);
-        console.log('💾 Database saved to storage');
-    }
-
-    // Get database stats
-    function getDatabaseStats() {
-        try {
-            const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table'");
-            let totalRecords = 0;
-            
-            for (const table of tables.values) {
-                const tableName = table[0];
-                if (!['sqlite_sequence'].includes(tableName)) {
-                    const count = db.exec(`SELECT COUNT(*) FROM ${tableName}`)[0]?.values[0][0] || 0;
-                    totalRecords += count;
-                }
-            }
-
-            return {
-                tables: tables.values.length,
-                records: totalRecords
-            };
-        } catch (error) {
-            return { tables: 0, records: 0 };
-        }
-    }
-
-    // ==================== USER AUTHENTICATION ====================
-    const ADMIN_USERNAME = "hayre32";
-    let currentUser = { 
-        id: null,
-        telegramId: '', 
-        firstName: 'User', 
-        username: '',
-        phoneVerified: false,
-        isAdmin: false,
-        balance: 0,
-        tasksCompleted: 0,
-        referrals: 0,
-        totalEarned: 0
-    };
-
-    // Initialize user from Telegram
     if (tg.initDataUnsafe?.user) {
-        const tgUser = tg.initDataUnsafe.user;
-        currentUser = {
-            ...currentUser,
-            telegramId: tgUser.id.toString(),
-            firstName: tgUser.first_name || 'User',
-            lastName: tgUser.last_name || '',
-            username: tgUser.username || ''
-        };
-    }
-
-    // Sync user with SQLite
-    async function syncUserWithDatabase() {
-        if (!db) return;
-
-        try {
-            // Check if user exists
-            const result = db.exec(`
-                SELECT * FROM users WHERE telegram_id = '${currentUser.telegramId}'
-            `);
-
-            if (result.length > 0) {
-                // Update existing user
-                const userData = result[0].values[0];
-                const columns = result[0].columns;
-                
-                currentUser = {
-                    id: userData[columns.indexOf('id')],
-                    telegramId: userData[columns.indexOf('telegram_id')],
-                    username: userData[columns.indexOf('username')],
-                    firstName: userData[columns.indexOf('first_name')],
-                    lastName: userData[columns.indexOf('last_name')],
-                    phoneVerified: userData[columns.indexOf('phone_verified')] === 1,
-                    isAdmin: userData[columns.indexOf('is_admin')] === 1,
-                    balance: userData[columns.indexOf('balance')],
-                    tasksCompleted: userData[columns.indexOf('tasks_completed')],
-                    referrals: userData[columns.indexOf('referrals')],
-                    totalEarned: userData[columns.indexOf('total_earned')]
-                };
-
-                // Update last active
-                db.run(`
-                    UPDATE users 
-                    SET last_active = CURRENT_TIMESTAMP,
-                        username = '${currentUser.username}',
-                        first_name = '${currentUser.firstName}'
-                    WHERE telegram_id = '${currentUser.telegramId}'
-                `);
-                
-            } else {
-                // Create new user
-                const isAdmin = currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase() ? 1 : 0;
-                
-                db.run(`
-                    INSERT INTO users (telegram_id, username, first_name, last_name, is_admin)
-                    VALUES ('${currentUser.telegramId}', '${currentUser.username}', '${currentUser.firstName}', '${currentUser.lastName || ''}', ${isAdmin})
-                `);
-
-                // Get the new user's ID
-                const newUser = db.exec(`
-                    SELECT * FROM users WHERE telegram_id = '${currentUser.telegramId}'
-                `);
-                
-                if (newUser.length > 0) {
-                    const userData = newUser[0].values[0];
-                    const columns = newUser[0].columns;
-                    currentUser.id = userData[columns.indexOf('id')];
-                }
-
-                // Add welcome activity
-                db.run(`
-                    INSERT INTO activities (user_id, activity_type, description, amount)
-                    VALUES (${currentUser.id}, 'task_completed', 'Welcome bonus', 5)
-                `);
-            }
-
-            // Set admin status
-            currentUser.isAdmin = currentUser.username?.toLowerCase() === ADMIN_USERNAME.toLowerCase();
-            
-            saveDatabase();
-            updateUserUI();
-            
-        } catch (error) {
-            console.error('Error syncing user:', error);
-            updateUserUI();
-        }
+        currentUser = tg.initDataUnsafe.user;
+        const usernameRaw = (currentUser.username || '').toLowerCase().replace('@', '');
+        isAdmin = (usernameRaw === ADMIN_USERNAME.toLowerCase());
     }
 
     // Update UI with user info
     function updateUserUI() {
-        const displayName = currentUser.firstName || 'User';
-        document.getElementById('user-status').innerText = currentUser.isAdmin ? '👑 Admin' : `@${currentUser.username || displayName}`;
+        const displayName = currentUser.first_name || 'User';
+        document.getElementById('user-status').innerText = isAdmin ? '👑 Admin' : `@${currentUser.username || displayName}`;
         document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${displayName}&background=0088cc&color=fff&bold=true`;
-        document.getElementById('welcomeName').innerText = currentUser.isAdmin ? `Welcome Admin ${displayName}!` : `Welcome ${displayName}!`;
+        document.getElementById('welcomeName').innerText = isAdmin ? `Welcome Admin ${displayName}!` : `Welcome ${displayName}!`;
     }
+    updateUserUI();
 
-    // ==================== JOBS MANAGEMENT ====================
-    function loadJobs() {
-        const container = document.getElementById('job-container');
-        
-        if (!db) {
-            container.innerHTML = '<div class="alert alert-warning">Database not initialized</div>';
-            return;
-        }
+    // ---------- PROFILE SECTION GENERATOR (advanced) ----------
+    function renderProfile() {
+        const container = document.getElementById('profileContainer');
+        if (!container) return;
 
-        try {
-            const result = db.exec(`
-                SELECT * FROM jobs WHERE is_active = 1 ORDER BY created_at DESC
-            `);
+        const stats = {
+            tasks: 47,
+            earned: 127.50,
+            referrals: 12,
+            rank: isAdmin ? '🏆 Administrator' : '🥈 Silver Earner'
+        };
 
-            if (result.length === 0) {
-                container.innerHTML = '<div class="text-center py-5"><i class="bi bi-inbox fs-1 text-muted"></i><p class="mt-2 text-muted">No jobs available yet</p></div>';
-                document.getElementById('app-count').textContent = '(0)';
-                document.getElementById('bot-count').textContent = '(0)';
-                document.getElementById('web-count').textContent = '(0)';
-                return;
-            }
+        const badges = [
+            { icon: '🔥', label: '7 Day Streak' },
+            { icon: '🎯', label: 'First Withdrawal' },
+            { icon: '👥', label: '10 Referrals' },
+            { icon: '✅', label: 'Verified' }
+        ];
 
-            const columns = result[0].columns;
-            const jobs = result[0].values.map(row => {
-                const job = {};
-                columns.forEach((col, index) => {
-                    job[col] = row[index];
-                });
-                // Parse features JSON
-                if (job.features) {
-                    try {
-                        job.features = JSON.parse(job.features);
-                    } catch (e) {
-                        job.features = [];
-                    }
-                }
-                return job;
-            });
+        const recentActivity = [
+            '✅ Completed Buzzer task +$2.50',
+            '📥 Downloaded Gemgala',
+            '👥 Referral bonus +$1.00',
+            '⭐ Earned 50 Stars'
+        ];
 
-            // Update counts
-            const appCount = jobs.filter(j => j.type === 'app').length;
-            const botCount = jobs.filter(j => j.type === 'bot').length;
-            const webCount = jobs.filter(j => j.type === 'web').length;
-            
-            document.getElementById('app-count').textContent = `(${appCount})`;
-            document.getElementById('bot-count').textContent = `(${botCount})`;
-            document.getElementById('web-count').textContent = `(${webCount})`;
-
-            container.innerHTML = jobs.map(job => createJobCard(job)).join('');
-
-        } catch (error) {
-            console.error('Error loading jobs:', error);
-            container.innerHTML = '<div class="alert alert-danger">Failed to load jobs</div>';
-        }
-    }
-
-    function createJobCard(job) {
-        const features = job.features || [];
-        const featuresHtml = features.map(f => 
-            `<li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> ${f}</li>`
-        ).join('');
-
-        return `
-            <div class="card-job shadow-sm" data-type="${job.type}">
-                <img src="${job.image_url || 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500'}" class="card-img" alt="${job.title}">
-                <div class="job-content">
-                    <div class="job-title">${job.title} <span class="app-badge">${job.type}</span></div>
-                    <div class="amharic-description">
-                        <div class="amharic-text">${job.amharic_desc || job.description}</div>
-                        <ul class="feature-list">
-                            ${featuresHtml}
-                            ${job.payment_verified ? '<li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">✅</span> 100% Payment Verified</li>' : ''}
-                            ${job.min_withdraw ? `<li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">💸</span> Minimum Withdraw $${job.min_withdraw}</li>` : ''}
-                            ${job.referral_bonus ? `<li><i class="bi bi-check-circle-fill"></i> <span class="feature-emoji">🤑</span> $${job.referral_bonus} Per Referral</li>` : ''}
-                        </ul>
+        let html = `
+            <div class="profile-header-card fade-in">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=${currentUser.first_name}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
+                    <div>
+                        <h4 class="fw-bold mb-1">${currentUser.first_name} ${isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
+                        <p class="text-muted mb-1">@${currentUser.username || 'no_username'}</p>
+                        <p class="small mb-0"><i class="bi bi-telegram text-primary"></i> ID: ${currentUser.id}</p>
                     </div>
-                    <div class="action-buttons">
-                        <button class="btn-app details" onclick="openLink('${job.download_link}')"><i class="bi bi-info-circle"></i> Details</button>
-                        <button class="btn-app download" onclick="openLink('${job.download_link}')"><i class="bi bi-download"></i> Download</button>
-                        <button class="btn-app tutorial" onclick="openLink('${job.tutorial_link || '#'}')"><i class="bi bi-play-circle"></i> Tutorial</button>
-                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-item"><span class="stat-value">${stats.tasks}</span> <span class="stat-label">Tasks</span></div>
+                    <div class="stat-item"><span class="stat-value">$${stats.earned}</span> <span class="stat-label">Earned</span></div>
+                    <div class="stat-item"><span class="stat-value">${stats.referrals}</span> <span class="stat-label">Referrals</span></div>
+                </div>
+
+                <div class="badge-collection">
+                    ${badges.map(b => `<span class="achievement-badge"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
+                </div>
+
+                <hr class="my-3">
+                <h6 class="fw-bold"><i class="bi bi-activity"></i> Recent activity</h6>
+                <div class="mt-2">
+                    ${recentActivity.map(a => `<div class="small py-1 border-bottom">${a}</div>`).join('')}
                 </div>
             </div>
         `;
-    }
 
-    // ==================== ADD NEW JOB (ADMIN) ====================
-    function addNewJob() {
-        if (!currentUser.isAdmin) {
-            tg.showPopup({ message: 'Admin access required' });
-            return;
-        }
-
-        const name = document.getElementById('jobName')?.value;
-        const type = document.getElementById('jobType')?.value;
-        const desc = document.getElementById('jobDesc')?.value;
-        const download = document.getElementById('jobDownload')?.value;
-        const tutorial = document.getElementById('jobTutorial')?.value;
-        const img = document.getElementById('jobImg')?.value;
-
-        if (!name || !desc || !download) {
-            tg.showPopup({ message: 'Please fill required fields (name, description, download)' });
-            return;
-        }
-
-        try {
-            const features = JSON.stringify([]);
-            
-            db.run(`
-                INSERT INTO jobs (title, type, description, amharic_desc, download_link, tutorial_link, image_url, features, payment_verified, min_withdraw, referral_bonus, created_by)
-                VALUES ('${name}', '${type}', '${desc}', '${desc}', '${download}', '${tutorial}', '${img}', '${features}', 1, 10, 1, ${currentUser.id || 0})
-            `);
-
-            saveDatabase();
-            tg.showPopup({ message: '✅ Job added successfully!' });
-            
-            // Clear form
-            document.getElementById('jobName').value = '';
-            document.getElementById('jobDesc').value = '';
-            document.getElementById('jobDownload').value = '';
-            document.getElementById('jobTutorial').value = '';
-            document.getElementById('jobImg').value = '';
-
-            // Reload jobs if on jobs section
-            if (!document.getElementById('sec-jobs').classList.contains('d-none')) {
-                loadJobs();
-            }
-
-        } catch (error) {
-            console.error('Error adding job:', error);
-            tg.showPopup({ message: '❌ Failed to add job' });
-        }
-    }
-
-    // ==================== PROFILE RENDER ====================
-    function renderProfile() {
-        const container = document.getElementById('profileContainer');
-        if (!container || !db) return;
-
-        try {
-            // Fetch user activities
-            let activities = [];
-            if (currentUser.id) {
-                const result = db.exec(`
-                    SELECT * FROM activities 
-                    WHERE user_id = ${currentUser.id} 
-                    ORDER BY created_at DESC 
-                    LIMIT 10
-                `);
-                
-                if (result.length > 0) {
-                    const columns = result[0].columns;
-                    activities = result[0].values.map(row => {
-                        const activity = {};
-                        columns.forEach((col, index) => {
-                            activity[col] = row[index];
-                        });
-                        return activity;
-                    });
-                }
-            }
-
-            const recentActivity = activities.map(a => 
-                `${a.activity_type === 'task_completed' ? '✅' : 
-                  a.activity_type === 'referral_bonus' ? '👥' : 
-                  a.activity_type === 'withdrawal' ? '💸' : '⭐'} ${a.description} ${a.amount ? (a.amount > 0 ? '+$' + a.amount : '-$' + Math.abs(a.amount)) : ''}`
-            ) || [
-                '✅ Completed Buzzer task +$2.50',
-                '📥 Downloaded Gemgala',
-                '👥 Referral bonus +$1.00',
-                '⭐ Earned 50 Stars'
-            ];
-
-            const badges = [
-                { icon: '🔥', label: '7 Day Streak' },
-                { icon: '🎯', label: 'First Withdrawal' },
-                { icon: '👥', label: `${currentUser.referrals || 0} Referrals` },
-                { icon: '✅', label: 'Verified User' }
-            ];
-
-            const hasPremium = (parseInt(currentUser.telegramId) % 3 === 0); // Simulated
-
-            let html = `
-                <div class="profile-header-card fade-in">
-                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                        <img src="https://ui-avatars.com/api/?name=${currentUser.firstName}&size=80&length=2&background=0088cc&color=fff&bold=true" class="rounded-circle border border-3 border-white shadow" width="70" height="70">
-                        <div>
-                            <h4 class="fw-bold mb-1" style="color: #1c1c1e !important;">${currentUser.firstName} ${currentUser.isAdmin ? '<span class="badge bg-danger">ADMIN</span>' : ''}</h4>
-                            <p class="text-muted mb-1" style="color: #666 !important;">@${currentUser.username || 'no_username'}</p>
-                            <div class="d-flex gap-2 flex-wrap">
-                                <span class="verified-badge" style="color: #00a65a !important;">
-                                    <i class="bi bi-telephone-fill"></i> ${currentUser.phoneVerified ? '📱 Verified by Phone' : '❌ Not Verified'}
-                                </span>
-                                ${hasPremium ? '<span class="premium-user-badge" style="color: #8B5CF6 !important;"><i class="bi bi-gem"></i> Telegram Premium</span>' : ''}
-                                <span class="badge bg-secondary" style="color: white !important;"><i class="bi bi-person-badge"></i> ID: ${currentUser.telegramId}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-grid">
-                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">${currentUser.tasksCompleted || 47}</span> <span class="stat-label" style="color: #666 !important;">Tasks</span></div>
-                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">$${currentUser.totalEarned || 127.50}</span> <span class="stat-label" style="color: #666 !important;">Earned</span></div>
-                        <div class="stat-item"><span class="stat-value" style="color: #0088cc !important;">${currentUser.referrals || 12}</span> <span class="stat-label" style="color: #666 !important;">Referrals</span></div>
-                    </div>
-
-                    <div class="badge-collection">
-                        ${badges.map(b => `<span class="achievement-badge" style="color: #0066a1 !important;"><i class="bi bi-patch-check-fill text-primary"></i> ${b.icon} ${b.label}</span>`).join('')}
-                    </div>
-
-                    <hr class="my-3">
-                    <h6 class="fw-bold" style="color: #1c1c1e !important;"><i class="bi bi-activity"></i> Recent activity</h6>
-                    <div class="mt-2">
-                        ${recentActivity.map(a => `<div class="small py-1 border-bottom" style="color: #444 !important;">${a}</div>`).join('')}
-                    </div>
-
-                    ${!currentUser.phoneVerified ? `
-                        <div class="mt-3">
-                            <button class="btn btn-outline-success w-100 rounded-pill" onclick="verifyPhone()">
-                                <i class="bi bi-telephone-plus"></i> Verify Phone Number
-                            </button>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-
-            // Admin Panel
-            if (currentUser.isAdmin) {
-                // Get total users
-                const userCount = db.exec("SELECT COUNT(*) as count FROM users")[0]?.values[0][0] || 0;
-                const activeToday = db.exec(`
-                    SELECT COUNT(*) as count FROM users 
-                    WHERE date(last_active) = date('now')
-                `)[0]?.values[0][0] || 0;
-
-                html += `
-                    <div class="admin-panel fade-in mt-3">
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
-                            <h5 class="fw-bold mb-0 text-white">Admin Console</h5>
-                        </div>
-
-                        <div class="admin-tool">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-white"><i class="bi bi-people-fill me-2"></i>Total users</span>
-                                <span class="badge bg-light text-dark">${userCount}</span>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="text-white"><i class="bi bi-person-check-fill me-2"></i>Active today</span>
-                                <span class="badge bg-success">${activeToday}</span>
-                            </div>
-                        </div>
-
-                        <div class="admin-tool">
-                            <span class="text-white"><i class="bi bi-plus-circle me-2"></i>Add New Job</span>
-                            <div class="add-job-form">
-                                <label class="text-white-50">App Name</label>
-                                <input type="text" id="jobName" placeholder="e.g., Gemgala">
-                                
-                                <label class="text-white-50">Type</label>
-                                <select id="jobType">
-                                    <option value="app">📲 App</option>
-                                    <option value="bot">🤖 Bot</option>
-                                    <option value="web">🌐 Web</option>
-                                </select>
-
-                                <label class="text-white-50">Description</label>
-                                <textarea id="jobDesc" placeholder="Short description..." rows="2"></textarea>
-
-                                <label class="text-white-50">Download Link</label>
-                                <input type="url" id="jobDownload" placeholder="https://...">
-
-                                <label class="text-white-50">Tutorial Link</label>
-                                <input type="url" id="jobTutorial" placeholder="https://...">
-
-                                <label class="text-white-50">Image URL</label>
-                                <input type="url" id="jobImg" placeholder="https://...">
-
-                                <button class="btn btn-warning w-100 mt-2" onclick="addNewJob()">
-                                    <i class="bi bi-upload"></i> Publish Job
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 small text-warning text-center">
-                            <i class="bi bi-exclamation-triangle-fill"></i> Admin privileges active
-                        </div>
-                    </div>
-                `;
-            }
-
-            // User tools
+        // ---------- ADMIN PANEL (visible only to @hayre32) ----------
+        if (isAdmin) {
             html += `
-                <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
-                    <h6 class="fw-bold" style="color: #1c1c1e !important;"><i class="bi bi-tools"></i> User tools</h6>
-                    <div class="row g-2 mt-2">
-                        <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
-                        <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="shareReferral()"><i class="bi bi-share"></i> Refer</button></div>
-                        <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="showHistory()"><i class="bi bi-wallet2"></i> History</button></div>
-                        <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
+                <div class="admin-panel fade-in mt-3">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-shield-lock-fill fs-3 text-warning"></i>
+                        <h5 class="fw-bold mb-0">Admin Console</h5>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-people-fill me-2"></i>Total users</span>
+                            <span class="badge bg-light text-dark">1,482</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="bi bi-pencil-square me-2"></i>Quick edit</span>
+                            <span class="user-tag">active</span>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@user_ethio</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@abdi123</span>
+                            <button class="btn btn-sm btn-outline-light py-0" onclick="tg.showPopup({message:'Edit user (demo)'})">edit</button>
+                        </div>
+                        <div class="user-row">
+                            <span><i class="bi bi-person-circle me-2"></i>@hayre32 (you)</span>
+                            <span class="badge bg-success">admin</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-megaphone-fill me-2"></i>Broadcast message</span>
+                            <button class="btn btn-sm btn-warning" onclick="tg.showPopup({title:'Broadcast', message:'Demo: send notification to all users'})">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="admin-tool">
+                        <span><i class="bi bi-graph-up-arrow me-2"></i>Today's earnings: $45.20</span>
+                    </div>
+
+                    <div class="mt-3 small text-warning text-center">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Admin privileges active for @${ADMIN_USERNAME}
                     </div>
                 </div>
             `;
-
-            container.innerHTML = html;
-
-        } catch (error) {
-            console.error('Error rendering profile:', error);
-            container.innerHTML = '<div class="alert alert-danger">Failed to load profile</div>';
-        }
-    }
-
-    // ==================== PHONE VERIFICATION ====================
-    function verifyPhone() {
-        tg.showPopup({
-            title: 'Phone Verification',
-            message: 'Enter your phone number:',
-            buttons: [
-                { id: 'cancel', type: 'cancel' },
-                { id: 'verify', type: 'default', text: 'Verify' }
-            ]
-        }, (buttonId) => {
-            if (buttonId === 'verify' && currentUser.id) {
-                db.run(`
-                    UPDATE users SET phone_verified = 1 WHERE id = ${currentUser.id}
-                `);
-                
-                db.run(`
-                    INSERT INTO activities (user_id, activity_type, description, amount)
-                    VALUES (${currentUser.id}, 'task_completed', 'Phone verified', 2)
-                `);
-                
-                saveDatabase();
-                currentUser.phoneVerified = true;
-                renderProfile();
-                tg.showPopup({ message: '✅ Phone verified successfully!' });
-            }
-        });
-    }
-
-    // ==================== REFERRAL SYSTEM ====================
-    function shareReferral() {
-        const referralLink = `https://t.me/YourBot?start=${currentUser.telegramId}`;
-        tg.openTelegramLink(referralLink);
-    }
-
-    // ==================== PURCHASE FUNCTIONS ====================
-    function buyStars() {
-        tg.showPopup({
-            title: 'Buy Stars',
-            message: 'Choose amount:',
-            buttons: [
-                { id: '100', type: 'default', text: '100 Stars - $1.99' },
-                { id: '500', type: 'default', text: '500 Stars - $8.99' },
-                { id: '1000', type: 'default', text: '1000 Stars - $15.99' },
-                { id: 'cancel', type: 'cancel' }
-            ]
-        }, (buttonId) => {
-            if (buttonId && buttonId !== 'cancel' && currentUser.id) {
-                const amount = parseInt(buttonId);
-                const price = amount === 100 ? 1.99 : amount === 500 ? 8.99 : 15.99;
-
-                db.run(`
-                    INSERT INTO star_purchases (user_id, amount, price, status)
-                    VALUES (${currentUser.id}, ${amount}, ${price}, 'completed')
-                `);
-
-                db.run(`
-                    UPDATE users SET balance = balance + ${amount * 0.1} WHERE id = ${currentUser.id}
-                `);
-
-                db.run(`
-                    INSERT INTO activities (user_id, activity_type, description, amount)
-                    VALUES (${currentUser.id}, 'stars_purchased', 'Purchased ${amount} stars', ${price})
-                `);
-
-                saveDatabase();
-                tg.showPopup({ message: `✅ Successfully purchased ${buttonId} stars!` });
-            }
-        });
-    }
-
-    function buyPremium(type) {
-        tg.showPopup({
-            title: 'Coming Soon',
-            message: 'Premium subscription will be available soon!',
-            buttons: [{ id: 'ok', type: 'ok' }]
-        });
-    }
-
-    function showHistory() {
-        if (!currentUser.id) {
-            tg.showPopup({ message: 'No history available' });
-            return;
         }
 
-        const result = db.exec(`
-            SELECT * FROM activities 
-            WHERE user_id = ${currentUser.id} 
-            ORDER BY created_at DESC 
-            LIMIT 20
-        `);
+        // ---------- USER SECTION (visible to everyone, extra user tools) ----------
+        html += `
+            <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
+                <h6 class="fw-bold"><i class="bi bi-tools"></i> User tools</h6>
+                <div class="row g-2 mt-2">
+                    <div class="col-6"><button class="btn btn-outline-primary w-100 btn-sm" onclick="tg.showPopup({message:'Support chat demo'})"><i class="bi bi-chat-dots"></i> Support</button></div>
+                    <div class="col-6"><button class="btn btn-outline-secondary w-100 btn-sm" onclick="tg.showPopup({message:'Referral link demo'})"><i class="bi bi-share"></i> Refer</button></div>
+                    <div class="col-6"><button class="btn btn-outline-success w-100 btn-sm" onclick="tg.showPopup({message:'Withdrawal history demo'})"><i class="bi bi-wallet2"></i> History</button></div>
+                    <div class="col-6"><button class="btn btn-outline-danger w-100 btn-sm" onclick="tg.showPopup({message:'Settings demo'})"><i class="bi bi-gear"></i> Settings</button></div>
+                </div>
+            </div>
+        `;
 
-        if (result.length > 0) {
-            const columns = result[0].columns;
-            const activities = result[0].values.map(row => {
-                const activity = {};
-                columns.forEach((col, index) => {
-                    activity[col] = row[index];
-                });
-                return activity;
-            });
-
-            const history = activities.map(a => 
-                `${new Date(a.created_at).toLocaleDateString()}: ${a.description} ${a.amount ? (a.amount > 0 ? '(+$' + a.amount + ')' : '(-$' + Math.abs(a.amount) + ')') : ''}`
-            ).join('\n');
-            
-            tg.showPopup({ message: history || 'No history yet' });
-        } else {
-            tg.showPopup({ message: 'No history yet' });
-        }
+        container.innerHTML = html;
     }
 
-    // ==================== FILTER & SEARCH ====================
-    function filterType(type, element) {
-        document.querySelectorAll('.card-job').forEach(card => {
-            card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
-        });
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        element.classList.add('active');
-        tg.HapticFeedback.selectionChanged();
-    }
-
-    // Search functionality
-    const searchInput = document.getElementById('jobSearch');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.card-job').forEach(card => {
-                const title = card.querySelector('.job-title')?.innerText.toLowerCase() || '';
-                card.style.display = title.includes(term) ? 'block' : 'none';
-            });
-        });
-    }
-
-    // ==================== NAVIGATION ====================
+    // call render when profile section becomes visible
     function nav(secId, btn) {
         document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
         const target = document.getElementById(secId);
         if (target) target.classList.remove('d-none');
 
+        // special: if profile, render fresh
         if (secId === 'sec-profile') {
             renderProfile();
-        } else if (secId === 'sec-jobs') {
-            loadJobs();
         }
 
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1645,27 +1018,46 @@
         if (btn) nav(secId, btn);
     }
 
+    // Filter, search
+    function filterType(type, element) {
+        document.querySelectorAll('.card-job').forEach(card => {
+            card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
+        });
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
+        tg.HapticFeedback.selectionChanged();
+    }
+
+    const searchInput = document.getElementById('jobSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.card-job').forEach(card => {
+                const title = card.querySelector('.job-title')?.innerText.toLowerCase() || '';
+                card.style.display = title.includes(term) ? 'block' : 'none';
+            });
+        });
+    }
+
     function openLink(url) {
         tg.openLink(url);
     }
 
-    // ==================== INITIALIZATION ====================
-    // Initialize database and sync user
-    initDatabase().then(() => {
-        syncUserWithDatabase();
-    });
+    function showMaintenance() {
+        tg.HapticFeedback.notificationOccurred('warning');
+        tg.showPopup({
+            title: '🛠 Service Temporarily Unavailable',
+            message: '⚠️ አገልግሎቱ ገና አልተጀመረም!\nእባክዎ ትንሽ ይጠብቁ ⌛\n\n✅ሲጀመር ወዲያውኑ እናሳውቃለን 🔔',
+            buttons: [{ id: 'ok', type: 'ok', text: 'OK' }]
+        });
+    }
 
     // Expose functions globally
     window.nav = nav;
     window.navigateTo = navigateTo;
     window.filterType = filterType;
     window.openLink = openLink;
-    window.addNewJob = addNewJob;
-    window.verifyPhone = verifyPhone;
-    window.shareReferral = shareReferral;
-    window.buyStars = buyStars;
-    window.buyPremium = buyPremium;
-    window.showHistory = showHistory;
+    window.showMaintenance = showMaintenance;
 </script>
 </body>
 </html>
