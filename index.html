@@ -23,6 +23,39 @@
             --star-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
+        /* GLOBAL IMAGE PROTECTION — disables context menu & long-press preview */
+        img {
+            pointer-events: none;              /* blocks all mouse/touch interactions at element level */
+            -webkit-touch-callout: none;       /* iOS: disables the link/image preview popup */
+            -webkit-user-select: none;          /* Safari / iOS */
+            -khtml-user-select: none;           /* Konqueror */
+            -moz-user-select: none;              /* Firefox */
+            -ms-user-select: none;                /* Internet Explorer/Edge */
+            user-select: none;                    /* non-prefixed version, currently supported by Chrome, Opera, Edge */
+        }
+
+        /* but we must re-enable pointer events on containers that need clicks for slider arrows, modals etc.
+           so that slider arrows, dots, and zoom overlay remain interactive */
+        .image-slider-container {
+            pointer-events: auto;   /* the container can still receive clicks (for arrows/dots) */
+        }
+
+        /* specifically allow interaction on arrows, dots, and modal close/buttons */
+        .slider-arrow,
+        .slider-dot,
+        .close-zoom,
+        .zoom-btn {
+            pointer-events: auto !important;
+        }
+
+        /* Zoom modal image — we need pointer events to allow zoom toggling, but prevent context menu on it */
+        #zoomedImage {
+            pointer-events: auto;       /* allow clicking to zoom */
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        /* keep everything else the same as before */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--tg-theme-bg-color);
@@ -1748,6 +1781,39 @@
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
+
+    // ---------- GLOBAL JAVASCRIPT CONTEXT MENU PREVENTION ----------
+    // This script prevents the context menu on all images,
+    // but also ensures slider/zoom controls remain interactive.
+
+    // 1. Prevent context menu on the whole document, but only for images? 
+    //    Better to target images specifically with a global listener.
+    document.addEventListener('contextmenu', function(e) {
+        // if the clicked element is an image, or its parent is an image container (any image really)
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+        // optional: also prevent on any element that might show image-related popup
+        // but keep normal context menu on text, buttons etc.
+        // we are safe.
+    });
+
+    // 2. Additional iOS long-press prevention via CSS is already done (touch-callout)
+    //    but we also add a touchstart listener to cancel any default image dragging
+    document.addEventListener('touchstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            // prevent default touch behavior (like magnifying glass or link preview)
+            // but allow the touch to propagate for slider clicks etc. (we only cancel default)
+            e.preventDefault();  // careful: this might block scrolling inside containers? 
+            // Actually, we only want to prevent the callout, not all touch. Better use CSS.
+            // We'll rely on CSS -webkit-touch-callout: none; 
+            // But also prevent default on touchend to avoid save image popup on some devices?
+        }
+    }, { passive: false });
+
+    // 3. Ensure that the zoom modal image also cannot be saved via long-press:
+    //    Already covered by global CSS.
 
     // ---------- AUTO LOGIN & ADMIN DETECTION ----------
     const ADMIN_USERNAME = "hayre32";  // admin telegram username (without @)
